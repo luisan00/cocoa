@@ -1,32 +1,9 @@
-# Prerequisites
-*.d
+# build files
+build
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# vscode files
+.vscode
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# sdkcinfig files
+sdkconfig
+sdkconfig.old
