@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * @brief  Common and Helpers utils.
+ * @brief   Common and Helpers utils.
  * @author  luisan00 <luisan00@hotmail.com>
  * @ingroup helpers
  * @{

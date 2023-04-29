@@ -13,6 +13,7 @@ set(EXTRA_COMPONENT_DIRS "../components")
 set(TEST_COMPONENTS 
     "helpers"
     "blocks"
+    "screen"
 )
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)

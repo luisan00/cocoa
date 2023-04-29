@@ -1,0 +1,29 @@
+/**
+ * @brief
+ * @defgroup screen
+ * @{
+ */
+
+## Screen
+ It is equipped with a color 1.9" (170 x 320px) IPS screen based on driver IC ST7789 and wired with the esp32s3 as follows:
+
+| Name      | GPIO    |
+|-----------|---------|
+| Backlight | 38      |
+| D0        | 39      |
+| D1        | 40      |
+| D2        | 41      |
+| D3        | 42      |
+| D4        | 45      |
+| D5        | 46      |
+| D6        | 47      |
+| D7        | 48      |
+| WR        | 08      |
+| RD        | 09      |
+| DC        | 07      |
+| CS        | 06      |
+| Reset     | 05      |
+| Power On  | 15      |
+
+
+ /** @} */

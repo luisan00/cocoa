@@ -24,13 +24,16 @@ void app_main(void)
     unity_run_tests_by_tag("[blocks]", false);
     UNITY_END();
 
+    print_banner("Running tests for screen component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[screen]", false);
+    UNITY_END();
     /* This function will not return, and will be busy waiting for UART input.
      * Make sure that task watchdog is disabled if you use this function.
      */
     print_banner("Running interactive menu");
-    UNITY_BEGIN();
+
     unity_run_menu();
-    UNITY_END();
 }
 
 static void print_banner(const char *text)
