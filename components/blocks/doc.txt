@@ -1,0 +1,44 @@
+/**
+ * @brief
+ * @defgroup block
+ * @{
+ */
+
+## Blocks
+
+## Block header
+
+| Field         | Length | Order    | Type     |
+|:--------------|-------:|:--------:|:--------:|
+| version       | 4      | little   | int32_t  |
+| previous_hash | 32     | internal | *char    |
+| merkle_root   | 32     | internal | *char    |
+| time          | 4      | little   | uint32_t |
+| bits          | 4      | little   | uint32_t |
+| nonce         | 4      | little   | uint32_t |
+
+Examples:
+
+- Block height #0 (genesis block)
+
+| Field   | Value                |
+|---------|----------------------|
+| version | 01000000 -> 00000001 |
+| pr_hash |  |
+| mk_root |  |
+| time    | 29ab5f49 -> 495fab29 |
+| bits    | ffff001d -> 1d00ffff |
+| nonce   | 1dac2b7c -> 7c2bac1d |
+
+- Block height #9
+
+header: 01000000c60ddef1b7618ca2348a46e868afc26e3efc68226c78aa47f8488c4000000000c997a5e56e104102fa209c6a852dd90660a20b2d9c352423edce25857fcd37047fca6649ffff001d28404f53
+
+version: 01000000 -> 00000001
+pr_hash:
+mk_root:
+time:  ... -> 4966ca7f
+bits:  ... -> 1d00ffff
+nonce: ... -> 534f4028
+
+ /** @} */

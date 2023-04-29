@@ -1,10 +1,6 @@
-cmake_minimum_required(VERSION 3.5)
+# This is the project CMakeLists.txt file for the test subproject
+cmake_minimum_required(VERSION 3.22)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
-# components/helpers
-add_compile_options(
-    -Wno-sequence-point
-    -Wno-unused-value
-    )
-project(NerdMiner)
+project(NerdMinerX_test)
