@@ -32,40 +32,16 @@
 #include "esp_err.h"
 #include "esp_log.h"
 
-
-#include "lv_conf.h"
-#include "lvgl.h"
-
 #include "screen.h"
 #include "screen_config.h"
 
 esp_lcd_panel_io_handle_t io_handle = NULL;
+/*
 static lv_disp_drv_t screen_drv;
 static lv_disp_draw_buf_t screen_buf;
 static lv_color_t *lv_screen_buf;
-
+*/
 static bool is_init_lvgl = false;
-
-static bool example_notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
-{
-    if (is_init_lvgl)
-    {
-        lv_disp_drv_t *disp_driver = (lv_disp_drv_t *)user_ctx;
-        lv_disp_flush_ready(disp_driver);
-    }
-    return false;
-}
-static void scr_lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map)
-{
-    esp_lcd_panel_handle_t panel_handle = (esp_lcd_panel_handle_t)drv->user_data;
-    int offsetx1 = area->x1;
-    int offsetx2 = area->x2;
-    int offsety1 = area->y1;
-    int offsety2 = area->y2;
-    // copy a buffer's content to a specific area of the display
-
-    //esp_lcd_panel_draw_bitmap(panel_handle, offsetx1, offsety1, offsetx2 + 1, offsety2 + 1, color_map);
-}
 
 esp_err_t screen_init()
 {
@@ -121,8 +97,8 @@ esp_err_t screen_init()
         .cs_gpio_num = SCR_CS,
         .pclk_hz = EXAMPLE_LCD_PIXEL_CLOCK_HZ,
         .trans_queue_depth = 20,
-        .on_color_trans_done = example_notify_lvgl_flush_ready,
-        .user_ctx = &screen_drv,
+        .on_color_trans_done = NULL,
+        .user_ctx = NULL,
         .lcd_cmd_bits = 8,
         .lcd_param_bits = 8,
         .dc_levels = {
@@ -181,19 +157,19 @@ esp_err_t screen_init()
         ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
         vTaskDelay(5 / portTICK_PERIOD_MS);
     }
-
+    /*
     lv_init();
     lv_screen_buf = (lv_color_t *)heap_caps_malloc(LVGL_LCD_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
-    /*Initialize the display*/
+    // Initialize the display
     lv_disp_drv_init(&screen_drv);
-    /*Change the following line to your display resolution*/
+    // Change the following line to your display resolution
     screen_drv.hor_res = SCR_H_RES;
     screen_drv.ver_res = SCR_V_RES;
     screen_drv.flush_cb = scr_lvgl_flush_cb;
     screen_drv.draw_buf = &screen_buf;
     screen_drv.user_data = panel_handle;
     lv_disp_drv_register(&screen_drv);
-
+    */
     is_init_lvgl = true;
 
     
