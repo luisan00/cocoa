@@ -28,8 +28,11 @@ extern "C"
 #endif
 
 #include "esp_err.h"
-
-esp_error_t screen_init(void);
+#include "screen_config.h"
+/**
+ * @brief
+ */
+esp_err_t screen_init(void);
 
 #ifdef __cplusplus
 }

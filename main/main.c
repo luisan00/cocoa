@@ -1,124 +1,16 @@
 
 #include <stdio.h>
-#include "esp_err.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+
+#include "esp_err.h"
+
 #include "esp_task_wdt.h"
 #include "esp_log.h"
 #include "esp_timer.h"
-#include "mbedtls/md.h"
 
-#define THREADS 4
-#define SHARE_DIFF 6061518831027 // 20000
-
-int shares = 0;
-
-// Print sha256 in little endian
-void print_hash(unsigned char *string)
-{
-    ESP_LOGD(__func__, "Hash:");
-    for (int i = 31; i >= 0; i--)
-    {
-        char str[3];
-        sprintf(str, "%02x", (int)string[i]);
-        ESP_LOGD(__func__, "%s", str);
-    }
-}
-
-bool check_hash_zeros(unsigned char *string, size_t zeros) {
-    bool valid = true;
-    for (size_t i = 31; i > 31 - zeros; i--)
-    {
-        if (string[i] != 0)
-            valid = false;
-    }
-    return valid;
-}
-
-// check if first 9 bytes are zero
-bool checkHash(unsigned char *string)
-{
-    bool valid = true;
-    for (uint8_t i = 31; i > 22; i--)
-    {
-        if (string[i] != 0)
-            valid = false;
-    }
-    return valid;
-}
-
-void runWorker(void *name)
-{
-    ESP_LOGD(__func__, "Running %s on core %d", (char *)name, xPortGetCoreID());
-
-    // Header of Bitcoin block nr. 563333
-    uint8_t payload[] = {
-        0x0, 0x0, 0x0, 0x20,                                                                                                                                                                          // version
-        0xa2, 0x17, 0x62, 0x4e, 0xf7, 0x72, 0x1b, 0x95, 0x4c, 0x7d, 0x93, 0x75, 0xaa, 0x85, 0xc1, 0x34, 0xe5, 0xb7, 0x66, 0xd2, 0x26, 0xa, 0x2c, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,         // prev hash
-        0xa5, 0x12, 0x42, 0x48, 0xfa, 0x62, 0xcb, 0xef, 0x22, 0xc1, 0x26, 0x8c, 0xc0, 0x24, 0x86, 0xec, 0xfb, 0x5, 0xc2, 0x6d, 0x45, 0xba, 0x42, 0xff, 0x7e, 0x9b, 0x34, 0x6c, 0x0, 0xdf, 0x60, 0xaf, // merkle root
-        0x5d, 0x80, 0x68, 0x5c,                                                                                                                                                                       // time (2019-02-16)
-        0x88, 0x6f, 0x2e, 0x17,                                                                                                                                                                       // difficulty bits
-        0x94, 0x4b, 0x40, 0x19                                                                                                                                                                        // nonce
-    };
-    
-    const size_t payloadLength = 80;
-    uint32_t targetNonce = 423644052; // 0x19404b94
-
-    uint8_t interResult[32]; // 256 bit
-    uint8_t shaResult[32];   // 256 bit
-
-    mbedtls_md_context_t ctx;
-    mbedtls_md_type_t md_type = MBEDTLS_MD_SHA256;
-
-    mbedtls_md_init(&ctx);
-    mbedtls_md_setup(&ctx, mbedtls_md_info_from_type(md_type), 0);
-
-    uint32_t nonce = targetNonce - SHARE_DIFF;
-
-    uint64_t startT = esp_timer_get_time();
-
-    while (true)
-    {
-        payload[76] = (nonce >> 0) & 0xFF;
-        payload[77] = (nonce >> 8) & 0xFF;
-        payload[78] = (nonce >> 16) & 0xFF;
-        payload[79] = (nonce >> 24) & 0xFF;
-
-        mbedtls_md_starts(&ctx);
-        mbedtls_md_update(&ctx, payload, payloadLength);
-        mbedtls_md_finish(&ctx, interResult);
-        
-        mbedtls_md_starts(&ctx);
-        mbedtls_md_update(&ctx, interResult, 32);
-        mbedtls_md_finish(&ctx, shaResult);
-
-        
-        
-        if (checkHash(shaResult))
-        {
-            // Comment this in if you want to run only a single time
-            // break;
-            nonce = targetNonce - SHARE_DIFF;
-
-            ESP_LOGD(__func__, "%s on core %d: ", (char *)name, xPortGetCoreID());
-            ESP_LOGD(__func__, "Share completed with nonce: %lx | 0x%lx", nonce, nonce);
-
-            shares++;
-
-        }
- 
-        nonce++;
-    }
-    uint64_t duration = esp_timer_get_time() - startT;
-
-    mbedtls_md_free(&ctx);
-
-    ESP_LOGI(__func__, "%s", checkHash(shaResult) ? "Valid Block found!" : "no valid block...");
-    ESP_LOGI(__func__, "sha: %s", shaResult);
-    ESP_LOGI(__func__, "With nonce: %lx | 0x%lx\n", nonce, nonce);
-    ESP_LOGI(__func__, "In %lli rounds, %f ms\n", SHARE_DIFF, duration / 1000.0);
-    ESP_LOGI(__func__, "Hash Rate: %f kH/s", (1000.0 / duration) * SHARE_DIFF);
-}
+#include "screen.h"
 
 void runMonitor(void *name)
 {
@@ -126,31 +18,24 @@ void runMonitor(void *name)
 
     while (1)
     {
-        
+
         uint64_t elapsed = esp_timer_get_time() - start;
 
-        ESP_LOGI("[Monitor]", "\t Completed %d share(s), %lli hashes, avg. hashrate %.3f KH/s",
-                 shares, shares * SHARE_DIFF, (1.0 * shares * SHARE_DIFF) / elapsed * 1000.0);
+        ESP_LOGD(__func__, "%llu seconds", elapsed / 1000000);
 
-        vTaskDelay(10000 / portTICK_PERIOD_MS);
-
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
 
 void app_main(void)
 {
-    for (size_t i = 0; i < THREADS; i++)
+
+    esp_err_t res = screen_init();
+
+    if (res != ESP_OK)
     {
-        char *name = (char *)malloc(32);
-        sprintf(name, "Worker[%d]", i);
-
-        ESP_LOGD(__func__, "%s Worker[%d]", name, i);
-
-        // Start mining tasks
-        BaseType_t miner_task = xTaskCreate(runWorker, name, 30000, (void *)name, 1, NULL);
-        ESP_LOGD(__func__, "%s %s", name, miner_task ? "STARTED": "ERROR");
+        ESP_LOGE("ERROR", "starting screen : %s", esp_err_to_name(res));
     }
-
     // Start monitor task
     xTaskCreate(runMonitor, "Monitor", 5000, NULL, 4, NULL);
 }
