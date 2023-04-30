@@ -27,17 +27,9 @@ extern "C"
 {
 #endif
 
-#define ST7789_DRIVER
-    // #define INIT_SEQUENCE_3 // Using this initialisation sequence improves the display image
+#include "esp_err.h"
 
-#define CGRAM_OFFSET
-// #define TFT_RGB_ORDER TFT_RGB  // Colour order Red-Green-Blue
-#define TFT_RGB_ORDER TFT_BGR // Colour order Blue-Green-Red
-
-#define TFT_INVERSION_ON
-    // #define TFT_INVERSION_OFF
-
-#define TFT_PARALLEL_8_BIT
+esp_error_t screen_init(void);
 
 #ifdef __cplusplus
 }
