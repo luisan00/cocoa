@@ -4,8 +4,7 @@
 
 static const char tag[] = "[hmi]";
 
-// single uint8_t from string
 TEST_CASE("untested component", tag)
 {
-    TEST_ASSERT_EQUAL_INT(0,0);
+    TEST_ASSERT_EQUAL(1, 1);
 }

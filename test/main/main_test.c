@@ -14,25 +14,33 @@ void app_main(void)
      */
 
     // unity_run_all_tests(); runs for all registerd tests
-    print_banner("Running tests for helpers component");
-    UNITY_BEGIN();
-    unity_run_tests_by_tag("[helpers]", false);
-    UNITY_END();
 
-    print_banner("Running tests for blocks component");
+    print_banner("Testing [blocks] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[blocks]", false);
     UNITY_END();
 
-    print_banner("Running tests for screen component");
+    print_banner("Testing [helpers] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[helpers]", false);
+    UNITY_END();
+
+    print_banner("Testing [hmi] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[hmi]", false);
+    UNITY_END();
+
+    print_banner("Testing [screen] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[screen]", false);
     UNITY_END();
-    /* This function will not return, and will be busy waiting for UART input.
-     * Make sure that task watchdog is disabled if you use this function.
-     */
-    print_banner("Running interactive menu");
 
+    print_banner("Testing [wallet] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[wallet]", false);
+    UNITY_END();
+
+    print_banner("Running interactive menu");
     unity_run_menu();
 }
 

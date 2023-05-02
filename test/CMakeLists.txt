@@ -11,9 +11,11 @@ set(EXTRA_COMPONENT_DIRS "../components")
 # - when using idf.py: idf.py -T xxxxx build
 #
 set(TEST_COMPONENTS 
-    "helpers"
     "blocks"
+    "helpers"
+    "hmi"
     "screen"
+    "wallet"
 )
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
