@@ -23,7 +23,6 @@
 #include "esp_log.h"
 
 #include "lvgl.h"
-#include "lv_conf.h"
 
 #include "screen_config.h"
 #include "lvgl_demo_ui.h"

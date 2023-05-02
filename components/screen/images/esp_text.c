@@ -183,11 +183,13 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_ESP_TEXT 
 #endif
 };
 
+const uint32_t img_w = 240;
+const uint32_t img_h = 40;
 const lv_img_dsc_t esp_text = {
   .header.always_zero = 0,
-  .header.w = 240,
-  .header.h = 40,
-  .data_size = 9600 * LV_IMG_PX_SIZE_ALPHA_BYTE,
+  .header.w = img_w,
+  .header.h = img_h,
+  .data_size = img_w * img_h * LV_IMG_PX_SIZE_ALPHA_BYTE,
   .header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA,
   .data = esp_text_map,
 };
