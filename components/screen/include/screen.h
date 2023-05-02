@@ -28,14 +28,29 @@ extern "C"
 #endif
 
 #include "esp_err.h"
-#include "screen_config.h"
+
 /**
- * @brief
+ *
+ * @brief   define colors as 32 bits unsigned integer RGB order,
+ *          0x00, 0x00, 0x00 -> 0x000000
  */
-esp_err_t screen_init(void);
+#define COLOR_BLACK 0x000000U /*!> black */
+#define COLOR_WHITE 0xffffffU /*!> white */
+
+#define COLOR_GREY 0x7f7f7fU /*!> grey 50% */
+
+#define COLOR_RED 0xff0000U   /*!> red */
+#define COLOR_GREEN 0x00ff00U /*!> green */
+#define COLOR_BLUE 0x0000ffU  /*!> blue */
+
+    /**
+     * @brief
+     */
+    esp_err_t screen_init(void);
 
 #ifdef __cplusplus
 }
-#endif // __cplusplus
+#endif
+
 #endif
 /** @} */

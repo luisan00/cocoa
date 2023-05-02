@@ -23,44 +23,72 @@
 #ifndef SCREEN_CONFIG_H
 #define SCREEN_CONFIG_H
 
-/* LCD PANEL CONFIG */
-#define EXAMPLE_LCD_PIXEL_CLOCK_HZ (6528000) //(10 * 1000 * 1000)
+/**
+ * @brief
+ * @{
+ */
+#define SCREEN_PX_CLOCK_HZ (6528000) /*!> EXAMPLE_LCD_PIXEL_CLOCK_HZ */
+#define SCREEN_BK_LIGHT_ON_LEVEL 1   /*!> EXAMPLE_LCD_BK_LIGHT_ON_LEVEL */
+#define SCREEN_BK_LIGHT_OFF_LEVEL !SCREEN_BK_LIGHT_ON_LEVEL
+/** @} */
 
-// The pixel number in horizontal and vertical
-#define SCR_H_RES 320
-#define SCR_V_RES 170
+/**
+ * @brief Conection requires 8 bits parallel interface
+ * @{
+ */
+#define SCREEN_DATA0 39 /*!> was: EXAMPLE_PIN_NUM_DATA0 */
+#define SCREEN_DATA1 40 /*!> was: EXAMPLE_PIN_NUM_DATA1 */
+#define SCREEN_DATA2 41 /*!> was: EXAMPLE_PIN_NUM_DATA2 */
+#define SCREEN_DATA3 42 /*!> was: EXAMPLE_PIN_NUM_DATA3 */
+#define SCREEN_DATA4 45 /*!> was: EXAMPLE_PIN_NUM_DATA4 */
+#define SCREEN_DATA5 46 /*!> was: EXAMPLE_PIN_NUM_DATA5 */
+#define SCREEN_DATA6 47 /*!> was: EXAMPLE_PIN_NUM_DATA6 */
+#define SCREEN_DATA7 48 /*!> was: EXAMPLE_PIN_NUM_DATA7 */
+/** @} */
 
-#define LVGL_LCD_BUF_SIZE (SCR_H_RES * SCR_V_RES)
-#define EXAMPLE_PSRAM_DATA_ALIGNMENT 64
+#define SCREEN_PWR 15        /*!> Power on/off the display */
+#define SCREEN_WR GPIO_NUM_8 /*!> WR pin, it was EXAMPLE_PIN_PCLK */
+#define SCREEN_RD GPIO_NUM_9 /*!> RD pin, it was EXAMPLE_PIN_RD */
+#define SCREEN_CS 6          /*!> CS pin */
+#define SCREEN_DC 7          /*!> DC pin*/
+#define SCREEN_RST 5         /*!> Reset pin */
+#define SCREEN_BK_LIGHT 38   /*!> Controls the display back light, it was: EXAMPLE_PIN_NUM_BK_LIGHT */
 
-/* ESP32S3 */
-#define SCR_BL 38
+/**
+ * @brief The pixel number in horizontal and vertical
+ * @{
+ */
+#define SCREEN_H_RES 320                                /*!> Horiz. resolution is 320 dots */
+#define SCREEN_V_RES 170                                /*!> Vertical resolution is 170 dots */
+#define LVGL_LCD_BUF_SIZE (SCREEN_H_RES * SCREEN_V_RES) /*!> Then LVGL require a 320*170 buffer size */
+/** @} */
 
-#define SCR_D0 39
-#define SCR_D1 40
-#define SCR_D2 41
-#define SCR_D3 42
-#define SCR_D4 45
-#define SCR_D5 46
-#define SCR_D6 47
-#define SCR_D7 48
+/**
+ * @brief  number used to represent command and parameter
+ * @{
+ */
+#define SCREEN_CMD_BITS 8   /*!>*/
+#define SCREEN_PARAM_BITS 8 /*!>*/
+/** @} */
 
-#define SCR_RST 5
-#define SCR_CS 6
-#define SCR_DC 7
-#define SCR_WR 8
-#define SCR_RD 9
+/**
+ * @brief
+ */
+#define SCREEN_LVGL_TICK_PERIOD_MS 2
 
-#define SCR_POWER_ON 15
+/**
+ * @brief The back light can be controlled by PWM, it's done using the LEDC API.
+ * 4095 =  50%
+ * 8190 = 100%
+ * @{
+ */
+#define LEDC_TIMER LEDC_TIMER_0                    /*!> Timer 0 will be used for this purpose */
+#define LEDC_MODE LEDC_LOW_SPEED_MODE              /*!> Speed mode */
+#define LEDC_CHANNEL LEDC_CHANNEL_0                /*!> Channel */
+#define LEDC_DUTY_RES LEDC_TIMER_13_BIT            /*!> Set duty resolution to 13 bits */
+#define LEDC_DUTY(x) ((2 * LEDC_DUTY_RES) - 1) * x /*!> (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095 */
+#define LEDC_FREQUENCY (5000)                      // Frequency in Hertz. Set frequency at 5 kHz
+/** @} */
 
-#define LEDC_TIMER              LEDC_TIMER_0
-#define LEDC_MODE               LEDC_LOW_SPEED_MODE
-#define LEDC_CHANNEL            LEDC_CHANNEL_0
-#define LEDC_DUTY_RES           LEDC_TIMER_13_BIT // Set duty resolution to 13 bits
-#define LEDC_DUTY(x)            ((2*LEDC_DUTY_RES) -1) * x //  (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095
-#define LEDC_FREQUENCY          (5000) // Frequency in Hertz. Set frequency at 5 kHz
-
-// 4095 =  50%
-// 8190 = 100%
-#endif /** SCREEN_CONFIG_H */
-       /** @} */
+#endif // SCREEN_CONFIG_H
+/** @} */
