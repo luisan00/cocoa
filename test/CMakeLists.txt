@@ -15,6 +15,7 @@ set(TEST_COMPONENTS
     "helpers"
     "hmi"
     "screen"
+    "storage"
     "wallet"
 )
 

@@ -1,5 +1,5 @@
-# file(GLOB_RECURSE SOURCES *.c)
+file(GLOB_RECURSE SOURCES *.c)
 idf_component_register(
-    SRCS "helpers.c"
+    SRCS ${SOURCES}
     INCLUDE_DIRS "include"
     REQUIRES cmock)
