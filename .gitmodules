@@ -1,3 +1,6 @@
 [submodule "components/lvgl"]
 	path = components/lvgl
 	url = https://github.com/lvgl/lvgl.git
+[submodule "components/wallet/libwally"]
+	path = components/wallet/libwally
+	url = https://github.com/ElementsProject/libwally-core.git
