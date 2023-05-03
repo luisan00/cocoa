@@ -1,5 +1,5 @@
 /**
- * @defgroup wallet
+ * @defgroup libwally
  * @{
  */
 

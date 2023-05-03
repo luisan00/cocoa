@@ -25,27 +25,27 @@
 #include "lvgl.h"
 
 #include "screen_config.h"
-#include "lvgl_demo_ui.h"
+#include "gui.h"
 
-static const char *TAG = __FILE__;
+static const char *tag = "[screen]";
 
-esp_lcd_panel_handle_t panel_handle = NULL;
+//static esp_err_t set_screen_brightness(int b);
 
+static void lvgl_increase_tick(void *arg);
+static bool lvgl_notify_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx);
+static void lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map);
 
-static void example_increase_lvgl_tick(void *arg);
-static bool example_notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx);
-static void example_lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map);
-static void main_creatSysteTasks(void);
-static void lvglTimerTask(void *param);
+static void create_lv_timer_task(void);
+static void lv_timer_task(void *param);
 
-static bool example_notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
+static bool lvgl_notify_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
 {
     lv_disp_drv_t *disp_driver = (lv_disp_drv_t *)user_ctx;
     lv_disp_flush_ready(disp_driver);
     return false;
 }
 
-static void example_lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map)
+static void lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_color_t *color_map)
 {
     esp_lcd_panel_handle_t panel_handle = (esp_lcd_panel_handle_t)drv->user_data;
     int offsetx1 = area->x1;
@@ -56,13 +56,13 @@ static void example_lvgl_flush_cb(lv_disp_drv_t *drv, const lv_area_t *area, lv_
     esp_lcd_panel_draw_bitmap(panel_handle, offsetx1, offsety1, offsetx2 + 1, offsety2 + 1, color_map);
 }
 
-static void example_increase_lvgl_tick(void *arg)
+static void lvgl_increase_tick(void *arg)
 {
     /* Tell LVGL how many milliseconds has elapsed */
     lv_tick_inc(SCREEN_LVGL_TICK_PERIOD_MS);
 }
 
-static void lvglTimerTask(void *param)
+static void lv_timer_task(void *param)
 {
     while (1)
     {
@@ -73,19 +73,18 @@ static void lvglTimerTask(void *param)
     }
 }
 
-static void main_creatSysteTasks(void)
+static void create_lv_timer_task(void)
 {
 
-    xTaskCreatePinnedToCore(lvglTimerTask, "lvgl Timer", 10000, NULL, 4, NULL, 1);
+    xTaskCreatePinnedToCore(lv_timer_task, "lvgl Timer", 10000, NULL, 4, NULL, 1);
 }
 
 esp_err_t screen_init(void)
 {
     static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
     static lv_disp_drv_t disp_drv;      // contains callback functions
-    
+
     // GPIO configuration
-    ESP_LOGI(TAG, "Turn off LCD backlight");
     gpio_config_t bk_gpio_config = {
         .mode = GPIO_MODE_OUTPUT,
         .pin_bit_mask = 1ULL << SCREEN_BK_LIGHT};
@@ -101,9 +100,11 @@ esp_err_t screen_init(void)
     gpio_set_direction(SCREEN_PWR, GPIO_MODE_OUTPUT);
 
     gpio_set_level(SCREEN_RD, true);
-    gpio_set_level(SCREEN_BK_LIGHT, SCREEN_BK_LIGHT_OFF_LEVEL);
 
-    ESP_LOGI(TAG, "Initialize Intel 8080 bus");
+    ESP_LOGI(tag, "Backlight off");
+    gpio_set_level(SCREEN_BK_LIGHT, SCREEN_BK_LIGHT_OFF);
+
+    ESP_LOGI(tag, "Initialize Intel 8080 bus");
     esp_lcd_i80_bus_handle_t i80_bus = NULL;
     esp_lcd_i80_bus_config_t bus_config = {
         .dc_gpio_num = SCREEN_DC,
@@ -134,14 +135,13 @@ esp_err_t screen_init(void)
             .dc_dummy_level = 0,
             .dc_data_level = 1,
         },
-        .on_color_trans_done = example_notify_lvgl_flush_ready,
+        .on_color_trans_done = lvgl_notify_flush_ready,
         .user_ctx = &disp_drv,
         .lcd_cmd_bits = SCREEN_CMD_BITS,
         .lcd_param_bits = SCREEN_PARAM_BITS,
     };
     ESP_ERROR_CHECK(esp_lcd_new_panel_io_i80(i80_bus, &io_config, &io_handle));
 
-    ESP_LOGI(TAG, "Install LCD driver of st7789");
     esp_lcd_panel_handle_t panel_handle = NULL;
 
     esp_lcd_panel_dev_config_t panel_config =
@@ -151,6 +151,7 @@ esp_err_t screen_init(void)
             .bits_per_pixel = 16,
         };
 
+    ESP_LOGI(tag, "Installing ST7789 LCD driver");
     ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(io_handle, &panel_config, &panel_handle));
 
     esp_lcd_panel_reset(panel_handle);
@@ -159,52 +160,53 @@ esp_err_t screen_init(void)
 
     esp_lcd_panel_swap_xy(panel_handle, true);
     esp_lcd_panel_mirror(panel_handle, false, true);
+
     // the gap is LCD panel specific, even panels with the same driver IC, can have different gap value
     esp_lcd_panel_set_gap(panel_handle, 0, 35);
 
-    ESP_LOGI(TAG, "Turn on LCD backlight");
-    gpio_set_level(SCREEN_PWR, true);
-    gpio_set_level(SCREEN_BK_LIGHT, SCREEN_BK_LIGHT_ON_LEVEL);
+    ESP_LOGI(tag, "Panel power on");
+    gpio_set_level(SCREEN_PWR, SCREEN_PWR_ON);
+    ESP_LOGI(tag, "Backlight on");
+    gpio_set_level(SCREEN_BK_LIGHT, SCREEN_BK_LIGHT_ON);
 
-    ESP_LOGI(TAG, "Initialize LVGL library");
-    
+    ESP_LOGI(tag, "Initialize LVGL library");
     lv_init();
-    
+
     // alloc draw buffers used by LVGL
     // it's recommended to choose the size of the draw buffer(s) to be at least 1/10 screen sized
     lv_color_t *buf1 = heap_caps_malloc(LVGL_LCD_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
     assert(buf1);
-    
-    //    lv_color_t *buf2 = heap_caps_malloc(LVGL_LCD_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA );
-    //    assert(buf2);
+
     // initialize LVGL draw buffers
     lv_disp_draw_buf_init(&disp_buf, buf1, NULL, LVGL_LCD_BUF_SIZE);
 
-    ESP_LOGI(TAG, "Register display driver to LVGL");
+    ESP_LOGI(tag, "Register display driver to LVGL");
     lv_disp_drv_init(&disp_drv);
     disp_drv.hor_res = SCREEN_H_RES;
     disp_drv.ver_res = SCREEN_V_RES;
-    disp_drv.flush_cb = example_lvgl_flush_cb;
+    disp_drv.flush_cb = lvgl_flush_cb;
     disp_drv.draw_buf = &disp_buf;
     disp_drv.user_data = panel_handle;
     lv_disp_t *disp = lv_disp_drv_register(&disp_drv);
 
-    // Configuration is completed.
+    // -- end of configuration --
 
-    ESP_LOGI(TAG, "Install LVGL tick timer");
     // Tick interface for LVGL (using esp_timer to generate 2ms periodic event)
+    ESP_LOGI(tag, "Install LVGL tick timer");
+
     const esp_timer_create_args_t lvgl_tick_timer_args = {
-        .callback = &example_increase_lvgl_tick,
-        .name = "lvgl_tick"};
+        .callback = &lvgl_increase_tick,
+        .name = "lvgl_tick",
+    };
     esp_timer_handle_t lvgl_tick_timer = NULL;
     ESP_ERROR_CHECK(esp_timer_create(&lvgl_tick_timer_args, &lvgl_tick_timer));
     ESP_ERROR_CHECK(esp_timer_start_periodic(lvgl_tick_timer, SCREEN_LVGL_TICK_PERIOD_MS * 1000));
-
-    ESP_LOGI(TAG, "Display LVGL animation");
+    //
+    ESP_LOGI(tag, "UI init");
     lv_obj_t *scr = lv_disp_get_scr_act(disp);
 
-    lvgl_demo_ui(scr);
-
-    main_creatSysteTasks();
+    // lvgl_demo_ui(scr);
+    gui_init(scr);
+    create_lv_timer_task();
     return ESP_OK;
 }
