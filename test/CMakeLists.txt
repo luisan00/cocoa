@@ -16,7 +16,7 @@ set(TEST_COMPONENTS
     "hmi"
     "screen"
     "storage"
-    "wallet"
+    "crypto"
 )
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
