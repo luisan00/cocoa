@@ -3,6 +3,6 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := NerdMinerX
+PROJECT_NAME := NerdWallet
 
 include $(IDF_PATH)/make/project.mk
