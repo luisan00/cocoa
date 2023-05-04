@@ -10,5 +10,5 @@ TEST_CASE("-- mocked -- [crypto] -- component --", tag)
 }
 
 TEST_CASE("mnemonic generate", tag){
-    ESP_LOGI(tag, "mnemonic: %s",  mnemonic_generate(256));
+    ESP_LOGI(tag, "mnemonic: %s",  mnemonic_generate(200));
 }

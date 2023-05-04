@@ -21,14 +21,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __BIP32_H__
-#define __BIP32_H__
+#ifndef BIP32_H
+#define BIP32_H
 
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include "ecdsa.h"
-#include "ed25519-donna/ed25519.h"
+#include "ed25519.h"
 #include "options.h"
 
 // Maximum length of a Base58Check-encoded extended public or private key.
@@ -37,26 +37,28 @@
 // Maximum length of a Base58Check-encoded address.
 #define ADDRESS_MAXLEN 39
 
-typedef struct {
-  const char *bip32_name;     // string for generating BIP32 xprv from seed
-  const ecdsa_curve *params;  // ecdsa curve parameters, null for ed25519
+typedef struct
+{
+    const char *bip32_name;    // string for generating BIP32 xprv from seed
+    const ecdsa_curve *params; // ecdsa curve parameters, null for ed25519
 
-  HasherType hasher_base58;
-  HasherType hasher_sign;
-  HasherType hasher_pubkey;
-  HasherType hasher_script;
+    HasherType hasher_base58;
+    HasherType hasher_sign;
+    HasherType hasher_pubkey;
+    HasherType hasher_script;
 } curve_info;
 
-typedef struct {
-  uint32_t depth;
-  uint32_t child_num;
-  uint8_t chain_code[32];
+typedef struct
+{
+    uint32_t depth;
+    uint32_t child_num;
+    uint8_t chain_code[32];
 
-  uint8_t private_key[32];
-  uint8_t private_key_extension[32];
+    uint8_t private_key[32];
+    uint8_t private_key_extension[32];
 
-  uint8_t public_key[33];
-  const curve_info *curve;
+    uint8_t public_key[33];
+    const curve_info *curve;
 } HDNode;
 
 int hdnode_from_xpub(uint32_t depth, uint32_t child_num,
@@ -71,7 +73,7 @@ int hdnode_from_seed(const uint8_t *seed, int seed_len, const char *curve,
                      HDNode *out);
 
 #define hdnode_private_ckd_prime(X, I) \
-  hdnode_private_ckd((X), ((I) | 0x80000000))
+    hdnode_private_ckd((X), ((I) | 0x80000000))
 
 int hdnode_private_ckd(HDNode *inout, uint32_t i);
 

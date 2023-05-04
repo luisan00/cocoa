@@ -1,20 +1,57 @@
-file(GLOB RECURSE LIB_BASE58 base58/*.c)
-file(GLOB RECURSE LIB_BIP32 bip32/*.c)
-file(GLOB RECURSE LIB_BIP39 bip39/*.c)
-file(GLOB_RECURSE LIB_MEMZERO memzero/*.c)
-
 idf_component_register(
     SRCS 
-        ${LIB_BASE58}
-        ${LIB_BIP32}
-        ${LIB_BIP39}
-        ${LIB_MEMZERO}
+        "address/address.c"
+        "base58/base58.c"
+        "bignum/bignum.c"
+        "bip32/bip32.c"
+        "bip39/bip39.c"
+        "bip39/bip39_english.c"
+        "blake2/blake2b.c"
+        "blake2/blake2s.c"
+        "blake2/blake256.c"
+        "cardano/cardano.c"
+        "curves/curves.c"
+        "ecdsa/ecdsa.c"
+        "ed25519-donna/ed25519.c"
+        "groestl/groestl.c"
+        "hasher/hasher.c"
+        "hmac/hmac.c"
+        "hmac/hmac_drbg.c"
+        "memzero/memzero.c"
+        "nist256p1/nist256p1.c"
+        "pbkdf2/pbkdf2.c"
+        "rand/rand.c"
+        "rfc6979/rfc6979.c"
+        "ripemd160/ripemd160.c"
+        "script/script.c"
+        "secp256k1/secp256k1.c"
+        "sha/sha2.c"
+        "sha/sha3.c"
     INCLUDE_DIRS 
         "include"
+        "address/include"
+        "aes/include"
         "base58/include"
+        "bignum/include"
         "bip32/include"
         "bip39/include"
+        "blake2/include"
+        "cardano/include"
+        "curves/include"
+        "ecdsa/include"
+        "ed25519-donna/include"
+        "groestl/include"
+        "hasher/include"
+        "hmac/include"
         "memzero/include"
+        "nist256p1/include"
+        "pbkdf2/include"
+        "rand/include"
+        "rfc6979/include"
+        "ripemd160/include"
+        "script/include"
+        "secp256k1/include"
+        "sha/include"
     REQUIRES 
         cmock
 )
