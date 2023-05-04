@@ -4,7 +4,13 @@
 
 static const char tag[] = "[wallet]";
 
-TEST_CASE("untested [wallet] component -- important --", tag)
+TEST_CASE("wallet_err_to_name(WALLET_OK)", tag)
 {
-    TEST_ASSERT_EQUAL(1, 1);
+    char *expected_ok = "WALLET_OK";
+    TEST_ASSERT_EQUAL_STRING(expected_ok, wallet_err_to_name(WALLET_OK));
+}
+TEST_CASE("wallet_err_to_name(WALLET_ERROR)", tag)
+{
+    char *expected_err = "WALLET_ERROR";
+    TEST_ASSERT_EQUAL_STRING(expected_err, wallet_err_to_name(WALLET_ERROR));
 }
