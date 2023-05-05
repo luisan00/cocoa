@@ -17,6 +17,8 @@ idf_component_register(
         "blake2/blake256.c"
         # sub-component cardano
         "cardano/cardano.c"
+        # sub-component check-mem
+        "check_mem/check_mem.c"
         # sub-component curves
         "curves/curves.c"
         # sub-component ecdsa
@@ -70,6 +72,7 @@ idf_component_register(
         "bip39/include"
         "blake2/include"
         "cardano/include"
+        "check_mem/include"
         "curves/include"
         "ecdsa/include"
         "ed25519-donna/include"

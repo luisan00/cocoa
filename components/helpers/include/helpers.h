@@ -57,9 +57,9 @@ void from_u8_array(uint8_t *in, size_t in_size, char *out, size_t out_size);
 uint8_t *slice_u8(uint8_t *arr, int pos, size_t len);
 
 /**
- * @brief flip the given array [buff] and return it. 
+ * @brief flip the given array [buff] and return it.
  */
 uint8_t *flip_u8(uint8_t *buff, size_t buff_size);
 
 #endif /* HELPERS_H */
-/** } */
+       /** } */

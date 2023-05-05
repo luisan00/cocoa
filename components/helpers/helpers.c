@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
+#include <string.h>
 #include "helpers.h"
 
 char hex_lookup[] = "0123456789abcdef";
@@ -19,7 +19,7 @@ uint8_t *from_char_array(const char *in, size_t out_len)
     for (size_t i = 0; i < out_len; i++)
     {
         char cc[3];
-        sprintf(cc, "%c%c", in[i * 2], in[i * 2 + 1]);
+        snprintf(cc, sizeof(cc), "%c%c", in[i * 2], in[i * 2 + 1]);
         out[i] = from_char(cc);
     }
     return out;
@@ -29,8 +29,7 @@ uint8_t *from_char_array(const char *in, size_t out_len)
 char *from_u8(uint8_t in)
 {
     char *_out = (char *)malloc(2 + 1);
-
-    sprintf(_out, "%02x", in);
+    snprintf(_out, 3UL, "%02x", in);
     return _out;
     free(_out);
 }
