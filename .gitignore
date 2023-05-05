@@ -9,4 +9,4 @@ sdkconfig
 sdkconfig.old
 
 # debug sessions
-debug.log
+debug*.log

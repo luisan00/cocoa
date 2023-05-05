@@ -46,7 +46,6 @@ void from_u8_array(uint8_t *in, size_t in_size, char *out, size_t out_size)
         _str[(i * 2) + 1] = hex_lookup[((in[i] & 0x0F) >> 0)];
     }
     memcpy(out, _str, out_size);
-
 }
 
 uint8_t *slice_u8(uint8_t *arr, int pos, size_t len)

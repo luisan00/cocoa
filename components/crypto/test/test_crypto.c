@@ -31,7 +31,12 @@ TEST_CASE("hdnode_from_seed", tag)
     mnemonic_to_seed(mnemonic, password, seed, progress_cb);
     hdnode_from_seed(seed, ARRAY_SIZEOF(seed), SECP256K1_NAME, &hdnode);
 
+    int fp =  hdnode_fill_public_key(&hdnode);
+
+    ESP_LOGI(tag, "------------------------------------------------");
     ESP_LOGI(tag, "depth: %d", hdnode.depth);
     ESP_LOGI(tag, "child_num: %d", hdnode.child_num);
-    ESP_LOGI(tag, "chain_code: %d", ARRAY_SIZEOF(hdnode.chain_code));
+    ESP_LOGI(tag, "fp: %d", fp);
+
+
 }
