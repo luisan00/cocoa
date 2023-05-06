@@ -6,8 +6,6 @@
 
 #if CHECK_MAJOR_VERSION == 0 && CHECK_MINOR_VERSION < 11
 
-#define FROMHEX_MAXLEN  512
-
 #define _ck_assert_mem(X, Y, L, OP) do { \
   const char* _ck_x = (const char*)(void*)(X); \
   const char* _ck_y = (const char*)(void*)(Y); \
@@ -30,11 +28,5 @@
 #define ck_assert_mem_eq(X, Y, L) _ck_assert_mem(X, Y, L, ==)
 #define ck_assert_mem_ne(X, Y, L) _ck_assert_mem(X, Y, L, !=)
 
-/**
- * @brief 
- */
-const uint8_t *fromhex(const char *str);
-
 #endif
-
 #endif // CHECK_MEM_H
