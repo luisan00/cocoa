@@ -50,7 +50,6 @@ uint32_t random32(void)
 }
 #else
 #if defined(ESP_PLATFORM)
-
 #include <esp_system.h>
 uint32_t __attribute__((weak)) random32(void)
 {
