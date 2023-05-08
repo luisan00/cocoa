@@ -12,11 +12,6 @@
 #include "helpers.h"
 #include "test_v2_bip32 .h"
 
-int r;
-char str[XPUB_MAXLEN];
-uint32_t fingerprint;
-HDNode node, node2, node3;
-
 static const char tag[] = "[crypto][bip32]";
 
 static void TEST_LOGE(const char *msg, const char *_e, const char *_r)
