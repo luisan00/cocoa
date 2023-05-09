@@ -21,4 +21,4 @@ set(TEST_COMPONENTS
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
-project(NerdWallet_tests)
+project(cocoa_tests)
