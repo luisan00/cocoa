@@ -1,0 +1,7 @@
+/**
+ * @defgroup components_crypto
+ * @ingroup components
+ * @{
+ */
+
+ /** @} */

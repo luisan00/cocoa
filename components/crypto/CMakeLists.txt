@@ -59,6 +59,8 @@ idf_component_register(
         # sub-component
         "secp256k1/secp256k1.c"
         "secp256k1/secp256k1.table"
+        # subcomponent segwit_addr
+        "segwit_addr/segwit_addr.c"
         # sub-component sha
         "sha/sha2.c"
         "sha/sha3.c"
@@ -87,6 +89,7 @@ idf_component_register(
         "ripemd160/include"
         "script/include"
         "secp256k1/include"
+        "segwit_addr/include"
         "sha/include"
     REQUIRES 
         cmock

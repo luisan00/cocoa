@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <string.h>
 
+#include "esp_timer.h"
 #include "esp_log.h"
 #include "unity.h"
 
@@ -27,7 +28,8 @@ static void TEST_LOGI(const char *msg)
 TEST_CASE("Test compare bip32", tag)
 {
     int res;
-    char msg[32];
+    char msg[64];
+    uint64_t elapsed;// = esp_timer_get_time();
     HDNode node1, node2, node3;
 
     hdnode_from_seed(fromhex(test_seed), 64, SECP256K1_NAME, &node1);
@@ -41,7 +43,7 @@ TEST_CASE("Test compare bip32", tag)
     TEST_LOGI("Fill public key");
 
     for (int i = 0; i < 100; i++)
-    {
+    {   elapsed = esp_timer_get_time();
         memcpy(&node3, &node1, sizeof(HDNode));
 
         // fill public key node3
@@ -81,7 +83,11 @@ TEST_CASE("Test compare bip32", tag)
         TEST_ASSERT_EQUAL_MEMORY(node1.public_key, node2.public_key, 33);
         TEST_ASSERT_EQUAL_MEMORY(node1.public_key, node3.public_key, 33);
 
-        sprintf(msg, "[chain m/%d]", i);
+        // count relative millis
+        elapsed = esp_timer_get_time() - elapsed;
+        
+        // print partial results
+        sprintf(msg, "[chain m/%d] %lld ms", i, elapsed / 1000);
         TEST_LOGI(msg);
 
     }
