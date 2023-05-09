@@ -3,6 +3,6 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := NerdWallet
+PROJECT_NAME := cocoa
 
 include $(IDF_PATH)/make/project.mk
