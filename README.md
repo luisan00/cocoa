@@ -5,7 +5,7 @@
 
 - [X] blocks
 
-  Tests passed: [test](./components/blocks/test/test_blocks.c)
+Unitary [tests passed](./components/blocks/test/test_blocks.c)
 
 - [ ] **crypto**
   - [ ] address [WIP]
@@ -13,7 +13,12 @@
   - [ ] base58 [WIP}
   - [ ] bignum [WIP]
   - [ ] bip32: [WIP]
-  - [ ] bip39: [WIP]
+   
+    Unitary tests under development
+  - [ ] bip39
+ 
+    Unitary tests under development
+  
   - [ ] blake2
   - [ ] cardano
   - [ ] check_mem
