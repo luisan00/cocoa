@@ -2,39 +2,46 @@
 
 ## Project status by component
 
-### blocks
-  WIP
-### crypto
-- [ ] address
-- [ ] aes
-- [ ] base58
-- [ ] bignum
-- [ ] bip32
-- [ ] bip39
-- [ ] blake2
-- [ ] cardano
-- [ ] check_mem
-- [ ] curves
-- [ ] ed25519-donna
-- [ ] groestl
-- [ ] hasher
-- [ ] hmac
-- [ ] memzero
-- [ ] nist256p1
-- [ ] pkdf2
-- [ ] rand
-- [ ] rfc6979
-- [ ] ripemd160
-- [ ] script
-- [ ] secp256k1
-- [ ] segwit_addr
-- [ ] sha
 
-### helpers
+- [X] blocks
 
-### hmi
-### screen
-### storage
+  Tests passed: [test](./components/blocks/test/test_blocks.c)
+
+- [ ] **crypto**
+  - [ ] address [WIP]
+  - [ ] aes
+  - [ ] base58 [WIP}
+  - [ ] bignum [WIP]
+  - [ ] bip32: [WIP]
+  - [ ] bip39: [WIP]
+  - [ ] blake2
+  - [ ] cardano
+  - [ ] check_mem
+  - [ ] curves: [WIP]
+  - [ ] ed25519-donna
+  - [ ] groestl
+  - [ ] hasher [WIP]
+  - [ ] hmac [WIP]
+  - [ ] memzero [WIP]
+  - [ ] nist256p1
+  - [ ] pkdf2
+  - [ ] rand: [WIP]
+  - [ ] rfc6979
+  - [ ] ripemd160
+  - [ ] script
+  - [ ] secp256k1 [WIP]
+  - [ ] segwit_addr [WIP]
+  
+    testing
+  - [ ] sha [WIP]
+
+- [X] **helpers**
+
+- [ ] **hmi**
+
+- [ ] **screen**
+
+- [ ] **storage**
 
 ## License
 
