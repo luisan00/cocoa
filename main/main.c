@@ -1,16 +1,3 @@
-
-/**
- ******************************************************************************
- * @Channel Link    :  https://www.youtube.com/user/wardzx1
- * @file    		:  main1.c
- * @author  		:  Ward Almasarani - Useful Electronics
- * @version 		:  v.1.0
- * @date    		:  Aug 20, 2022
- * @brief   		:
- *
- ******************************************************************************/
-
-/* INCLUDES ------------------------------------------------------------------*/
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
