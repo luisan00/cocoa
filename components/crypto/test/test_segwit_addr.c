@@ -9,14 +9,47 @@
 
 static const char tag[] = "[crypto][segwit_addr]";
 
-// private func
+// private functions
+/**
+ * @brief
+ * @param [out] scriptpubkey
+ * @param [out] scriptpubkeylen
+ * @param [in] witver
+ * @param [in] witprog
+ * @param [in] witprog_len
+ */
 static void segwit_script_pub_key(uint8_t *scriptpubkey, size_t *scriptpubkeylen, int witver, const uint8_t *witprog, size_t witprog_len);
+
+/**
+ * @brief
+ * @param [in] checksum_data
+ * @param [in] expected_enc
+ * @return 1 = valid, 0 = not valid
+ */
 static int checksum_verify(checksum_vector_data_t checksum_data, bech32_encoding expected_enc);
+
+/**
+ * @brief
+ * @param [in] valid_address
+ * @return 1 = valid, 0 = not valid 
+ */
 static int segwit_verify_addr_data(valid_address_data_t valid_address);
+
+/**
+ * @brief
+ * @param [in] address
+ * @return 1 = valid, 0 = not valid 
+ */
 static int segwit_verify_address(const char *address);
+
+/**
+ * @brief
+ * @param [in] s1
+ * @param [in] s2
+ * @param [in] n
+ * @return 1 = equal, 0 = not equal 
+ */
 static int _strncasecmp(const char *s1, const char *s2, size_t n);
-static void TEST_LOGE(const char *msg, const char *_e, const char *_r);
-static void TEST_LOGI(const char *msg);
 
 // Test bip173 data w/ valid checksum
 TEST_CASE("bip173 data w/ valid checksum", tag)
@@ -34,7 +67,7 @@ TEST_CASE("bip350 data w/ valid checksum", tag)
 {
     for (size_t i = 0; i < ARRAY_SIZEOF(bip350_valid_checksum); i++)
     {
-        ESP_LOGI("bip350_valid_checksum", "vector data [%d]", i);
+        ESP_LOGI("bip350 valid_checksum", "vector data [%d]", i);
         // should returns NO errors(1)
         TEST_ASSERT_EQUAL_INT(checksum_verify(bip350_valid_checksum[i], BECH32_ENCODING_BECH32M), 1);
     }
@@ -56,7 +89,7 @@ TEST_CASE("bip350 data w/ (IN)valid checksum", tag)
 {
     for (size_t i = 0; i < ARRAY_SIZEOF(bip350_invalid_checksum); i++)
     {
-        ESP_LOGI("bip350_invalid_checksum", "vector data[%d]", i);
+        ESP_LOGI("bip350 [IN]valid_checksum", "vector data[%d]", i);
         // should returns error(0)
         TEST_ASSERT_EQUAL_INT(checksum_verify(bip350_invalid_checksum[i], BECH32_ENCODING_BECH32M), 0);
     }
@@ -69,7 +102,7 @@ TEST_CASE("bip173 valid address data", tag)
 {
     for (size_t i = 0; i < ARRAY_SIZEOF(bip173_valid_address); i++)
     {
-        ESP_LOGI("bip173 valid address data", "vector data[%d]", i);
+        ESP_LOGI("bip173 valid", "address data[%d]", i);
         // 1 if ok, 0 on errors
         TEST_ASSERT_EQUAL_INT(segwit_verify_addr_data(bip173_valid_address[i]), 1);
     }
@@ -79,7 +112,7 @@ TEST_CASE("bip350 valid address data", tag)
 {
     for (size_t i = 0; i < ARRAY_SIZEOF(bip350_valid_address); i++)
     {
-        ESP_LOGI("bip350 valid address data", "vector data[%d]", i);
+        ESP_LOGI("bip350 valid", "address data[%d]", i);
         TEST_ASSERT_EQUAL_INT(segwit_verify_addr_data(bip350_valid_address[i]), 1);
     }
 }
@@ -91,16 +124,17 @@ TEST_CASE("bip173 (IN)valid addresses", tag)
 {
     for (size_t i = 0; i < ARRAY_SIZEOF(bip173_invalid_address); i++)
     {
-        ESP_LOGI("bip173_invalid_address", "test vector address [%d] ", i);
-        TEST_ASSERT_EQUAL_INT(segwit_verify_address(bip173_invalid_address[i]), 1);
-    } 
+        ESP_LOGI("bip173 address", "[IN]valid [%d] %s", i, bip173_invalid_address[i]);
+        TEST_ASSERT_EQUAL_INT(segwit_verify_address(bip173_invalid_address[i]), 0);
+    }
 }
 // test bip350 (IN)valid addresses
 TEST_CASE("bip350 (IN)valid addresses", tag)
 {
     for (size_t i = 0; i < ARRAY_SIZEOF(bip350_invalid_address); i++)
     {
-        /* code */
+        ESP_LOGI("bip350 address", "[IN]valid [%d] %s", i, bip350_invalid_address[i]);
+        TEST_ASSERT_EQUAL_INT(segwit_verify_address(bip350_invalid_address[i]), 0);
     }
 }
 
@@ -167,16 +201,16 @@ static int segwit_verify_address(const char *address)
     size_t witprog_len;
     int witver;
 
-    // 0 if ok
+    // 1 if ok
     int ret = segwit_addr_decode(&witver, witprog, &witprog_len, "bc", address);
-    if (ret != 0)
+    if (ret != 1)
     {
         return 0;
     }
 
-    // 0 if ok
+    // 1 if ok
     ret = segwit_addr_decode(&witver, witprog, &witprog_len, "tb", address);
-    if (ret != 0)
+    if (ret != 1)
     {
         return 0;
     }
@@ -236,15 +270,4 @@ static int _strncasecmp(const char *s1, const char *s2, size_t n)
         ++i;
     }
     return 0;
-}
-
-static void TEST_LOGE(const char *msg, const char *_e, const char *_r)
-{
-    ESP_LOGE(tag, "%-55s \x1b[48:5:8m%-10s\x1b[0m\nexpected:\t%s\nresult:\t\t%s\n", msg, "fail", _e, _r);
-    TEST_FAIL();
-}
-
-static void TEST_LOGI(const char *msg)
-{
-    ESP_LOGI(tag, "%-55s \x1b[48:5:31m%-10s\x1b[0m", msg, "successful");
 }

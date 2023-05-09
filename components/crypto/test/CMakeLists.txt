@@ -3,4 +3,4 @@ idf_component_register(
     INCLUDE_DIRS "include"
     REQUIRES cmock crypto helpers)
     # next test:
-    # https://github.com/trezor/trezor-firmware/blob/master/crypto/tests/test_check.c#L2009
+    # https://github.com/trezor/trezor-firmware/blob/4175b817e1442984949216610dde70ffacce5545/crypto/tests/test_check_segwit.h#LL233C1-L234C1
