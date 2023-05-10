@@ -31,23 +31,30 @@ static int checksum_verify(checksum_vector_data_t checksum_data, bech32_encoding
 /**
  * @brief
  * @param [in] valid_address
- * @return 1 = valid, 0 = not valid 
+ * @return 1 = valid, 0 = not valid
  */
 static int segwit_verify_addr_data(valid_address_data_t valid_address);
 
 /**
  * @brief
  * @param [in] address
- * @return 1 = valid, 0 = not valid 
+ * @return 1 = valid, 0 = not valid
  */
 static int segwit_verify_address(const char *address);
+
+/**
+ * @brief
+ * @param [in] address
+ * @return 1 = valid, 0 = not valid
+ */
+static int seqwit_verify_invalid_enc(invalid_address_data_t invalid_address_enc);
 
 /**
  * @brief
  * @param [in] s1
  * @param [in] s2
  * @param [in] n
- * @return 1 = equal, 0 = not equal 
+ * @return 1 = equal, 0 = not equal
  */
 static int _strncasecmp(const char *s1, const char *s2, size_t n);
 
@@ -135,6 +142,15 @@ TEST_CASE("bip350 (IN)valid addresses", tag)
     {
         ESP_LOGI("bip350 address", "[IN]valid [%d] %s", i, bip350_invalid_address[i]);
         TEST_ASSERT_EQUAL_INT(segwit_verify_address(bip350_invalid_address[i]), 0);
+    }
+}
+
+TEST_CASE("Invalid enc addresses", tag)
+{
+    for (size_t i = 0; i < ARRAY_SIZEOF(invalid_address_enc); i++)
+    {
+        ESP_LOGI("address enc.", "[IN]valid [%d] %s", i, invalid_address_enc[i].hrp);
+        TEST_ASSERT_EQUAL_INT(seqwit_verify_invalid_enc(invalid_address_enc[i]), 0);
     }
 }
 
@@ -248,6 +264,14 @@ static int checksum_verify(checksum_vector_data_t checksum_data, bech32_encoding
     }
     // test pass
     return 1;
+}
+static int seqwit_verify_invalid_enc(invalid_address_data_t invalid_address_enc)
+{
+    char rebuild[93];
+    static const uint8_t program[42] = {0};
+
+    return segwit_addr_encode(rebuild, invalid_address_enc.hrp, invalid_address_enc.version,
+                              program, invalid_address_enc.program_length);
 }
 
 static int _strncasecmp(const char *s1, const char *s2, size_t n)

@@ -43,7 +43,7 @@ void app_main(void)
     */
     print_banner("Testing [wallet] component");
     UNITY_BEGIN();
-    unity_run_tests_by_tag("[crypto]", false);
+    unity_run_tests_by_tag("[segwit_addr]", false);
     UNITY_END();
     /*
     print_banner("Running interactive menu");
