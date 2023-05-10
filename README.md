@@ -34,10 +34,8 @@ Unitary [tests passed](./components/blocks/test/test_blocks.c)
   - [ ] rfc6979
   - [ ] ripemd160
   - [ ] script
-  - [ ] secp256k1 [WIP]
-  - [ ] segwit_addr [WIP]
-  
-    testing
+  - [ ] secp256k1
+  - [X] segwit_addr
   - [ ] sha [WIP]
 
 - [X] **helpers**
