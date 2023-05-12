@@ -35,17 +35,17 @@ void app_main(void)
     UNITY_BEGIN();
     unity_run_tests_by_tag("[screen]", false);
     UNITY_END();
-
+    */
     print_banner("Testing [storage] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[storage]", false);
     UNITY_END();
-    */
-    print_banner("Testing [wallet] component");
-    UNITY_BEGIN();
-    unity_run_tests_by_tag("[base58]", false);
-    UNITY_END();
     /*
+    print_banner("Testing [crypto] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[crypto]", false);
+    UNITY_END();
+    
     print_banner("Running interactive menu");
     unity_run_menu();
     */

@@ -1,5 +1,4 @@
-file(GLOB_RECURSE SOURCES *.c)
 idf_component_register(
-    SRCS ${SOURCES}
+    SRCS "storage.c"
     INCLUDE_DIRS "include"
-    REQUIRES cmock)
+    REQUIRES cmock nvs_flash)
