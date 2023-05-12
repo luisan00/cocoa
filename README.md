@@ -8,35 +8,30 @@
 Unitary [tests passed](./components/blocks/test/test_blocks.c)
 
 - [ ] **crypto**
-  - [ ] address [WIP]
+  - [ ] address [WIP] Unitary test under development
   - [ ] aes
-  - [ ] base58 [WIP}
+  - [X] base58
   - [ ] bignum [WIP]
-  - [ ] bip32: [WIP]
-   
-    Unitary tests under development
-  - [ ] bip39
- 
-    Unitary tests under development
-  
+  - [ ] bip32: [WIP] Unitary tests under development
+  - [ ] bip39: [WIP] Unitary tests under development
   - [ ] blake2
   - [ ] cardano
   - [ ] check_mem
   - [ ] curves: [WIP]
   - [ ] ed25519-donna
   - [ ] groestl
-  - [ ] hasher [WIP]
-  - [ ] hmac [WIP]
-  - [ ] memzero [WIP]
+  - [X] hasher [WIP]
+  - [X] hmac
+  - [ ] memzero [WIP]: Unitary test under development
   - [ ] nist256p1
   - [ ] pkdf2
-  - [ ] rand: [WIP]
-  - [ ] rfc6979
-  - [ ] ripemd160
+  - [ ] rand: [WIP] 
+  - [X] rfc6979
+  - [X] ripemd160
   - [ ] script
-  - [ ] secp256k1
+  - [X] secp256k1
   - [X] segwit_addr
-  - [ ] sha [WIP]
+  - [X] sha
 
 - [X] **helpers**
 
@@ -44,7 +39,7 @@ Unitary [tests passed](./components/blocks/test/test_blocks.c)
 
 - [ ] **screen**
 
-- [ ] **storage**
+- [ ] **storage** [WIP] Under development
 
 ## License
 
