@@ -1,3 +1,7 @@
+/**
+ * @brief
+ * @{
+ */
 #ifndef HMI_H
 #define HMI_H
 
@@ -12,4 +16,5 @@ esp_err_t hmi_init(void);
 #ifdef __cplusplus
 }
 #endif
-#endif // HMI_H
+#endif /* HMI_H */
+/** @} */

@@ -39,54 +39,44 @@ static int verify_b58_encode(base58_vector_t in);
 static int verify_b58_decode(base58_vector_t in);
 
 // test private functions
-TEST_CASE("Test base58 encode", tag)
-{
-    for (size_t i = 0; i < ARRAY_SIZEOF(base58_vectors); i++)
-    {
+TEST_CASE("Test base58 encode", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(base58_vectors); i++) {
         TEST_ASSERT_EQUAL_INT(_b58_encode(base58_vectors[i]), 1);
         ESP_LOGI(tag, "base58 encode [%d]", i);
     }
 }
 // test private functions
-TEST_CASE("Test base58 decode", tag)
-{
-    for (size_t i = 0; i < ARRAY_SIZEOF(base58_vectors); i++)
-    {
+TEST_CASE("Test base58 decode", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(base58_vectors); i++) {
         TEST_ASSERT_EQUAL_INT(_b58_decode(base58_vectors[i]), 1);
         ESP_LOGI(tag, "base58 decode [%d]", i);
     }
 }
 
 // public function
-TEST_CASE("Test base58 encode check", tag)
-{
-    for (size_t i = 0; i < ARRAY_SIZEOF(check_base58_vectors); i++)
-    {
+TEST_CASE("Test base58 encode check", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(check_base58_vectors); i++) {
         TEST_ASSERT_EQUAL_INT(verify_b58_encode(check_base58_vectors[i]), 1);
         ESP_LOGI(tag, "verify base58 [EN]code [%d] %s", i, str_info(check_base58_vectors[i].hex));
     }
 }
 
 // public function
-TEST_CASE("Test base58 decode check", tag)
-{
-    for (size_t i = 0; i < ARRAY_SIZEOF(check_base58_vectors); i++)
-    {
+TEST_CASE("Test base58 decode check", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(check_base58_vectors); i++) {
         TEST_ASSERT_EQUAL_INT(verify_b58_decode(check_base58_vectors[i]), 1);
         ESP_LOGI("_", "verify base58 [DE]code [%d] %s", i, str_info(check_base58_vectors[i].b58));
     }
 }
 
-static int _b58_encode(base58_vector_t in)
-{
+static int _b58_encode(base58_vector_t in) {
     char *str = (char *)malloc(__MAX_STR_SIZE__);
     size_t str_size = __MAX_STR_SIZE__;
 
     // param size will return the length that str should be
     int res = b58enc(str, &str_size, fromhex(in.hex), strlen(in.hex) / 2);
     // 0, error, 1 continue
-    if (res == 0)
-    {
+    if (res == 0) {
         free(str);
         return 0;
     }
@@ -95,16 +85,14 @@ static int _b58_encode(base58_vector_t in)
     // should write [size] bytes to str
     b58enc(str, &str_size, fromhex(in.hex), strlen(in.hex) / 2);
     // check if both strings are the same
-    if (equal_char_array(in.b58, str, strlen(in.b58) + 1) != 1)
-    {
+    if (equal_char_array(in.b58, str, strlen(in.b58) + 1) != 1) {
         free(str);
         return 0;
     }
     free(str);
     return 1;
 }
-static int _b58_decode(base58_vector_t in)
-{
+static int _b58_decode(base58_vector_t in) {
     uint8_t *buff = (uint8_t *)malloc(strlen(in.b58));
     size_t buff_size = strlen(in.b58);
 
@@ -119,37 +107,33 @@ static int _b58_decode(base58_vector_t in)
     return equal_char_array(in.hex, tohex(bin, sizeof(bin)), strlen(in.hex));
 }
 
-static int verify_b58_encode(base58_vector_t in)
-{
+static int verify_b58_encode(base58_vector_t in) {
 
     char *str = (char *)malloc(__MAX_STR_SIZE__ * sizeof(char));
 
-    int res = base58_encode_check(fromhex(in.hex), strlen(in.hex) / 2, HASHER_SHA2D, str, __MAX_STR_SIZE__);
+    int res = base58_encode_check(fromhex(in.hex), strlen(in.hex) / 2, HASHER_SHA2D, str,
+                                  __MAX_STR_SIZE__);
     // Compare length
-    if (res != strlen(in.b58) + 1)
-    {
+    if (res != strlen(in.b58) + 1) {
         free(str);
         return 0;
     }
     str = (char *)realloc(str, res);
 
     // compare strings
-    if (equal_char_array(in.b58, str, strlen(in.b58)) != 1)
-    {
+    if (equal_char_array(in.b58, str, strlen(in.b58)) != 1) {
         free(str);
         return 0;
     }
     return 1;
 }
 
-static int verify_b58_decode(base58_vector_t in)
-{
+static int verify_b58_decode(base58_vector_t in) {
     uint8_t *data = malloc(strlen(in.b58) * 2);
 
     int res = base58_decode_check(in.b58, HASHER_SHA2D, data, strlen(in.b58) * 2 + 1);
 
-    if (res == 0)
-    {
+    if (res == 0) {
         free(data);
         return 0;
     }
@@ -157,15 +141,13 @@ static int verify_b58_decode(base58_vector_t in)
     data = realloc(data, res);
 
     // verify length
-    if (res != base58_decode_check(in.b58, HASHER_SHA2D, data, res))
-    {
+    if (res != base58_decode_check(in.b58, HASHER_SHA2D, data, res)) {
         free(data);
         return 0;
     }
 
     // verify if both strings are the same
-    if (equal_char_array(in.hex, tohex(data, res), res * 2) == 0)
-    {
+    if (equal_char_array(in.hex, tohex(data, res), res * 2) == 0) {
         free(data);
         return 0;
     }
@@ -174,11 +156,11 @@ static int verify_b58_decode(base58_vector_t in)
     return 1;
 }
 
-static const char *str_info(const char *str)
-{
+static const char *str_info(const char *str) {
     char buff[12 + 8UL];
     size_t out_sz = strlen(str);
-    sprintf(buff, "%c%c%c%c...%c%c%c%c", str[0], str[1], str[2], str[3], str[out_sz - 4], str[out_sz - 3], str[out_sz - 2], str[out_sz - 1]);
+    sprintf(buff, "%c%c%c%c...%c%c%c%c", str[0], str[1], str[2], str[3], str[out_sz - 4],
+            str[out_sz - 3], str[out_sz - 2], str[out_sz - 1]);
     const char *out = (const char *)buff;
     return out;
 }

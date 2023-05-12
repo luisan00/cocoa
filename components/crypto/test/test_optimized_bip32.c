@@ -16,19 +16,17 @@
 
 static const char tag[] = "[crypto][bip32][optimized-bip32]";
 
-static void TEST_LOGE(const char *msg, const char *_e, const char *_r)
-{
-    ESP_LOGE(tag, "%-55s \x1b[48:5:8m%-10s\x1b[0m\nexpected:\t%s\nresult:\t\t%s\n", msg, "fail", _e, _r);
+static void TEST_LOGE(const char *msg, const char *_e, const char *_r) {
+    ESP_LOGE(tag, "%-55s \x1b[48:5:8m%-10s\x1b[0m\nexpected:\t%s\nresult:\t\t%s\n", msg, "fail", _e,
+             _r);
     TEST_FAIL();
 }
 
-static void TEST_LOGI(const char *msg)
-{
+static void TEST_LOGI(const char *msg) {
     ESP_LOGI(tag, "%-55s \x1b[48:5:31m%-10s\x1b[0m", msg, "successful");
 }
 
-TEST_CASE("optimized bip32", tag)
-{
+TEST_CASE("optimized bip32", tag) {
     char msg[64];
 
     HDNode root;
@@ -45,8 +43,7 @@ TEST_CASE("optimized bip32", tag)
 
     uint64_t elapsed; // = esp_timer_get_time();
 
-    for (int i = 0; i < 50; i++)
-    {
+    for (int i = 0; i < 50; i++) {
 
         memcpy(&node, &root, sizeof(HDNode));
 
@@ -55,20 +52,18 @@ TEST_CASE("optimized bip32", tag)
         // unoptimized
         hdnode_public_ckd(&node, i);
         TEST_ASSERT_EQUAL(hdnode_fill_public_key(&node), 0);
-        ecdsa_get_address(node.public_key, 0, HASHER_SHA2_RIPEMD, HASHER_SHA2D,
-                          addr1, sizeof(addr1));
+        ecdsa_get_address(node.public_key, 0, HASHER_SHA2_RIPEMD, HASHER_SHA2D, addr1,
+                          sizeof(addr1));
 
         // optimized
-        hdnode_public_ckd_address_optimized(&pub, root.chain_code, i, 0,
-                                            HASHER_SHA2_RIPEMD, HASHER_SHA2D, addr2,
-                                            sizeof(addr2), 0);
+        hdnode_public_ckd_address_optimized(&pub, root.chain_code, i, 0, HASHER_SHA2_RIPEMD,
+                                            HASHER_SHA2D, addr2, sizeof(addr2), 0);
         // count relative millis
         elapsed = esp_timer_get_time() - elapsed;
 
         // check if both addresses are the same
-        if (equal_char_array(addr1, addr2, strlen(addr1)) != true)
-        {
-            // if addresses are not the same, the test will fail 
+        if (equal_char_array(addr1, addr2, strlen(addr1)) != true) {
+            // if addresses are not the same, the test will fail
             TEST_LOGE("addr1 is not equal to addr2", addr1, addr2);
         }
         // print partial results

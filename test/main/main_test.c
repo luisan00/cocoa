@@ -1,11 +1,10 @@
+#include "unity.h"
 #include <stdio.h>
 #include <string.h>
-#include "unity.h"
 
 static void print_banner(const char *text);
 
-void app_main(void)
-{
+void app_main(void) {
     /* These are the different ways of running registered tests.
      * In practice, only one of them is usually needed.
      *
@@ -13,19 +12,19 @@ void app_main(void)
      * (number of tests executed/failed/ignored) of tests executed between these calls.
      */
 
-    //unity_run_all_tests();// runs for all registerd tests
+    // unity_run_all_tests();// runs for all registerd tests
 
     /*
     print_banner("Testing [blocks] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[blocks]", false);
     UNITY_END();
-    
+
     print_banner("Testing [helpers] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[helpers]", false);
     UNITY_END();
-    
+
     print_banner("Testing [hmi] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[hmi]", false);
@@ -45,13 +44,10 @@ void app_main(void)
     UNITY_BEGIN();
     unity_run_tests_by_tag("[crypto]", false);
     UNITY_END();
-    
+
     print_banner("Running interactive menu");
     unity_run_menu();
     */
 }
 
-static void print_banner(const char *text)
-{
-    printf("\n#### %s #####\n\n", text);
-}
+static void print_banner(const char *text) { printf("\n#### %s #####\n\n", text); }

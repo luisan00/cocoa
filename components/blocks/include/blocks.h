@@ -24,21 +24,10 @@
 #define BLOCKS_H
 #include <stdint.h>
 
-
 /**
  * @brief define a block header
- *   .version ........int32_t
- *   .previous_hash ..uint32[32]
- *   .merkle_root ....uint32[32]
- *   .time ...........uint32_t
- *   .bits ...........uint32_t
- *   .nonce ..........uint32_t
- *   -------------------------
- *   .Length .........80 bytes
  */
-
-typedef struct block_header_t
-{
+typedef struct block_header_t {
     int32_t version;           /*!> little....4 bytes */
     uint8_t previous_hash[32]; /*!> internal.32   "   */
     uint8_t merkle_root[32];   /*!> internal.32   "   */
