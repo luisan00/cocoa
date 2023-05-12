@@ -3,16 +3,22 @@
 ## Project status by component
 
 
-- [X] blocks
-
-Unitary [tests passed](./components/blocks/test/test_blocks.c)
+- [X] blocks [tests passed](./components/blocks/test/test_blocks.c)
 
 - [ ] **crypto**
   - [ ] address [WIP] Unitary test under development
   - [ ] aes
-  - [X] base58
+  - [X] base58 [tests passed](./components/crypto/test/test_base58.c)
   - [ ] bignum [WIP]
-  - [ ] bip32: [WIP] Unitary tests under development
+  - [X] bip32
+    
+    - [test-vector-1](./components/crypto/test/test_v1_bip32.c)
+    - [test-vector-2](./components/crypto/test/test_v2_bip32.c)
+    - [test-vector-3](./components/crypto/test/test_v3_bip32.c)
+    - [test-vector-4](./components/crypto/test/test_v4_bip32.c)
+    - [test_compare](./components/crypto/test/test_compare_bip32.c)
+    - [test_optimized](./components/crypto/test/test_optimized_bip32.c)
+
   - [ ] bip39: [WIP] Unitary tests under development
   - [ ] blake2
   - [ ] cardano
