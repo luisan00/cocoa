@@ -26,18 +26,18 @@
   - [ ] curves: [WIP]
   - [ ] ed25519-donna
   - [ ] groestl
-  - [X] hasher [WIP]
-  - [X] hmac
+  - [ ] hasher [WIP]
+  - [ ] hmac [WIP]
   - [ ] memzero [WIP]: Unitary test under development
   - [ ] nist256p1
   - [ ] pkdf2
-  - [ ] rand: [WIP] 
-  - [X] rfc6979
-  - [X] ripemd160
+  - [ ] rand: [WIP]
+  - [ ] rfc6979
+  - [ ] ripemd160
   - [ ] script
-  - [X] secp256k1
-  - [X] segwit_addr
-  - [X] sha
+  - [ ] secp256k1
+  - [ ] segwit_addr
+  - [ ] sha
 
 - [X] **helpers**
 
