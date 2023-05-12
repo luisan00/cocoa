@@ -36,7 +36,7 @@
   - [ ] ripemd160
   - [ ] script
   - [ ] secp256k1
-  - [ ] segwit_addr
+  - [X] segwit_addr [test](./components/crypto/test/test_segwit_addr.c)
   - [ ] sha
 
 - [X] **helpers**
