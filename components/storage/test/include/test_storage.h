@@ -23,23 +23,25 @@
 #define TEST_STORAGE_H
 #include <stdint.h>
 
-typedef struct
-{
+typedef struct {
     const char *key;
     uint8_t value;
 } kv_u8_t;
 
-typedef struct
-{
+typedef struct {
     const char *key;
     uint32_t value;
 } kv_u32_t;
 
-typedef struct
-{
+typedef struct {
     const char *key;
     const char *value;
 } kv_str_t;
+
+typedef struct {
+    const char *key;
+    const char *value;
+} kv_blob_t;
 
 static kv_u8_t u8_data[] = {
     {"u8_a", 0x00},
@@ -56,10 +58,30 @@ static kv_u32_t u32_data[] = {
 };
 
 static kv_str_t str_data[] = {
-    {"str_a", "abcdef0123458789abcdef0123456789"},
-    {"str_b", "bcdef0123456789abcdef0123456789a"},
-    {"str_c", "cdef0123456789abcdef0123456789ab"},
-    {"str_d", "def0123456789abcdef0123456789abc"},
+    {"str_a", "abcdef0123458789abcdef0123456789abcdef0123458789abcdef0123456789abcdef"},
+    {"str_b", "bcdef0123456789abcdef0123456789abcdef0123456789abc"},
+    {"str_c", "cdef0123456789abcdef0123456789abcdef0123456789"},
+    {"str_d", "def0123456789abcdef0123456789abcdef0123456789"},
 };
+
+static kv_blob_t blob_data[] = {
+    {
+        "blob_a",
+        "0a0b0c0d0e0f",
+    },
+    {
+        "blob_b",
+        "0b0c0d0e0f0a",
+    },
+    {
+        "blob_c",
+        "0c0d0e0f0a0b",
+    },
+    {
+        "blob_d",
+        "0d0e0f0a0b0c",
+    },
+};
+
 #endif
 /** @} */

@@ -29,9 +29,17 @@ extern "C" {
 #endif
 esp_err_t storage_init(void);
 esp_err_t storage_open(const char *ns, nvs_open_mode_t m, nvs_handle_t *h);
+// save value by key
 esp_err_t storage_set_u8(const char *ns, const char *k, uint8_t v);
 esp_err_t storage_set_u32(const char *ns, const char *k, uint32_t v);
 esp_err_t storage_set_str(const char *ns, const char *k, const char *v);
+esp_err_t storage_set_blob(const char *ns, const char *k, const uint8_t *v, size_t s);
+// get values by key
+esp_err_t storage_get_u8(const char *ns, const char *k, uint8_t *v);
+esp_err_t storage_get_u32(const char *ns, const char *k, uint32_t *v);
+esp_err_t storage_get_str(const char *ns, const char *k, char *v, size_t *str_len);
+
+// delete keyed entries
 esp_err_t storage_delete_key(const char *ns, const char *k);
 esp_err_t storage_commit(nvs_handle_t h);
 #ifdef __cplusplus
