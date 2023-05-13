@@ -19,6 +19,9 @@
  */
 #ifndef LOGGER_H
 #define LOGGER_H
+
+#include <string.h>
+
 #include "esp_log.h"
 
 /**

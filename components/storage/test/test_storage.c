@@ -2,9 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "esp_log.h"
-#include "nvs.h"
-#include "esp_timer.h"
+
 #include "unity.h"
 
 #include "storage.h"
@@ -14,10 +12,40 @@
 #include "test_storage.h"
 
 static const char tag[] = "[storage]";
-
+static const char ns[] = "ns_test";
 // INIT
-TEST_CASE("Testing NVS init", tag)
-{
-    loge("quiero %d pero tengo %d", 4, 2);
-    TEST_ASSERT_EQUAL(1, 1);
+TEST_CASE("NVS init", tag) {
+    //
+    TEST_ASSERT_EQUAL(0, storage_init());
+}
+// INIT
+TEST_CASE("NVS should save u8", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(u8_data); i++) {
+        TEST_ASSERT_EQUAL(0, storage_set_u8(ns, u8_data[i].key, u8_data[i].value));
+    }
+}
+//
+TEST_CASE("NVS should save u32", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(u32_data); i++) {
+        TEST_ASSERT_EQUAL(0, storage_set_u32(ns, u32_data[i].key, u32_data[i].value));
+    }
+}
+//
+TEST_CASE("NVS should save str", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(str_data); i++) {
+        TEST_ASSERT_EQUAL(0, storage_set_str(ns, str_data[i].key, str_data[i].value));
+    }
+}
+// INIT
+TEST_CASE("NVS should delete all u8 and u32 entries ", tag) {
+    for (size_t i = 0; i < ARRAY_SIZEOF(u8_data); i++) {
+        TEST_ASSERT_EQUAL(0, storage_delete_key(ns, u8_data[i].key));
+    }
+
+    for (size_t i = 0; i < ARRAY_SIZEOF(u32_data); i++) {
+        TEST_ASSERT_EQUAL(0, storage_delete_key(ns, u32_data[i].key));
+    }
+    for (size_t i = 0; i < ARRAY_SIZEOF(str_data); i++) {
+        TEST_ASSERT_EQUAL(0, storage_delete_key(ns, str_data[i].key));
+    }
 }

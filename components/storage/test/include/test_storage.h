@@ -41,21 +41,21 @@ typedef struct
     const char *value;
 } kv_str_t;
 
-static kv_u8_t kv_u8[] = {
+static kv_u8_t u8_data[] = {
     {"u8_a", 0x00},
     {"u8_b", 0x01},
     {"u8_c", 0x02},
     {"u8_d", 0x03},
 };
 
-static kv_u32_t kv_u32[] = {
+static kv_u32_t u32_data[] = {
     {"u32_a", 0x10000000},
     {"u32_b", 0x01000001},
     {"u32_c", 0x00100002},
     {"u32_d", 0x00010003},
 };
 
-static kv_str_t kv_str[] = {
+static kv_str_t str_data[] = {
     {"str_a", "abcdef0123458789abcdef0123456789"},
     {"str_b", "bcdef0123456789abcdef0123456789a"},
     {"str_c", "cdef0123456789abcdef0123456789ab"},

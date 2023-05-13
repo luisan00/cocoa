@@ -21,17 +21,19 @@
  */
 #ifndef STORAGE_H
 #define STORAGE_H
+#include <stdint.h>
+#include "nvs.h"
 #include "esp_err.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/**
- * @brief initialize the default NVS partition
- * @return esp_err_t ESP_OK: succeed, ESP_(others): fail
- */
-esp_err_t nvs_init(void);
-
+esp_err_t storage_init(void);
+esp_err_t storage_open(const char *ns, nvs_open_mode_t m, nvs_handle_t *h);
+esp_err_t storage_set_u8(const char *ns, const char *k, uint8_t v);
+esp_err_t storage_set_u32(const char *ns, const char *k, uint32_t v);
+esp_err_t storage_set_str(const char *ns, const char *k, const char *v);
+esp_err_t storage_delete_key(const char *ns, const char *k);
+esp_err_t storage_commit(nvs_handle_t h);
 #ifdef __cplusplus
 }
 #endif

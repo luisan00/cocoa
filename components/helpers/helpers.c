@@ -103,6 +103,7 @@ bool equal_u8_array(const uint8_t *arr_1, const uint8_t *arr_2, size_t size) {
             return false;
         }
     }
+    return true;
 }
 
 //
