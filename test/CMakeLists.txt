@@ -17,6 +17,7 @@ set(TEST_COMPONENTS
     "screen"
     "storage"
     "crypto"
+    "cephes"
 )
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)

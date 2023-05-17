@@ -34,20 +34,25 @@ void app_main(void) {
     UNITY_BEGIN();
     unity_run_tests_by_tag("[screen]", false);
     UNITY_END();
-    */
+
     print_banner("Testing [storage] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[storage]", false);
     UNITY_END();
-    /*
-    print_banner("Testing [crypto] component");
-    UNITY_BEGIN();
-    unity_run_tests_by_tag("[crypto]", false);
-    UNITY_END();
 
+    print_banner("Testing [rand] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[rand]", false);
+    UNITY_END();
+    */
+    print_banner("Testing [cephes] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[cephes]", false);
+    UNITY_END();
+    //
     print_banner("Running interactive menu");
     unity_run_menu();
-    */
+    
 }
 
 static void print_banner(const char *text) { printf("\n#### %s #####\n\n", text); }

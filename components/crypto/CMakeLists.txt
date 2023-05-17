@@ -50,6 +50,7 @@ idf_component_register(
         "pbkdf2/pbkdf2.c"
         # sub-component random
         "rand/rand.c"
+        "rand/statistical.c"
         # sub-component rfc6979
         "rfc6979/rfc6979.c"
         # sub-component ripemd160
@@ -92,5 +93,5 @@ idf_component_register(
         "segwit_addr/include"
         "sha/include"
     REQUIRES 
-        cmock
+        cmock logger
 )
