@@ -47,7 +47,7 @@
 
 - [ ] **screen**
 
-- [ ] **storage** [WIP] Under development
+- [ ] **storage** [WIP Under development](./components/storage/test/test_storage.c)
 
 ## License
 
