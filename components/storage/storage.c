@@ -102,6 +102,25 @@ esp_err_t storage_get_str(const char *ns, const char *k, char *str, size_t *str_
     nvs_close(h);
     return res;
 }
+//
+esp_err_t storage_get_blob(const char *ns, const char *k, uint8_t *v, size_t *blob_len) {
+    nvs_handle_t h;
+    ESP_ERROR_CHECK(storage_open(ns, NVS_READONLY, &h));
+    esp_err_t res = nvs_get_blob(h, k, NULL, blob_len);
+    if (res == ESP_ERR_NVS_NOT_FOUND) {
+        loge("get_blob() for %s not found", k);
+        nvs_close(h);
+        return res;
+    }
+    res = nvs_get_blob(h, k, v, blob_len);
+    if (res != ESP_OK) {
+        loge("get_blob() for %s fail: %s", k, esp_err_to_name(res));
+        nvs_close(h);
+        return res;
+    }
+    nvs_close(h);
+    return res;
+}
 
 //
 esp_err_t storage_delete_key(const char *ns, const char *k) {

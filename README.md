@@ -5,6 +5,8 @@
 
 - [X] blocks [tests passed](./components/blocks/test/test_blocks.c)
 
+- [ ] cephes [WIP](./components/cephes/test/test_gamma.c)
+
 - [ ] **crypto**
   - [ ] address [WIP] Unitary test under development
   - [ ] aes
@@ -31,7 +33,7 @@
   - [ ] memzero [WIP]: Unitary test under development
   - [ ] nist256p1
   - [ ] pkdf2
-  - [ ] rand: [WIP]
+  - [ ] rand: [WIP statistical tests](./components/crypto/test/test_v1_rand.c) 
   - [ ] rfc6979
   - [ ] ripemd160
   - [ ] script

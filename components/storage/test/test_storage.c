@@ -52,6 +52,11 @@ TEST_CASE("Read should work", tag) {
         TEST_ASSERT_EQUAL_STRING(str_data[i].value, ptr);
         free(ptr);
     }
+    for (size_t i = 0; i < ARRAY_SIZEOF(blob_data); i++)
+    {
+        /* code */
+    }
+    
 }
 
 TEST_CASE("Delete should work", tag) {

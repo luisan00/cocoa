@@ -38,7 +38,7 @@ esp_err_t storage_set_blob(const char *ns, const char *k, const uint8_t *v, size
 esp_err_t storage_get_u8(const char *ns, const char *k, uint8_t *v);
 esp_err_t storage_get_u32(const char *ns, const char *k, uint32_t *v);
 esp_err_t storage_get_str(const char *ns, const char *k, char *v, size_t *str_len);
-
+esp_err_t storage_get_blob(const char *ns, const char *k, uint8_t *v, size_t *blob_len);
 // delete keyed entries
 esp_err_t storage_delete_key(const char *ns, const char *k);
 esp_err_t storage_commit(nvs_handle_t h);
