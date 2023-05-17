@@ -15,6 +15,8 @@ static const char tag[] = "[storage]";
 static const char ns[] = "ns_test";
 
 TEST_CASE("NVS init", tag) { TEST_ASSERT_EQUAL(0, storage_init()); }
+
+// save registers -- should work
 TEST_CASE("Save should work", tag) {
     for (size_t i = 0; i < ARRAY_SIZEOF(u8_data); i++) {
         TEST_ASSERT_EQUAL(0, storage_set_u8(ns, u8_data[i].key, u8_data[i].value));
@@ -30,6 +32,7 @@ TEST_CASE("Save should work", tag) {
                                               strlen(blob_data[i].value) / 2));
     }
 }
+// Get registers -- should work
 TEST_CASE("Read should work", tag) {
     for (size_t i = 0; i < ARRAY_SIZEOF(u8_data); i++) {
         uint8_t v;
@@ -54,11 +57,20 @@ TEST_CASE("Read should work", tag) {
     }
     for (size_t i = 0; i < ARRAY_SIZEOF(blob_data); i++)
     {
-        /* code */
+        uint8_t *ptr = (uint8_t *)malloc(512 * sizeof(uint8_t));
+        size_t blob_size;
+        // 1. if ok
+        TEST_ASSERT_EQUAL(0, storage_get_blob(ns, blob_data[i].key, ptr, &blob_len));
+        // 2. if equal length, including \0
+        TEST_ASSERT_EQUAL(strlen(blob_data[i].value) + 1, blob_len);
+        // 3. if equal string
+        TEST_ASSERT_EQUAL_STRING(blob_data[i].value, ptr);
+        free(ptr);
+
     }
     
 }
-
+// delete all -- should work
 TEST_CASE("Delete should work", tag) {
     for (size_t i = 0; i < ARRAY_SIZEOF(u8_data); i++) {
         TEST_ASSERT_EQUAL(0, storage_delete_key(ns, u8_data[i].key));
@@ -73,6 +85,8 @@ TEST_CASE("Delete should work", tag) {
         TEST_ASSERT_EQUAL(0, storage_delete_key(ns, blob_data[i].key));
     }
 }
+
+// Delete some previously deleted registers -- should FAIL
 TEST_CASE("Delete should fail", tag) {
     TEST_ASSERT_EQUAL(ESP_ERR_NVS_NOT_FOUND, storage_delete_key(ns, u8_data[0].key));
     TEST_ASSERT_EQUAL(ESP_ERR_NVS_NOT_FOUND, storage_delete_key(ns, u32_data[0].key));
