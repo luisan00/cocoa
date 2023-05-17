@@ -13,6 +13,19 @@ esp_err_t storage_init(void) {
     }
     return ESP_OK;
 }
+
+//
+esp_err_t storage_secure_init(nvs_sec_cfg_t cfg) {
+    // ToDo
+    return ESP_FAIL;
+}
+
+//
+esp_err_t storage_deinit(void) {
+    // ToDo
+    return ESP_FAIL;
+}
+
 //
 esp_err_t storage_open(const char *ns, nvs_open_mode_t m, nvs_handle_t *h) {
     esp_err_t res = nvs_open(ns, m, h);
@@ -22,6 +35,7 @@ esp_err_t storage_open(const char *ns, nvs_open_mode_t m, nvs_handle_t *h) {
     return res;
 }
 
+//
 esp_err_t storage_set_u8(const char *ns, const char *k, uint8_t v) {
     nvs_handle_t h;
     ESP_ERROR_CHECK(storage_open(ns, NVS_READWRITE, &h));
@@ -30,6 +44,7 @@ esp_err_t storage_set_u8(const char *ns, const char *k, uint8_t v) {
     nvs_close(h);
     return ESP_OK;
 }
+
 //
 esp_err_t storage_set_u32(const char *ns, const char *k, uint32_t v) {
     nvs_handle_t h;
@@ -39,6 +54,8 @@ esp_err_t storage_set_u32(const char *ns, const char *k, uint32_t v) {
     nvs_close(h);
     return ESP_OK;
 }
+
+//
 esp_err_t storage_set_str(const char *ns, const char *k, const char *v) {
     nvs_handle_t h;
     ESP_ERROR_CHECK(storage_open(ns, NVS_READWRITE, &h));
@@ -47,6 +64,7 @@ esp_err_t storage_set_str(const char *ns, const char *k, const char *v) {
     nvs_close(h);
     return ESP_OK;
 }
+
 //
 esp_err_t storage_set_blob(const char *ns, const char *k, const uint8_t *v, size_t s) {
     nvs_handle_t h;
@@ -56,6 +74,7 @@ esp_err_t storage_set_blob(const char *ns, const char *k, const uint8_t *v, size
     nvs_close(h);
     return ESP_OK;
 }
+
 //
 esp_err_t storage_get_u8(const char *ns, const char *k, uint8_t *v) {
     nvs_handle_t h;
@@ -83,17 +102,18 @@ esp_err_t storage_get_u32(const char *ns, const char *k, uint32_t *v) {
     nvs_close(h);
     return res;
 }
+
 //
-esp_err_t storage_get_str(const char *ns, const char *k, char *str, size_t *str_len) {
+esp_err_t storage_get_str(const char *ns, const char *k, char *str, size_t *s) {
     nvs_handle_t h;
     ESP_ERROR_CHECK(storage_open(ns, NVS_READONLY, &h));
-    esp_err_t res = nvs_get_str(h, k, NULL, str_len);
+    esp_err_t res = nvs_get_str(h, k, NULL, s);
     if (res == ESP_ERR_NVS_NOT_FOUND) {
         loge("get_str() for %s not found", k);
         nvs_close(h);
         return res;
     }
-    res = nvs_get_str(h, k, str, str_len);
+    res = nvs_get_str(h, k, str, s);
     if (res != ESP_OK) {
         loge("get_str() for %s fail: %s", k, esp_err_to_name(res));
         nvs_close(h);
@@ -102,17 +122,18 @@ esp_err_t storage_get_str(const char *ns, const char *k, char *str, size_t *str_
     nvs_close(h);
     return res;
 }
+
 //
-esp_err_t storage_get_blob(const char *ns, const char *k, uint8_t *v, size_t *blob_len) {
+esp_err_t storage_get_blob(const char *ns, const char *k, uint8_t *v, size_t *s) {
     nvs_handle_t h;
     ESP_ERROR_CHECK(storage_open(ns, NVS_READONLY, &h));
-    esp_err_t res = nvs_get_blob(h, k, NULL, blob_len);
+    esp_err_t res = nvs_get_blob(h, k, NULL, s);
     if (res == ESP_ERR_NVS_NOT_FOUND) {
         loge("get_blob() for %s not found", k);
         nvs_close(h);
         return res;
     }
-    res = nvs_get_blob(h, k, v, blob_len);
+    res = nvs_get_blob(h, k, v, s);
     if (res != ESP_OK) {
         loge("get_blob() for %s fail: %s", k, esp_err_to_name(res));
         nvs_close(h);
@@ -137,10 +158,23 @@ esp_err_t storage_delete_key(const char *ns, const char *k) {
     return res;
 }
 
+//
+esp_err_t storage_delete_all(const char *ns){
+    // ToDo
+    return ESP_FAIL;
+}
+
+//
 esp_err_t storage_commit(nvs_handle_t h) {
     esp_err_t res = nvs_commit(h);
     if (res != ESP_OK) {
         loge("Error: %s, committing changes", esp_err_to_name(res));
     }
     return res;
+}
+
+//
+esp_err_t storage_flash_erase(void){
+    // ToDo
+    return ESP_FAIL;
 }
