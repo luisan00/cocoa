@@ -39,20 +39,20 @@ void app_main(void) {
     UNITY_BEGIN();
     unity_run_tests_by_tag("[storage]", false);
     UNITY_END();
-
-    print_banner("Testing [rand] component");
+ */
+    print_banner("Testing component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[rand]", false);
     UNITY_END();
-    */
-    print_banner("Testing [cephes] component");
-    UNITY_BEGIN();
-    unity_run_tests_by_tag("[cephes]", false);
-    UNITY_END();
+    /*
+     print_banner("Testing [cephes] component");
+     UNITY_BEGIN();
+     unity_run_tests_by_tag("[cephes]", false);
+     UNITY_END();
+     */
     //
     print_banner("Running interactive menu");
     unity_run_menu();
-    
 }
 
 static void print_banner(const char *text) { printf("\n#### %s #####\n\n", text); }

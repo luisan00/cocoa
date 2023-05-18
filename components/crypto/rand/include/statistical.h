@@ -7,7 +7,6 @@
 #define STATISTICAL_H
 #include <stdint.h>
 #include <stddef.h>
-#define PI  3.14159265358979323846
 #define GET_BIT(ARRAY, NBIT) (ARRAY[NBIT / 8] >> (NBIT % 8)) & 1
 
 /**
@@ -22,8 +21,5 @@ double ft_monobit(uint8_t *buff, size_t buff_size);
 double ft_wblock(uint8_t *buff, size_t buff_size, int M);
 
 
-double finite_half_gamma_q(double a, double x);
-
-double igamc(double a, double x);
 #endif
 /** @} */

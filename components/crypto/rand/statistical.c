@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "statistical.h"
 #include "logger.h"
+#include "cephes.h"
 
 double ft_monobit(uint8_t *buff, size_t buff_size) {
     int n0 = 0;
@@ -26,7 +27,6 @@ double ft_wblock(uint8_t *buff, size_t buff_size, int M) {
     int N = n / M;         // number of blocks
     // important!  discard unused bits
     // proportion πi of ones for each block
-    // ones per block
     double sum = 0.0;
     for (int ni = 0; ni < N; ni++) {
         int n1 = 0;
@@ -35,35 +35,9 @@ double ft_wblock(uint8_t *buff, size_t buff_size, int M) {
                 n1++;
             }
         }
-        // (πi - 1/2)²
+        // SUM(πi - 1/2)² = (π0 - 1/2)² + (π1 - 1/2)² + (πn - 1/2)²
         sum += pow(((double)n1 / (double)M - 1.0 / 2.0), 2.0);
     }
     // igamc (N/2, sum/2)
-    return finite_half_gamma_q(N / 2.0, sum / 2.0);
-}
-
-double finite_half_gamma_q(double a, double x) {
-    int n;
-    double e;
-    double half;
-    double sum;
-    double term;
-
-    e = erfc(sqrt(x));
-
-    if ((e != 0.0) && (a > 1.0)) {
-        term = exp(-x) / sqrt(PI * x);
-        term *= x;
-        half = 1.0 / 2.0;
-        term /= half;
-        sum = term;
-
-        for (n = 2.0; n < a; n++) {
-            term /= n - half;
-            term *= x;
-            sum += term;
-        }
-        e += sum;
-    }
-    return e;
+    return cephes_igamc(N / 2.0, sum / 2.0);
 }

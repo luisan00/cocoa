@@ -93,5 +93,5 @@ idf_component_register(
         "segwit_addr/include"
         "sha/include"
     REQUIRES 
-        cmock logger
+        cmock logger cephes
 )

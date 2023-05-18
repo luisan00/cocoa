@@ -60,9 +60,9 @@ TEST_CASE("Read should work", tag) {
         uint8_t *ptr = (uint8_t *)malloc(512 * sizeof(uint8_t));
         size_t blob_size;
         // 1. if ok
-        TEST_ASSERT_EQUAL(0, storage_get_blob(ns, blob_data[i].key, ptr, &blob_len));
+        TEST_ASSERT_EQUAL(0, storage_get_blob(ns, blob_data[i].key, ptr, &blob_size));
         // 2. if equal length, including \0
-        TEST_ASSERT_EQUAL(strlen(blob_data[i].value) + 1, blob_len);
+        TEST_ASSERT_EQUAL(strlen(blob_data[i].value) + 1, blob_size);
         // 3. if equal string
         TEST_ASSERT_EQUAL_STRING(blob_data[i].value, ptr);
         free(ptr);
