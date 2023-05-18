@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2013-2014 Tomas Dzetkulic
  * Copyright (c) 2013-2014 Pavol Rusnak
  *
@@ -20,9 +20,13 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-
-#ifndef __RAND_H__
-#define __RAND_H__
+/**
+ * @brief Statistical tests for random numbers
+ * @ingroup components_crypto
+ * @{
+ */
+#ifndef RAND_H
+#define RAND_H
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -34,4 +38,5 @@ void random_buffer(uint8_t *buf, size_t len);
 uint32_t random_uniform(uint32_t n);
 void random_permute(char *buf, size_t len);
 
-#endif
+#endif /* RAND_H */
+/** @} */
