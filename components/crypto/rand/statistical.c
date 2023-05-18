@@ -6,19 +6,27 @@
 #include "logger.h"
 #include "cephes.h"
 
-double fntest_monobit(uint8_t *buff, size_t buff_size) {
+double fntest_monobit(uint8_t *buff, size_t buff_size, size_t n) {
+    // check if size(n) is equal or smaller than total bits (buff_size * 8)
+    if (n > buff_size * 8) {
+        loge("param [n] must be equal or smaller than the total number of bits");
+        return -1.0;
+    }
+    if (n == 0) {
+        n = buff_size * 8;
+    }
     int n0 = 0;
     int n1 = 0;
-    for (size_t i = 0; i < buff_size * 8; i++) {
+    for (size_t i = 0; i < n; i++) {
         if (GET_BIT(buff, i)) {
             n1++;
         } else {
             n0++;
         }
     }
-    // t-value: abs(n0 - n1) / sqrt(sizeof(buff) * 8)
-    // p-value: erfc(t-value/sqrt(2))
-    return erfc((abs(n0 - n1) / sqrt(sizeof(buff) * 8)) / sqrt(2));
+    // t-value: abs(n0 - n1) / sqrt(n)
+    // p-value: erfc(t-value / sqrt(2))
+    return erfc((abs(n0 - n1) / sqrt(n)) / sqrt(2));
 }
 
 double fntest_wblock(uint8_t *buff, size_t buff_size, int M) {
@@ -39,42 +47,44 @@ double fntest_wblock(uint8_t *buff, size_t buff_size, int M) {
         sum += pow(((double)n1 / (double)M - 1.0 / 2.0), 2.0);
     }
     // igamc (N/2, sum/2)
-    return cephes_igamc(N / 2.0, sum / 2.0);
+    double a = (double)N / 2.0;
+    double x = sum / 2.0;
+    return cephes_igamc(a, x);
 }
 
 // Runs test
-double fntest_runs(uint8_t *buff, size_t buff_size) {
+double fntest_runs(uint8_t *buff, size_t buff_size, size_t n) {
 
-    // uint8_t buff[] = {0x59, 0xff};;
-    // buff to bits =  1001 1010 1111 1111
-    // n = 10
-    // ε = 1001 1010 11
+    // check if size(n) is equal or smaller than total bits (buff_size * 8)
+    if (n > buff_size * 8) {
+        loge("n must be equal or smaller than the total number of bits");
+        return -1.0;
+    }
+    // ε = string of bits
+    // n = 10  : size of bit string to verify
+    // o = 6   : count ones
     //
     // pre-test proportion π of ones in the input sequence
-    // π = 6/n
-    // τ = 2 / sqrt(10)
-    int ones = 0;
-    int n = 10;
+    // π = o / n
+    // τ = 2 / sqrt(n)
+    int o = 0;
     // check if runs test is applicable
     for (size_t i = 0; i < n; i++) {
-
         if (GET_BIT(buff, i)) {
-            ones++;
+            o++;
         }
     }
-    printf("\n");
-
-    double p = (double)ones / (double)n;
+    double p = (double)o / (double)n;
     double t = 2.0 / sqrt((double)n);
 
     if (p - 0.5 >= t) {
         loge(" π - 1/2 (%f) is out of bounds of τ (%f)", p - 0.5, t);
-        return 0.0;
+        return -1.0;
     }
     // Compute the test statistic V(obs) = ∑r(k)+1,
-    // where r(k)=0 if εk=εk+1, and r(k)=1 otherwise.
+    // if εk = εk + 1 then r(k) = 0
+    // else  r(k) = 1
     int r = 0;
-
     for (size_t i = 0; i < n - 1; i++) {
 
         if ((GET_BIT(buff, i)) == (GET_BIT(buff, (i + 1)))) {
@@ -83,12 +93,13 @@ double fntest_runs(uint8_t *buff, size_t buff_size) {
             r += 1;
         }
     }
+    // ∑ r(k) + 1
     r += 1;
-
-    // Compute P-value
+    // Compute P-value:
+    //
     //              r - (2 * n * p *(1-p))
     // P-value = -----------------------------
     //            2 * sqrt(2 * n) * p * (1-p)
-    double pvalue = (r - (2 * n * p * (1 - p))) / (2 * sqrt(2 * n) * p * (1-p));
+    double pvalue = (r - (2 * n * p * (1 - p))) / (2 * sqrt(2 * n) * p * (1 - p));
     return erfc(pvalue);
 }

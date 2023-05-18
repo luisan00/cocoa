@@ -28,16 +28,20 @@
 
 /**
  * @brief Frequency test (monobit)
- *
+ * @note 1.It is recommended that each sequence to be tested consist of a minimum of 100 bits
+ * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
+ * 
  * @param [in] buff
  * @param [in] buff_size
+ * @param [in] n The length of the bit string to test, if n = 0 it will perform the entire buffer.
  * @return P-value
  */
-double fntest_monobit(uint8_t *buff, size_t buff_size);
+double fntest_monobit(uint8_t *buff, size_t buff_size, size_t n);
 
 /**
  * @brief Frequency test within a block
- *
+ * @note 1. It is recommended that each sequence to be tested consist of a minimum of 100 bits.
+ * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
  * @param [in] buff
  * @param [in] buff_size
  * @param [in] M The length of each block
@@ -47,13 +51,14 @@ double fntest_wblock(uint8_t *buff, size_t buff_size, int M);
 
 /**
  * @brief Runs test
- *
- * @param [in] buff
- * @param [in] buff_size
- * @param [in] n The length of the bit string
+ * @note 1. It is recommended that each sequence to be tested consist of a minimum of 100 bits.
+ * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
+ * @param [in] buff uint8_t buffer to check
+ * @param [in] buff_size Total length of the buffer
+ * @param [in] n The length of the bit string to test
  * @return P-value
-*/
-double fntest_runs(uint8_t *buff, size_t buff_size);
+ */
+double fntest_runs(uint8_t *buff, size_t buff_size, size_t n);
 
 #endif
 /** @} */
