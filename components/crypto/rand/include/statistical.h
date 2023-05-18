@@ -45,9 +45,10 @@ double fntest_monobit(uint8_t *buff, size_t buff_size, size_t n);
  * @param [in] buff
  * @param [in] buff_size
  * @param [in] M The length of each block
+ * @param [in] n length of the string to test, if 0 it will perform the entire buffer.
  * @return P-value
  */
-double fntest_wblock(uint8_t *buff, size_t buff_size, int M);
+double fntest_wblock(uint8_t *buff, size_t buff_size, int M, int n);
 
 /**
  * @brief Runs test
@@ -58,7 +59,7 @@ double fntest_wblock(uint8_t *buff, size_t buff_size, int M);
  * @param [in] n The length of the bit string to test
  * @return P-value
  */
-double fntest_runs(uint8_t *buff, size_t buff_size, size_t n);
+double fntest_runs(uint8_t *buff, size_t buff_size, size_t n, double t);
 
 #endif
 /** @} */

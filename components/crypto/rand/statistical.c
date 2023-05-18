@@ -29,31 +29,31 @@ double fntest_monobit(uint8_t *buff, size_t buff_size, size_t n) {
     return erfc((abs(n0 - n1) / sqrt(n)) / sqrt(2));
 }
 
-double fntest_wblock(uint8_t *buff, size_t buff_size, int M) {
+double fntest_wblock(uint8_t *buff, size_t buff_size, int M, int n) {
     // M; length of block, number of bits per block
-    int n = buff_size * 8; // total number of bits
-    int N = n / M;         // number of blocks
-    // important!  discard unused bits
-    // proportion πi of ones for each block
+    if (n == 0) {
+        n = buff_size * 8; // total number of bits
+    }
+    // Number of blocks
+    int N = n / M;
     double sum = 0.0;
     for (int ni = 0; ni < N; ni++) {
-        int n1 = 0;
+        int ones = 0;
         for (int mi = 0; mi < M; mi++) {
             if (GET_BIT(buff, (ni * M + mi))) {
-                n1++;
+                ones++;
             }
         }
         // SUM(πi - 1/2)² = (π0 - 1/2)² + (π1 - 1/2)² + (πn - 1/2)²
-        sum += pow(((double)n1 / (double)M - 1.0 / 2.0), 2.0);
+        sum += pow(((double)ones / (double)M - 1.0 / 2.0), 2.0);
     }
-    // igamc (N/2, sum/2)
-    double a = (double)N / 2.0;
-    double x = sum / 2.0;
-    return cephes_igamc(a, x);
+    double xobs = 4 * M * sum;
+    // igamc (N/2, (4 * M * sum)/2)
+    return cephes_igamc((double)N / 2.0, xobs / 2.0);
 }
 
 // Runs test
-double fntest_runs(uint8_t *buff, size_t buff_size, size_t n) {
+double fntest_runs(uint8_t *buff, size_t buff_size, size_t n, double t) {
 
     // check if size(n) is equal or smaller than total bits (buff_size * 8)
     if (n > buff_size * 8) {
@@ -66,7 +66,7 @@ double fntest_runs(uint8_t *buff, size_t buff_size, size_t n) {
     //
     // pre-test proportion π of ones in the input sequence
     // π = o / n
-    // τ = 2 / sqrt(n)
+    
     int o = 0;
     // check if runs test is applicable
     for (size_t i = 0; i < n; i++) {
@@ -75,8 +75,6 @@ double fntest_runs(uint8_t *buff, size_t buff_size, size_t n) {
         }
     }
     double p = (double)o / (double)n;
-    double t = 2.0 / sqrt((double)n);
-
     if (p - 0.5 >= t) {
         loge(" π - 1/2 (%f) is out of bounds of τ (%f)", p - 0.5, t);
         return -1.0;

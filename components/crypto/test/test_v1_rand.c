@@ -33,7 +33,7 @@ TEST_CASE("1. Frequency test monobit", tag) {
 }
 
 TEST_CASE("2. Frequency test within a block", tag) {
-    double p_value = fntest_wblock(buff, sizeof(buff), 16);
+    double p_value = fntest_wblock(buff, sizeof(buff), 16, 0);
     double d_rule = 0.01; // decision rule at 1%
     if (p_value < d_rule) {
         loge("Test Warning: %f is less than %f", p_value, d_rule);
@@ -47,7 +47,7 @@ TEST_CASE("2. Frequency test within a block", tag) {
 }
 
 TEST_CASE("3. Runs test", tag) {
-    double p_value = fntest_runs(buff, sizeof(buff), 10);
+    double p_value = fntest_runs(buff, sizeof(buff), 10, 0.02);
     double d_rule = 0.01; // decision rule at 1%
     if (p_value < d_rule) {
         loge("Test Warning: %f is less than %f", p_value, d_rule);
