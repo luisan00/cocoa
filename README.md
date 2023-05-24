@@ -5,8 +5,6 @@
 
 - [X] blocks [tests passed](./components/blocks/test/test_blocks.c)
 
-- [ ] cephes [WIP](./components/cephes/test/test_gamma.c)
-
 - [ ] **crypto**
   - [ ] address [WIP] Unitary test under development
   - [ ] aes

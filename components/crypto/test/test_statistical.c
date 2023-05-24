@@ -140,7 +140,7 @@ TEST_CASE("Binary matrix rank (I)", tag) {
     TEST_ASSERT_EQUAL_FLOAT(expected, result);
 }
 
-TEST_CASE("Discrete Fourier transform test (I)", "[spectral]") {
+TEST_CASE("Discrete Fourier transform test (I)", tag) {
     // 1001 0100 : 0x29
     // 1100 0000 : 0x03
     int bitstr[] = {1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0};
@@ -154,7 +154,7 @@ TEST_CASE("Discrete Fourier transform test (I)", "[spectral]") {
     TEST_ASSERT_EQUAL_FLOAT(expected, result);
 }
 
-TEST_CASE("Discrete Fourier transform test (II)", "[spectral]") {
+TEST_CASE("Discrete Fourier transform test (II)", tag) {
 
     int bitstr[] = {1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0,
                     1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0,

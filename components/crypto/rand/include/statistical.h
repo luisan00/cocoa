@@ -64,7 +64,7 @@ double fntest_wblock(uint8_t *buff, int n, int M);
  * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
  * @param [in] buff uint8_t buffer to check
  * @param [in] n The length of the bit string to test
- * @param [in] t
+ * @param [in] t thresold value
  * @return P-value
  */
 double fntest_runs(uint8_t *buff, int n, double t);
@@ -78,17 +78,18 @@ double fntest_runs(uint8_t *buff, int n, double t);
  * |   6272 |     128 |         49 |  5  |
  * | 750000 |     10⁴ |         75 |  6  |
  *
- * @param [in] buff
- * @param [in] n The number of bits to check
+ * @param [in] buff uint8_t array of bytes to check
+ * @param [in] n number of bits to check
  * @return P-value
  */
 double fntest_longest_runs(uint8_t *buff, int n);
 
 /**
  * @brief
- * @param [in] buff
- * @param [in] n
- * @param [in] MQ
+ * @param [in] buff uint8_t array of bytes to check
+ * @param [in] n    number of bits to check
+ * @param [in] M    number of rows
+ * @param [in] Q    number of columns
  * @return P-value
  *
  */
@@ -97,13 +98,14 @@ double fntest_matrix_rank(uint8_t *buff, int n, int M, int Q);
 /**
  * @brief Discrete Fourier Transform (Spectral) Test
  *
- * @param [in] buff
- * @param [in] n
+ * @note  (*1) A remark on the Discrete Fourier Transform statistical test
+ *        Authors: Asandoaiei David, Anghel Florin, Tabacaru Robert
+ *        Date: January 13, 2022
+ *        https://eprint.iacr.org/2022/066.pdf
  *
- * @note    (*1) A remark on the Discrete Fourier Transform statistical test
- *          Authors: Asandoaiei David, Anghel Florin, Tabacaru Robert
- *          Date: January 13, 2022
- *          https://eprint.iacr.org/2022/066.pdf
+ * @param [in] buff uint8_t array of bytes to check
+ * @param [in] n    number of bits to check
+ * @return P-value
  */
 
 double fntest_spectral(uint8_t *buff, int n);
