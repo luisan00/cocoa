@@ -14,9 +14,36 @@
  * limitations under the License.
  */
 /**
- * @brief Statistical tests for random numbers
+ * @brief Statistical tests for random numbers is a series of test to check if a given sequence of
+ * bits can be (or not) considered as random.
+ * | Test name                             | Status |
+ * |:--------------------------------------|:------:|
+ * | Frequency test (monobit)              | done   |
+ * | Frequency test within a block         | done   |
+ * | Runs test                             | done   |
+ * | Longest run of ones                   | done   |
+ * | Matrix rank test                      | done   |
+ * | Discrete Fourier Transform (Spectral) | done   |
+ * | Non-overlapping Template Matching     | not yet impl. |
+ * | Overlapping Template Matching         | not  "        |
+ * | Maurer’s “Universal Statistical”      | not  "        |
+ * | Linear Complexity                     | not  "        |
+ * | Serial                                | not  "        |
+ * | Approximate Entropy                   | not  "        |
+ * | Cumulative Sums (Cusum)               | not  "        |
+ * | Random Excursions Variant             | not  "        |
+ *
+ * @warning It is important to note that if a sequence of bits is considered valid or not after
+ * passing through one or more tests, it only gives us a probability and not an absolute result
+ *
+ * @ref [1] A Statistical Test Suite for Random and Pseudorandom Number Generators for
+ * Cryptographic Applications;
+ * https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-22r1a.pdf
+ *
+ * @ref [2] A remark on the Discrete Fourier Transform statistical;
+ * https://eprint.iacr.org/2022/066.pdf
+ *
  * @ingroup components_crypto
- * @see https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-22r1a.pdf
  * @{
  */
 #ifndef STATISTICAL_H
@@ -109,5 +136,6 @@ double fntest_matrix_rank(uint8_t *buff, int n, int M, int Q);
  */
 
 double fntest_spectral(uint8_t *buff, int n);
+
 #endif
 /** @} */
