@@ -42,17 +42,18 @@ void app_main(void) {
  */
     print_banner("Testing component");
     UNITY_BEGIN();
-    unity_run_tests_by_tag("[statistical]", false);
+    unity_run_tests_by_tag("[spectral]", false);
     UNITY_END();
     /*
      print_banner("Testing [cephes] component");
      UNITY_BEGIN();
      unity_run_tests_by_tag("[cephes]", false);
      UNITY_END();
-     */
+     
     //
     print_banner("Running interactive menu");
     unity_run_menu();
+    */
 }
 
 static void print_banner(const char *text) { printf("\n#### %s #####\n\n", text); }

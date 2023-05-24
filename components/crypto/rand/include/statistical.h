@@ -24,42 +24,88 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#define GET_BIT(ARRAY, NBIT) (ARRAY[NBIT / 8] >> (NBIT % 8)) & 1
+/**
+ * @brief Reads the bit number (NBIT) from an array (ARRAY)
+ * @param array [in]
+ * @param nbit [in]
+ * @return 1 or 0
+ */
+#define GET_BIT(arr, nbit) (arr[nbit / 8] >> (nbit % 8)) & 1
+/**
+ * @brief set to 1 to compute probability in the binary matrix rank
+ */
+#define BMR_COMPUTE_PROBABILITY 0
 
 /**
  * @brief Frequency test (monobit)
  * @note 1.It is recommended that each sequence to be tested consist of a minimum of 100 bits
  * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
- * 
+ *
  * @param [in] buff
- * @param [in] buff_size
- * @param [in] n The length of the bit string to test, if n = 0 it will perform the entire buffer.
+ * @param [in] n length of the bit string to test
  * @return P-value
  */
-double fntest_monobit(uint8_t *buff, size_t buff_size, size_t n);
+double fntest_monobit(uint8_t *buff, size_t n);
 
 /**
  * @brief Frequency test within a block
  * @note 1. It is recommended that each sequence to be tested consist of a minimum of 100 bits.
  * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
  * @param [in] buff
- * @param [in] buff_size
+ * @param [in] n length of the bit string to test
  * @param [in] M The length of each block
- * @param [in] n length of the string to test, if 0 it will perform the entire buffer.
  * @return P-value
  */
-double fntest_wblock(uint8_t *buff, size_t buff_size, int M, int n);
+double fntest_wblock(uint8_t *buff, int n, int M);
 
 /**
  * @brief Runs test
  * @note 1. It is recommended that each sequence to be tested consist of a minimum of 100 bits.
  * @note 2. Decision rule should be at 1% so if P-value > 0.01 then pass
  * @param [in] buff uint8_t buffer to check
- * @param [in] buff_size Total length of the buffer
  * @param [in] n The length of the bit string to test
+ * @param [in] t
  * @return P-value
  */
-double fntest_runs(uint8_t *buff, size_t buff_size, size_t n, double t);
+double fntest_runs(uint8_t *buff, int n, double t);
 
+/**
+ * @brief Longest run of ones
+ *
+ * | bits   | (M) bits| (N) blocks |  K  |
+ * |-------:|--------:|-----------:|:---:|
+ * |    128 |       8 |         16 |  3  |
+ * |   6272 |     128 |         49 |  5  |
+ * | 750000 |     10⁴ |         75 |  6  |
+ *
+ * @param [in] buff
+ * @param [in] n The number of bits to check
+ * @return P-value
+ */
+double fntest_longest_runs(uint8_t *buff, int n);
+
+/**
+ * @brief
+ * @param [in] buff
+ * @param [in] n
+ * @param [in] MQ
+ * @return P-value
+ *
+ */
+double fntest_matrix_rank(uint8_t *buff, int n, int M, int Q);
+
+/**
+ * @brief Discrete Fourier Transform (Spectral) Test
+ *
+ * @param [in] buff
+ * @param [in] n
+ *
+ * @note    (*1) A remark on the Discrete Fourier Transform statistical test
+ *          Authors: Asandoaiei David, Anghel Florin, Tabacaru Robert
+ *          Date: January 13, 2022
+ *          https://eprint.iacr.org/2022/066.pdf
+ */
+
+double fntest_spectral(uint8_t *buff, int n);
 #endif
 /** @} */
