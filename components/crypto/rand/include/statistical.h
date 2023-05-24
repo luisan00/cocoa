@@ -137,5 +137,68 @@ double fntest_matrix_rank(uint8_t *buff, int n, int M, int Q);
 
 double fntest_spectral(uint8_t *buff, int n);
 
-#endif
+/**
+ * @brief Non-overlapping Template Matching
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_non_overlapping_template(uint8_t *buff, int n);
+
+/**
+ * @brief Overlapping Template Matching
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_overlapping_template(uint8_t *buff, int n);
+
+/**
+ * @brief Maurer’s “Universal Statistical”
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_maurer_us(uint8_t *buff, int n);
+
+/**
+ * @brief Linear complexity
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_linear_complex(uint8_t *buff, int n);
+
+/**
+ * @brief Serial test
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_serial(uint8_t *buff, int n);
+
+/**
+ * @brief Approximate Entropy
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_aprox_entropy(uint8_t *buff, int n);
+
+/**
+ * @brief Cumulative Sums (Cusum)
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_cusum(uint8_t *buff, int n);
+
+/**
+ * @brief Random Excursions Variant
+ * @param [in] buff uint8_t array to check
+ * @param [in] n number of bits to check
+ * @return P-value
+ */
+double fntest_rand_excursions(uint8_t *buff, int n);
+#endif /* STATISTICAL_H */
 /** @} */
