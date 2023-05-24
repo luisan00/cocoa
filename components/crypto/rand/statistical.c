@@ -233,26 +233,25 @@ double fntest_matrix_rank(uint8_t *buff, int n, int M, int Q) {
 }
 
 double fntest_spectral(uint8_t *buff, int n) {
-    //int ifac[15];
+
     int ifac[15];
     double *x = (double *)calloc(n, sizeof(double));
     double *m = (double *)calloc(n / 2 + 1, sizeof(double));
     double *wsave = (double *)calloc(2 * n, sizeof(double));
-
+    // fill array with values in the range (-1, 1):
+    // if a bit[i] = 0 then = -1.0
+    // if a bit[i] = 1 then =  1.0
     for (int i = 0; i < n; i++) {
         x[i] = 2 * (GET_BIT(buff, i)) - 1;
-
     }
-
     // init work arrays
     __ogg_fdrffti(n, wsave, ifac);
     // apply forward fft
     __ogg_fdrfftf(n, x, wsave, ifac);
     // compute magnitude
-   // m[0] = sqrt(x[0] * x[0]);
+    m[0] = sqrt(x[0] * x[0]);
 
     for (int i = 0; i < n / 2; i++) {
-
         m[i + 1] = sqrt(pow(x[2 * i + 1], 2.0) + pow(x[2 * i + 2], 2.0));
     }
 
@@ -260,35 +259,23 @@ double fntest_spectral(uint8_t *buff, int n) {
     int count = 0;
     // see (*1) // t = sqrt(3 * n);
     double t = sqrt(log(0.95 / 0.05) * n);
-    
-    printf("t: %f\n", t);
-
-    for (int i = 0; i < n / 2; i++) {
+    // count
+    for (int i = 1; i < n / 2; i++) {
         if (m[i] < t) {
             count++;
         }
     }
+    // free space
+    free(x);
+    free(m);
+    free(wsave);
 
-    double percentile = (double)count / (n / 2) * 100;
     /* number of peaks less than t */
     double N1 = (double)count;
     double N0 = (double)0.95 * n / 2.0;
     // (7)
     double d = (N1 - N0) / sqrt((n * 0.95 * 0.05) / 4);
-    // (N_l - N_o)/sqrt(n/4.0*0.95*0.05)
-    // n * .95 *  .5 / 4
 
-    // (8)
-    double p_value = erfc(fabs(d) / sqrt(2));
-    // free space
-    free(x);
-    free(m);
-    free(wsave);
-    printf("Percentil: %f +- %f\n", percentile, percentile - 95.0);
-    printf("N1: %f\n", N1);
-    printf("N0: %f\n", N0);
-    printf("d: %f\n", d);
-    printf("P-value: %f\n", p_value);
-    // return P_value
-    return p_value;
+    // return P-value
+    return erfc(fabs(d) / sqrt(2));
 }

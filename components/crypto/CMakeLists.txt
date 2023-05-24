@@ -53,6 +53,7 @@ idf_component_register(
         "rand/statistical.c"
         "rand/matrix.c"
         "rand/dft.c"
+        "rand/cephes.c"
         # sub-component rfc6979
         "rfc6979/rfc6979.c"
         # sub-component ripemd160
