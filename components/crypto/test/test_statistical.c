@@ -180,7 +180,7 @@ TEST_CASE("Non overlapping template test (I)", "[non-ot]") {
     size_t n = 20;
 
     int N = 2;
-    // template to search
+    // template to search, only for unit-testing purposes, it is not suitable for other uses
     int template[] = {0, 0, 1};
     size_t m = ARRAY_SIZEOF(template);
 
@@ -201,7 +201,7 @@ TEST_CASE("Non overlapping template test (II)", "[non-ot]") {
     }
     int N = 2;
     // template to search
-    // this template must be used only for testing purposes.
+    // this template must be used only for testing purposes, it is not suitable for other uses
     int template[][3] = {{0, 0, 1}, {0, 1, 1}, {1, 0, 0}, {1, 1, 0}};
     // expected result for each template
     double expected[] = {0.344154, 0.344154, 0.344154, 0.118442};

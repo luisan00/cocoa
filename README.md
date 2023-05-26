@@ -41,7 +41,7 @@
 
 - [X] **helpers**
 
-- [ ] **hmi**
+- [ ] **hmi** [WIP](components/hmi/test/test_hmi.c)
 
 - [ ] **screen**
 
