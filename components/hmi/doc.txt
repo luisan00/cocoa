@@ -1,0 +1,26 @@
+/**
+ * @ingroup components
+ * @defgroup components_hmi Human to Machine Interface
+ * @{
+ *
+ * ## Description
+ * There are two (2) user defined buttons plus a generic reset button on the pcb side, but this
+ * component add support for the first ones:
+ *
+ * Let's say at this moment, button 0 and button 1:
+ *
+ * | Name       | GPIO_PIN    | Pulled |
+ * |------------|-------------|--------|
+ * | BTN_0      | GPIO_NUM_XX |      | ?      |
+ * | BTN_1      | GPIO_NUM_XX |      | ?      |
+ *
+ * A handler should detect when a button is pressed and the type of push:
+ *
+ * | press type   | Description
+ * |--------------|-----------------------------------------------------------------------|
+ * | single short | Short press the button, usefull for moving on menus and confirmations |
+ * | single long  | Special actions or when we want an special atention for the user      |
+ *
+ *
+ * @}
+ */
