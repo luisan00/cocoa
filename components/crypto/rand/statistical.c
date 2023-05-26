@@ -279,3 +279,90 @@ double fntest_spectral(uint8_t *buff, int n) {
     // return P-value
     return erfc(fabs(d) / sqrt(2));
 }
+
+double fntest_non_overlapping_template(uint8_t *buff, size_t n, int *t, size_t m, int N) {
+    //  number of degrees of freedom
+    int K = 5;
+
+    //
+    // ε = 10100100101110010110
+    // n = 20, N = 2
+    //
+    // if M: N = n/M = 2 blocks of length M
+    // if N: M = n/N = N blocks of length 10
+
+    // num of blocks
+    if (N == 0) {
+        N = 8;
+    }
+    // length of each block
+    int M = n / N;
+
+    if (M == 0) {
+        loge("%d bits were given to build %d block/s of %d bits each one\n", n, N, M);
+        return -1.0;
+    }
+
+    //(3) compute mean µ and the variance O²
+    double pi_mean = (M - m + 1) / pow(2, m);
+    double o_variance = M * (1.0 / pow(2.0, m) - (2.0 * m - 1.0) / pow(2.0, 2.0 * m));
+    if (pi_mean <= 0.0) {
+        loge("mean µ is %f but it must be bigger than zero", pi_mean);
+        return -1.0;
+    }
+
+    double pi[6];
+#if NON_OT_COMPUTE_PROBABILITY == 1
+    double sum = 0.0;
+    for (size_t i = 0; i < 2; i++) {
+        pi[i] = exp(-pi_mean + i * log(pi_mean) - cephes_lgam(i + 1));
+        sum += pi[i];
+    }
+    pi[0] = sum;
+    for (size_t i = 2; i <= K; i++) {
+        pi[i - 1] = exp(-pi_mean + i * log(pi_mean) - cephes_lgam(i + 1));
+        sum += pi[i - 1];
+    }
+    pi[K] = 1 - sum;
+#else
+    // nan
+#endif
+    unsigned int *Wj = (unsigned int *)calloc(N, sizeof(unsigned int));
+
+    int *sequence = (int *)calloc(m, sizeof(int));
+
+    for (size_t x = 0; x < m; x++) {
+        sequence[x] = t[x];
+    }
+
+    for (size_t ni = 0; ni < N; ni++) {
+        int w_obs = 0;
+        for (size_t mi = 0; mi < M - m + 1; mi++) {
+            int match = 1;
+            for (size_t mbit = 0; mbit < m; mbit++) {
+                int bit = GET_BIT(buff, (ni * M + mi + mbit));
+                if (sequence[mbit] != bit) {
+                    match = 0;
+                    break;
+                }
+            }
+            if (match == 1) {
+                w_obs++;
+                mi += m - 1;
+            }
+        }
+        Wj[ni] = w_obs;
+    }
+    sum = 0;
+
+    double chi2 = 0.0; /* Compute Chi Square */
+
+    for (size_t i = 0; i < N; i++) {
+        chi2 += pow(((double)Wj[i] - pi_mean) / pow(o_variance, 0.5), 2);
+    }
+
+    // (4)
+    free(Wj);
+    free(sequence);
+    return cephes_igamc(N / 2.0, chi2 / 2.0);;
+}

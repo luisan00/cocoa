@@ -24,7 +24,7 @@
  * | Longest run of ones                   | done   |
  * | Matrix rank test                      | done   |
  * | Discrete Fourier Transform (Spectral) | done   |
- * | Non-overlapping Template Matching     | not yet impl. |
+ * | Non-overlapping Template Matching     | done   |
  * | Overlapping Template Matching         | not  "        |
  * | Maurer’s “Universal Statistical”      | not  "        |
  * | Linear Complexity                     | not  "        |
@@ -51,6 +51,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
+
 /**
  * @brief Reads the bit number (NBIT) from an array (ARRAY)
  * @param array [in]
@@ -58,10 +59,23 @@
  * @return 1 or 0
  */
 #define GET_BIT(arr, nbit) (arr[nbit / 8] >> (nbit % 8)) & 1
+
 /**
- * @brief set to 1 to compute probability in the binary matrix rank
+ * @brief set to 1 to compute probability in the binary matrix rank test
  */
 #define BMR_COMPUTE_PROBABILITY 0
+
+/**
+ * @brief set to 1 to compute probability in the non overlapping template test
+ */
+#define NON_OT_COMPUTE_PROBABILITY 1
+
+/**
+ * @brief Aperiodic templates: 148 => temp_length = 9
+ */
+#define MAX_NUMOF_TEMPLATES 148
+
+#define ARRAY_SIZEOF(x) sizeof(x) / sizeof(x[0])
 
 /**
  * @brief Frequency test (monobit)
@@ -141,9 +155,12 @@ double fntest_spectral(uint8_t *buff, int n);
  * @brief Non-overlapping Template Matching
  * @param [in] buff uint8_t array to check
  * @param [in] n number of bits to check
+ * @param [in] t pointer to a matrix containing the templates to search in the given array 
+ * @param [in] m length of t
+ * @param [in] N number blocks
  * @return P-value
  */
-double fntest_non_overlapping_template(uint8_t *buff, int n);
+double fntest_non_overlapping_template(uint8_t *buff, size_t n, int *t, size_t m, int N);
 
 /**
  * @brief Overlapping Template Matching

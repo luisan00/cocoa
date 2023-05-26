@@ -42,7 +42,7 @@ void app_main(void) {
  */
     print_banner("Testing component");
     UNITY_BEGIN();
-    unity_run_tests_by_tag("[rand]", false);
+    unity_run_tests_by_tag("[non-ot]", false);
     UNITY_END();
     /*
 

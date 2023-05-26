@@ -170,3 +170,44 @@ TEST_CASE("Discrete Fourier transform test (II)", tag) {
     double result = fntest_spectral(buff, n);
     TEST_ASSERT_EQUAL_FLOAT(expected, result);
 }
+
+TEST_CASE("Non overlapping template test (I)", "[non-ot]") {
+    // n = 20 bits
+    // N = 2, then M = 10
+    // K = 2
+    int bitstr[] = {1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0};
+    uint8_t buff[] = {0x25, 0x9d, 0x06};
+    size_t n = 20;
+
+    int N = 2;
+    // template to search
+    int template[] = {0, 0, 1};
+    size_t m = ARRAY_SIZEOF(template);
+
+    for (size_t i = 0; i < n; i++) {
+        TEST_ASSERT_EQUAL_INT(bitstr[i], GET_BIT(buff, i));
+    }
+    double expected = 0.344154;
+    double result = fntest_non_overlapping_template(buff, n, template, m, N);
+    TEST_ASSERT_EQUAL_FLOAT(expected, result);
+}
+
+TEST_CASE("Non overlapping template test (II)", "[non-ot]") {
+    int bitstr[] = {1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0};
+    uint8_t buff[] = {0x25, 0x9d, 0x06};
+    size_t n = 20;
+    for (size_t i = 0; i < n; i++) {
+        TEST_ASSERT_EQUAL_INT(bitstr[i], GET_BIT(buff, i));
+    }
+    int N = 2;
+    // template to search
+    // this template must be used only for testing purposes.
+    int template[][3] = {{0, 0, 1}, {0, 1, 1}, {1, 0, 0}, {1, 1, 0}};
+    // expected result for each template
+    double expected[] = {0.344154, 0.344154, 0.344154, 0.118442};
+    for (size_t i = 0; i < ARRAY_SIZEOF(template); i++) {
+        size_t m = ARRAY_SIZEOF(template[i]);
+        double result = fntest_non_overlapping_template(buff, n, template[i], m, N);
+        TEST_ASSERT_EQUAL_FLOAT(expected[i], result);
+    }
+}
