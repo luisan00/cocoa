@@ -71,10 +71,8 @@
 #define NON_OT_COMPUTE_PROBABILITY 1
 
 /**
- * @brief Aperiodic templates: 148 => temp_length = 9
+ * @brief return size of an array
  */
-#define MAX_NUMOF_TEMPLATES 148
-
 #define ARRAY_SIZEOF(x) sizeof(x) / sizeof(x[0])
 
 /**
