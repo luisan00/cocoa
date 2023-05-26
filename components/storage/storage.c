@@ -159,9 +159,17 @@ esp_err_t storage_delete_key(const char *ns, const char *k) {
 }
 
 //
-esp_err_t storage_delete_all(const char *ns){
-    // ToDo
-    return ESP_FAIL;
+esp_err_t storage_delete_all(const char *ns) {
+    nvs_handle_t h;
+    ESP_ERROR_CHECK(storage_open(ns, NVS_READWRITE, &h));
+    esp_err_t res = nvs_erase_all(h);
+    if (res != ESP_OK) {
+        loge("storage_delete_all(): %s", esp_err_to_name(res));
+        nvs_close(h);
+    }
+    ESP_ERROR_CHECK(storage_commit(h));
+    nvs_close(h);
+    return res;
 }
 
 //
@@ -173,8 +181,39 @@ esp_err_t storage_commit(nvs_handle_t h) {
     return res;
 }
 
+// Erase the default NVS partition
+esp_err_t storage_flash_erase(const char *partition) {
+    // if no name then erase default nvs partition
+    esp_err_t res;
+    if (partition == NULL) {
+        res = nvs_flash_erase();
+    } else {
+        res = nvs_flash_erase_partition(partition);
+    }
+
+    if (res != ESP_OK) {
+        loge("storage_flash_erase(): %s", esp_err_to_name(res));
+    }
+    return res;
+}
+
 //
-esp_err_t storage_flash_erase(void){
-    // ToDo
-    return ESP_FAIL;
+esp_err_t storage_stats(const char *partition, nvs_stats_t *stats) {
+    esp_err_t res = nvs_get_stats(NULL, stats);
+    if (res != ESP_OK) {
+        loge("storage_stats() for partition %s: %s ", partition, esp_err_to_name(res));
+    }
+    return res;
+}
+
+//
+esp_err_t storage_used_entry_count(const char *ns, size_t *used_entries) {
+    nvs_handle_t h;
+    ESP_ERROR_CHECK(storage_open(ns, NVS_READWRITE, &h));
+    esp_err_t res = nvs_get_used_entry_count(&h, used_entries);
+    if (res != ESP_OK) {
+        loge("_used_entry_count() %s for namespace %s", esp_err_to_name(res), ns);
+    }
+    nvs_close(h);
+    return res;
 }

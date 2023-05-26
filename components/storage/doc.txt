@@ -1,0 +1,16 @@
+/**
+ * @ingroup components
+ * @defgroup components_storage Low level storage routines
+ * @{
+ * ## Description
+ *
+ * This component add support for some basic and low level storage routines, such as initialization of
+ * the non volatile storage partition, save values, read values, delete values, nvs statistics and
+ * erase nvs partition.
+ *
+ * ## Future work
+ *
+ * Basic routines are done, but in a short term future, i would like to add some encryption routines,
+ * at least the basic ones xD;
+ * @}
+ */

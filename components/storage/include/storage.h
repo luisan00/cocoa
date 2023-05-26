@@ -232,7 +232,7 @@ esp_err_t storage_get_blob(const char *ns, const char *k, uint8_t *v, size_t *s)
 esp_err_t storage_delete_key(const char *ns, const char *k);
 
 /**
- * @brief Erase all key-value pairs in a namespace
+ * @brief Erase all key-value pairs in a given namespace
  *
  * @param [in] ns The namespace name
  * @return One of the following:
@@ -245,9 +245,7 @@ esp_err_t storage_delete_key(const char *ns, const char *k);
  */
 esp_err_t storage_delete_all(const char *ns);
 
-//
 // *** OTHERS ***
-//
 
 /**
  * @brief Write any pending changes to non-volatile storage
@@ -263,17 +261,52 @@ esp_err_t storage_delete_all(const char *ns);
 esp_err_t storage_commit(nvs_handle_t h);
 
 /**
- * @brief Erase the default NVS partition
+ * @brief Erase a nvs partition
  * @note If the partition is initialized, this function first de-initializes it. Afterwards, the
  * partition has to be initialized again to be used.
  *
+ * @param [in] name partion name or NULL for the default nvs partition
+ *
  * @return One of the following:
- * | Error Code                 | Description                             |
- * |----------------------------|-----------------------------------------|
- * | ESP_OK                     | Flash erase operation was successful    |
- * | ESP_ERR_NOT_FOUND          | There is no NVS partition labeled “nvs” |
+ * | Error Code                 | Description                                                  |
+ * |:---------------------------|:-------------------------------------------------------------|
+ * | ESP_OK                     | Flash erase operation was successful                         |
+ * | ESP_ERR_NOT_FOUND          | There is no default nvs partition or with the given name     |
  */
-esp_err_t storage_flash_erase(void);
+esp_err_t storage_flash_erase(const char *partition);
+
+/**
+ * @brief Get information about number of used entries, free entries, total entries, and amount
+ * namespace in partition
+ *
+ * @param [in] partition name of the partition or NULL for the default nvs partition
+ * @param [out] stats
+ *
+ * @return one of the following **esp_err_t** codes:
+ * | Error Code                  | Description                                              |
+ * |:----------------------------|:---------------------------------------------------------|
+ * | ESP_OK                      | Return param nvs_stats will be filled                    |
+ * | ESP_ERR_NVS_PART_NOT_FOUND  | Default partition or with label [partition] is not found |
+ * | ESP_ERR_NVS_NOT_INITIALIZED | Storage driver is not initialized        |
+ * | ESP_ERR_INVALID_ARG         | [stats] equal to NULL                    |
+ * | ESP_ERR_INVALID_STATE       | There is page with the status of INVALID |
+ */
+esp_err_t storage_stats(const char *partition, nvs_stats_t *stats);
+
+/**
+ * @brief Get the number of entries in the given namespace
+ * @param [in] ns The namespace name
+ * @param [out] used_entries number of entries in the given namespace
+ *
+ * @return One of the following **esp_err_t** codes:
+ * | Error Code                  | Description                              |
+ * |:----------------------------|:-----------------------------------------|
+ * | ESP_OK                      | Return param used_entries will be filled |
+ * | ESP_ERR_NVS_NOT_INITIALIZED | Storage driver is not initialized        |
+ * | ESP_ERR_NVS_INVALID_HANDLE  | If handle has been closed or is NULL     |
+ * | ESP_ERR_INVALID_ARG         | Used entries is NULL                     |
+ */
+esp_err_t storage_used_entry_count(const char *ns, size_t *used_entries);
 
 #ifdef __cplusplus
 }
