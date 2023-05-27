@@ -32,10 +32,10 @@
   - [ ] nist256p1
   - [ ] pkdf2
   - [ ] rand: [WIP statistical tests](./components/crypto/test/test_v1_rand.c) 
-  - [ ] rfc6979
-  - [ ] ripemd160
-  - [ ] script
-  - [ ] secp256k1
+  - [ ] rfc6979 [WIP](components/crypto/rfc6979)
+  - [ ] ripemd160 [WIP](./components/crypto/ripemd160)
+  - [ ] script [WIP](./components/crypto/script)
+  - [ ] secp256k1 [WIP](./components/crypto/secp256k1)
   - [X] segwit_addr [done](./components/crypto/test/test_segwit_addr.c)
   - [X] sha [done](./components/crypto/test/test_sha.c)
 

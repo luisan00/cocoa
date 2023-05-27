@@ -22,11 +22,6 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #include "esp_err.h"
 
 /**
@@ -46,7 +41,7 @@ extern "C"
 /**
  * @brief
  * 
- * Steps::
+ * Steps:
  * 
  * 1. driver_init -> return driver_handler
  * 
@@ -58,9 +53,6 @@ esp_err_t screen_init(void);
 
 esp_err_t screen_deinit(void);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 /** @} */
