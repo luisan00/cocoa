@@ -40,16 +40,17 @@ void app_main(void) {
     unity_run_tests_by_tag("[storage]", false);
     UNITY_END();
     */
+   
     print_banner("Testing component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[bip39]", false);
     UNITY_END();
     /*
 
-       //
-       print_banner("Running interactive menu");
-       unity_run_menu();
-       */
+    //
+    print_banner("Running interactive menu");
+    unity_run_menu();
+    */
 }
 
 static void print_banner(const char *text) { printf("\n#### %s #####\n\n", text); }

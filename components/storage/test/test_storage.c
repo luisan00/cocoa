@@ -130,11 +130,11 @@ TEST_CASE("storage_stats() should work", tag) {
 // delete all keyed entries in the given namespace
 TEST_CASE("Delete all entries in a namespace", tag) {
     logi("storage_delete_all()");
-    TEST_ASSERT_EQUAL(ESP_OK, storage_delete_all(ns));
+    TEST_ASSERT_EQUAL_INT(ESP_OK, storage_delete_all(ns));
 }
 
 // erase default flash partition
 TEST_CASE("Erase default flash partition", tag) {
     logi("storage_flash_erase()");
-    TEST_ASSERT_EQUAL(ESP_OK, storage_flash_erase(NULL));
+    TEST_ASSERT_EQUAL_INT(ESP_OK, storage_flash_erase(NULL));
 }
