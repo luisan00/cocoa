@@ -23,8 +23,7 @@
 #define SCREEN_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #include "esp_err.h"
@@ -43,10 +42,10 @@ extern "C"
 #define COLOR_GREEN 0x00ff00U /*!> green */
 #define COLOR_BLUE 0x0000ffU  /*!> blue */
 
-    /**
-     * @brief
-     */
-    esp_err_t screen_init(void);
+/**
+ * @brief
+ */
+esp_err_t screen_init(void);
 
 #ifdef __cplusplus
 }

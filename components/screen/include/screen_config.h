@@ -52,15 +52,17 @@
 #define SCREEN_CS 6          /*!> CS pin */
 #define SCREEN_DC 7          /*!> DC pin*/
 #define SCREEN_RST 5         /*!> Reset pin */
-#define SCREEN_BK_LIGHT 38   /*!> Controls the display back light, it was: EXAMPLE_PIN_NUM_BK_LIGHT */
+#define SCREEN_BK_LIGHT 38 /*!> Controls the display back light, it was: EXAMPLE_PIN_NUM_BK_LIGHT  \
+                            */
 
 /**
  * @brief The pixel number in horizontal and vertical
  * @{
  */
-#define SCREEN_H_RES 320                                /*!> Horiz. resolution is 320 dots */
-#define SCREEN_V_RES 170                                /*!> Vertical resolution is 170 dots */
-#define LVGL_LCD_BUF_SIZE (SCREEN_H_RES * SCREEN_V_RES) /*!> Then LVGL require a 320*170 buffer size */
+#define SCREEN_H_RES 320 /*!> Horiz. resolution is 320 dots */
+#define SCREEN_V_RES 170 /*!> Vertical resolution is 170 dots */
+#define LVGL_LCD_BUF_SIZE                                                                          \
+    (SCREEN_H_RES * SCREEN_V_RES) /*!> Then LVGL require a 320*170 buffer size */
 /** @} */
 
 /**
@@ -82,12 +84,13 @@
  * 8190 = 100%
  * @{
  */
-#define LEDC_TIMER LEDC_TIMER_0                    /*!> Timer 0 will be used for this purpose */
-#define LEDC_MODE LEDC_LOW_SPEED_MODE              /*!> Speed mode */
-#define LEDC_CHANNEL LEDC_CHANNEL_0                /*!> Channel */
-#define LEDC_DUTY_RES LEDC_TIMER_13_BIT            /*!> Set duty resolution to 13 bits */
-#define LEDC_DUTY(x) ((2 * LEDC_DUTY_RES) - 1) * x /*!> (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095 */
-#define LEDC_FREQUENCY (5000)                      // Frequency in Hertz. Set frequency at 5 kHz
+#define LEDC_TIMER LEDC_TIMER_0         /*!> Timer 0 will be used for this purpose */
+#define LEDC_MODE LEDC_LOW_SPEED_MODE   /*!> Speed mode */
+#define LEDC_CHANNEL LEDC_CHANNEL_0     /*!> Channel */
+#define LEDC_DUTY_RES LEDC_TIMER_13_BIT /*!> Set duty resolution to 13 bits */
+#define LEDC_DUTY(x)                                                                               \
+    ((2 * LEDC_DUTY_RES) - 1) * x /*!> (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095 */
+#define LEDC_FREQUENCY (5000)     // Frequency in Hertz. Set frequency at 5 kHz
 /** @} */
 
 #endif // SCREEN_CONFIG_H
