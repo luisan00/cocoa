@@ -22,6 +22,11 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "esp_err.h"
 
 /**
@@ -38,21 +43,14 @@
 #define COLOR_GREEN 0x00ff00U /*!> green */
 #define COLOR_BLUE 0x0000ffU  /*!> blue */
 
-/**
- * @brief
- * 
- * Steps:
- * 
- * 1. driver_init -> return driver_handler
- * 
- * 2. lvgl_init(driver_handler) -> return lvgl_handler
- * 
- * 3. gui_handler_task(lvgl_handler)
- */
-esp_err_t screen_init(void);
+    /**
+     * @brief
+     */
+    esp_err_t screen_init(void);
 
-esp_err_t screen_deinit(void);
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 /** @} */

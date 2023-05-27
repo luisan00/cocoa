@@ -25,41 +25,34 @@
 
 /**
  * @brief
- */
-#define SCREEN_PX_CLOCK_HZ (6528000) /*!> EXAMPLE_LCD_PIXEL_CLOCK_HZ */
-
-/**
- * @brief
  * @{
  */
-#define SCREEN_BK_LIGHT_ON 1                    /*!> backlight power on*/
-#define SCREEN_BK_LIGHT_OFF !SCREEN_BK_LIGHT_ON /*!> backlight power off*/
-
-#define SCREEN_PWR_ON 1               /*!> Screen power on*/
-#define SCREEN_PWR_OFF !SCREEN_PWR_ON /*!> screen power off */
+#define SCREEN_PX_CLOCK_HZ (6528000) /*!> EXAMPLE_LCD_PIXEL_CLOCK_HZ */
+#define SCREEN_BK_LIGHT_ON_LEVEL 1   /*!> EXAMPLE_LCD_BK_LIGHT_ON_LEVEL */
+#define SCREEN_BK_LIGHT_OFF_LEVEL !SCREEN_BK_LIGHT_ON_LEVEL
 /** @} */
 
 /**
- * @brief Conection requires 8 bit parallel interface
+ * @brief Conection requires 8 bits parallel interface
  * @{
  */
-#define SCREEN_DATA0 39 /*!> DATA0 wired to pin 39 on the MCU */
-#define SCREEN_DATA1 40 /*!> DATA1 wired to pin 40 on the MCU */
-#define SCREEN_DATA2 41 /*!> DATA2 wired to pin 41 on the MCU */
-#define SCREEN_DATA3 42 /*!> DATA3 wired to pin 42 on the MCU */
-#define SCREEN_DATA4 45 /*!> DATA4 wired to pin 45 on the MCU */
-#define SCREEN_DATA5 46 /*!> DATA5 wired to pin 46 on the MCU */
-#define SCREEN_DATA6 47 /*!> DATA6 wired to pin 47 on the MCU */
-#define SCREEN_DATA7 48 /*!> DATA7 wired to pin 48 on the MCU */
+#define SCREEN_DATA0 39 /*!> was: EXAMPLE_PIN_NUM_DATA0 */
+#define SCREEN_DATA1 40 /*!> was: EXAMPLE_PIN_NUM_DATA1 */
+#define SCREEN_DATA2 41 /*!> was: EXAMPLE_PIN_NUM_DATA2 */
+#define SCREEN_DATA3 42 /*!> was: EXAMPLE_PIN_NUM_DATA3 */
+#define SCREEN_DATA4 45 /*!> was: EXAMPLE_PIN_NUM_DATA4 */
+#define SCREEN_DATA5 46 /*!> was: EXAMPLE_PIN_NUM_DATA5 */
+#define SCREEN_DATA6 47 /*!> was: EXAMPLE_PIN_NUM_DATA6 */
+#define SCREEN_DATA7 48 /*!> was: EXAMPLE_PIN_NUM_DATA7 */
 /** @} */
 
 #define SCREEN_PWR 15        /*!> Power on/off the display */
-#define SCREEN_WR GPIO_NUM_8 /*!> WR pin */
-#define SCREEN_RD GPIO_NUM_9 /*!> RD pin  */
+#define SCREEN_WR GPIO_NUM_8 /*!> WR pin, it was EXAMPLE_PIN_PCLK */
+#define SCREEN_RD GPIO_NUM_9 /*!> RD pin, it was EXAMPLE_PIN_RD */
 #define SCREEN_CS 6          /*!> CS pin */
 #define SCREEN_DC 7          /*!> DC pin*/
 #define SCREEN_RST 5         /*!> Reset pin */
-#define SCREEN_BK_LIGHT 38   /*!> Control the display backlight  */
+#define SCREEN_BK_LIGHT 38   /*!> Controls the display back light, it was: EXAMPLE_PIN_NUM_BK_LIGHT */
 
 /**
  * @brief The pixel number in horizontal and vertical
