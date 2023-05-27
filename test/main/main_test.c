@@ -24,27 +24,27 @@ void app_main(void) {
     UNITY_BEGIN();
     unity_run_tests_by_tag("[helpers]", false);
     UNITY_END();
-*/
+
     print_banner("Testing [hmi] component");
     UNITY_BEGIN();
     unity_run_tests_by_tag("[hmi]", false);
     UNITY_END();
+
+    print_banner("Testing [screen] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[screen]", false);
+    UNITY_END();
+
+    print_banner("Testing [storage] component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[storage]", false);
+    UNITY_END();
+    */
+    print_banner("Testing component");
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[sha]", false);
+    UNITY_END();
     /*
-       print_banner("Testing [screen] component");
-       UNITY_BEGIN();
-       unity_run_tests_by_tag("[screen]", false);
-       UNITY_END();
-
-       print_banner("Testing [storage] component");
-       UNITY_BEGIN();
-       unity_run_tests_by_tag("[storage]", false);
-       UNITY_END();
-
-       print_banner("Testing component");
-       UNITY_BEGIN();
-       unity_run_tests_by_tag("[non-ot]", false);
-       UNITY_END();
-
 
        //
        print_banner("Running interactive menu");

@@ -8,7 +8,7 @@
 - [ ] **crypto**
   - [ ] address [WIP] Unitary test under development
   - [ ] aes
-  - [X] base58 [tests passed](./components/crypto/test/test_base58.c)
+  - [X] base58 [done](./components/crypto/test/test_base58.c)
   - [ ] bignum [WIP]
   - [X] bip32
     
@@ -36,8 +36,8 @@
   - [ ] ripemd160
   - [ ] script
   - [ ] secp256k1
-  - [X] segwit_addr [test](./components/crypto/test/test_segwit_addr.c)
-  - [ ] sha
+  - [X] segwit_addr [done](./components/crypto/test/test_segwit_addr.c)
+  - [X] sha [done](./components/crypto/test/test_sha.c)
 
 - [X] **helpers**
 

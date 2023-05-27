@@ -1,0 +1,84 @@
+/**
+ * @brief test vectors from:
+ * https://github.com/trezor/trezor-firmware/blob/master/crypto/tests/test_check.c#L4217
+ */
+#ifndef TEST_SHA_H
+#define TEST_SHA_H
+#include "string.h"
+#define TEST_1 "abc"
+#define TEST_2 "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+#define TEST_2_1 ""
+#define TEST_2_2                                                                                   \
+    "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmno" \
+    "pqrsmnopqrstnopqrstu"
+#define TEST_3 "a"
+#define TEST_4 "0123456701234567012345670123456701234567012345670123456701234567"
+
+typedef struct {
+    const char *test;
+    int length;
+    int repeatcount;
+    int extrabits;
+    int numberExtrabits;
+    const char *result;
+} sha_test_t;
+
+sha_test_t sha256_data[] = {
+    {TEST_1, strlen(TEST_1), 1, 0, 0,
+     "BA7816BF8F01CFEA414140DE5DAE2223B00361A396177A9CB410FF61F20015AD"},
+    {TEST_2, strlen(TEST_2), 1, 0, 0,
+     "248D6A61D20638B8E5C026930C3E6039A33CE45964FF2167F6ECEDD419DB06C1"},
+    {TEST_2_1, strlen(TEST_2_1), 0, 0x68, 5,
+     "D6D3E02A31A84A8CAA9718ED6C2057BE09DB45E7823EB5079CE7A573A3760F95"},
+    {TEST_3, strlen(TEST_3), 1000000, 0, 0,
+     "CDC76E5C9914FB9281A1C7E284D73E67F1809A48A497200E046D39CCC7112CD0"},
+    {TEST_4, strlen(TEST_4), 10, 0, 0,
+     "594847328451BDFA85056225462CC1D867D877FB388DF0CE35F25AB5562BFBB5"},
+
+};
+
+sha_test_t sha512_data[] = {
+    {TEST_1, strlen(TEST_1), 1, 0, 0,
+     "DDAF35A193617ABACC417349AE20413112E6FA4E89A97EA20A9EEEE64B55D39A2192992A274FC1A836BA3C23A3FEE"
+     "BBD454D4423643CE80E2A9AC94FA54CA49F"},
+    {TEST_2_1, strlen(TEST_2_1), 0, 0xB0, 5,
+     "D4EE29A9E90985446B913CF1D1376C836F4BE2C1CF3CADA0720A6BF4857D886A7ECB3C4E4C0FA8C7F95214E41DC1B"
+     "0D21B22A84CC03BF8CE4845F34DD5BDBAD4"},
+    {TEST_2_2, strlen(TEST_2_2), 1, 0, 0,
+     "8E959B75DAE313DA8CF4F72814FC143F8F7779C6EB9F7FA17299AEADB6889018501D289E4900F7E4331B99DEC4B54"
+     "33AC7D329EEB6DD26545E96E55B874BE909"},
+    {TEST_3, strlen(TEST_3), 1000000, 0, 0,
+     "E718483D0CE769644E2E42C7BC15B4638E1F98B13B2044285632A803AFA973EBDE0FF244877EA60A4CB0432CE577C"
+     "31BEB009C5C2C49AA2E4EADB217AD8CC09B"},
+    {TEST_4, strlen(TEST_4), 10, 0, 0,
+     "89D05BA632C699C31231DED4FFC127D5A894DAD412C0E024DB872D1ABD2BA8141A0F85072A9BE1E2AA04CF33C765C"
+     "B510813A39CD5A84C4ACAA64D3F3FB7BAE9"},
+
+};
+
+sha_test_t sha3_256_data[] = {
+    {TEST_1, strlen(TEST_1), 0, 0, 0,
+     "3a985da74fe225b2045c172d6bd390bd855f086e3e9d525b46bfe24511431532"},
+    {TEST_2, strlen(TEST_2), 0, 0, 0,
+     "41c0dba2a9d6240849100376a8235e2c82e1b9998a999e21db32dd97496d3376"},
+    {TEST_2_1, strlen(TEST_2_1), 0, 0, 0,
+     "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"},
+    {TEST_2_2, strlen(TEST_2_2), 0, 0, 0,
+     "916f6061fe879741ca6469b43971dfdb28b1a32dc36cb3254e812be27aad1d18"},
+};
+
+sha_test_t sha3_512_data[] = {
+    {TEST_1, strlen(TEST_1), 0, 0, 0,
+     "b751850b1a57168a5693cd924b6b096e08f621827444f70d884f5d0240d2712e10e116e9192af3c91a7ec57647e39"
+     "34057340b4cf408d5a56592f8274eec53f0"},
+    {TEST_2, strlen(TEST_2), 0, 0, 0,
+     "04a371e84ecfb5b8b77cb48610fca8182dd457ce6f326a0fd3d7ec2f1e91636dee691fbe0c985302ba1b0d8dc78c0"
+     "86346b533b49c030d99a27daf1139d6e75e"},
+    {TEST_2_1, strlen(TEST_2_1), 0, 0, 0,
+     "a69f73cca23a9ac5c8b567dc185a756e97c982164fe25859e0d1dcc1475c80a615b2123af1f5f94c11e3e9402c3ac"
+     "558f500199d95b6d3e301758586281dcd26"},
+    {TEST_2_2, strlen(TEST_2_2), 0, 0, 0,
+     "afebb2ef542e6579c50cad06d2e578f9f8dd6881d7dc824d26360feebf18a4fa73e3261122948efcfd492e74e82e2"
+     "189ed0fb440d187f382270cb455f21dd185"},
+};
+#endif
