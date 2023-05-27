@@ -25,44 +25,49 @@
 
 /**
  * @brief
- * @{
  */
 #define SCREEN_PX_CLOCK_HZ (6528000) /*!> EXAMPLE_LCD_PIXEL_CLOCK_HZ */
-#define SCREEN_BK_LIGHT_ON_LEVEL 1   /*!> EXAMPLE_LCD_BK_LIGHT_ON_LEVEL */
-#define SCREEN_BK_LIGHT_OFF_LEVEL !SCREEN_BK_LIGHT_ON_LEVEL
+
+/**
+ * @brief
+ * @{
+ */
+#define SCREEN_BK_LIGHT_ON 1                    /*!> backlight power on*/
+#define SCREEN_BK_LIGHT_OFF !SCREEN_BK_LIGHT_ON /*!> backlight power off*/
+
+#define SCREEN_PWR_ON 1               /*!> Screen power on*/
+#define SCREEN_PWR_OFF !SCREEN_PWR_ON /*!> screen power off */
 /** @} */
 
 /**
- * @brief Conection requires 8 bits parallel interface
+ * @brief Conection requires 8 bit parallel interface
  * @{
  */
-#define SCREEN_DATA0 39 /*!> was: EXAMPLE_PIN_NUM_DATA0 */
-#define SCREEN_DATA1 40 /*!> was: EXAMPLE_PIN_NUM_DATA1 */
-#define SCREEN_DATA2 41 /*!> was: EXAMPLE_PIN_NUM_DATA2 */
-#define SCREEN_DATA3 42 /*!> was: EXAMPLE_PIN_NUM_DATA3 */
-#define SCREEN_DATA4 45 /*!> was: EXAMPLE_PIN_NUM_DATA4 */
-#define SCREEN_DATA5 46 /*!> was: EXAMPLE_PIN_NUM_DATA5 */
-#define SCREEN_DATA6 47 /*!> was: EXAMPLE_PIN_NUM_DATA6 */
-#define SCREEN_DATA7 48 /*!> was: EXAMPLE_PIN_NUM_DATA7 */
+#define SCREEN_DATA0 39 /*!> DATA0 wired to pin 39 on the MCU */
+#define SCREEN_DATA1 40 /*!> DATA1 wired to pin 40 on the MCU */
+#define SCREEN_DATA2 41 /*!> DATA2 wired to pin 41 on the MCU */
+#define SCREEN_DATA3 42 /*!> DATA3 wired to pin 42 on the MCU */
+#define SCREEN_DATA4 45 /*!> DATA4 wired to pin 45 on the MCU */
+#define SCREEN_DATA5 46 /*!> DATA5 wired to pin 46 on the MCU */
+#define SCREEN_DATA6 47 /*!> DATA6 wired to pin 47 on the MCU */
+#define SCREEN_DATA7 48 /*!> DATA7 wired to pin 48 on the MCU */
 /** @} */
 
 #define SCREEN_PWR 15        /*!> Power on/off the display */
-#define SCREEN_WR GPIO_NUM_8 /*!> WR pin, it was EXAMPLE_PIN_PCLK */
-#define SCREEN_RD GPIO_NUM_9 /*!> RD pin, it was EXAMPLE_PIN_RD */
+#define SCREEN_WR GPIO_NUM_8 /*!> WR pin */
+#define SCREEN_RD GPIO_NUM_9 /*!> RD pin  */
 #define SCREEN_CS 6          /*!> CS pin */
 #define SCREEN_DC 7          /*!> DC pin*/
 #define SCREEN_RST 5         /*!> Reset pin */
-#define SCREEN_BK_LIGHT 38 /*!> Controls the display back light, it was: EXAMPLE_PIN_NUM_BK_LIGHT  \
-                            */
+#define SCREEN_BK_LIGHT 38   /*!> Control the display backlight  */
 
 /**
  * @brief The pixel number in horizontal and vertical
  * @{
  */
-#define SCREEN_H_RES 320 /*!> Horiz. resolution is 320 dots */
-#define SCREEN_V_RES 170 /*!> Vertical resolution is 170 dots */
-#define LVGL_LCD_BUF_SIZE                                                                          \
-    (SCREEN_H_RES * SCREEN_V_RES) /*!> Then LVGL require a 320*170 buffer size */
+#define SCREEN_H_RES 320                                /*!> Horiz. resolution is 320 dots */
+#define SCREEN_V_RES 170                                /*!> Vertical resolution is 170 dots */
+#define LVGL_LCD_BUF_SIZE (SCREEN_H_RES * SCREEN_V_RES) /*!> Then LVGL require a 320*170 buffer size */
 /** @} */
 
 /**
@@ -84,13 +89,12 @@
  * 8190 = 100%
  * @{
  */
-#define LEDC_TIMER LEDC_TIMER_0         /*!> Timer 0 will be used for this purpose */
-#define LEDC_MODE LEDC_LOW_SPEED_MODE   /*!> Speed mode */
-#define LEDC_CHANNEL LEDC_CHANNEL_0     /*!> Channel */
-#define LEDC_DUTY_RES LEDC_TIMER_13_BIT /*!> Set duty resolution to 13 bits */
-#define LEDC_DUTY(x)                                                                               \
-    ((2 * LEDC_DUTY_RES) - 1) * x /*!> (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095 */
-#define LEDC_FREQUENCY (5000)     // Frequency in Hertz. Set frequency at 5 kHz
+#define LEDC_TIMER LEDC_TIMER_0                    /*!> Timer 0 will be used for this purpose */
+#define LEDC_MODE LEDC_LOW_SPEED_MODE              /*!> Speed mode */
+#define LEDC_CHANNEL LEDC_CHANNEL_0                /*!> Channel */
+#define LEDC_DUTY_RES LEDC_TIMER_13_BIT            /*!> Set duty resolution to 13 bits */
+#define LEDC_DUTY(x) ((2 * LEDC_DUTY_RES) - 1) * x /*!> (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095 */
+#define LEDC_FREQUENCY (5000)                      // Frequency in Hertz. Set frequency at 5 kHz
 /** @} */
 
 #endif // SCREEN_CONFIG_H
