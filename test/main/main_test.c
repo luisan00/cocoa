@@ -42,7 +42,7 @@ void app_main(void) {
     */
     print_banner("Testing component");
     UNITY_BEGIN();
-    unity_run_tests_by_tag("[sha]", false);
+    unity_run_tests_by_tag("[bip39]", false);
     UNITY_END();
     /*
 

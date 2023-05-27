@@ -10,7 +10,7 @@
   - [ ] aes
   - [X] base58 [done](./components/crypto/test/test_base58.c)
   - [ ] bignum [WIP]
-  - [X] bip32
+  - [X] bip32 [done]
     
     - [test-vector-1](./components/crypto/test/test_v1_bip32.c)
     - [test-vector-2](./components/crypto/test/test_v2_bip32.c)
@@ -19,7 +19,7 @@
     - [test_compare](./components/crypto/test/test_compare_bip32.c)
     - [test_optimized](./components/crypto/test/test_optimized_bip32.c)
 
-  - [ ] bip39: [WIP] Unitary tests under development
+  - [X] bip39: [done](./components/crypto/test/test_bip39.c)
   - [ ] blake2
   - [ ] cardano
   - [ ] check_mem
