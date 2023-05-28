@@ -50,7 +50,7 @@ esp_err_t set_backlight_brightness(int duty) {
     }
 
     if (duty == get_backlight_brightness()) {
-        logi("new value %d equal to old value", duty);
+        logi("new value %d is equal to old value", duty);
         return ESP_OK;
     }
 
@@ -75,4 +75,12 @@ int get_backlight_brightness(void) {
     return duty;
 }
 
-esp_err_t set_backlight_off(void);
+// esp_err_t ledc_stop(ledc_mode_t speed_mode, ledc_channel_t channel, uint32_t idle_level)
+esp_err_t set_backlight_off(void) {
+    esp_err_t res = ledc_stop(LEDC_MODE, LEDC_CHANNEL, 0);
+    if (res != ESP_OK) {
+        loge("backlight stop: %s", esp_err_to_name(res));
+    }
+    logi("backlight stop: %s", esp_err_to_name(res));
+    return res;
+}
