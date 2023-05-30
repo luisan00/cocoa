@@ -1,5 +1,6 @@
 #include <stdio.h>
 //
+
 #include "esp_err.h"
 #include "esp_log.h"
 //
@@ -13,7 +14,8 @@
 #include "hmi.h"
 #include "storage.h"
 
-static const char *TAG = __FILE__;
+
+
 //
 // system on power:
 //
@@ -25,30 +27,18 @@ static const char *TAG = __FILE__;
 //
 void app_main(void) {
     esp_err_t res;
+    // power - todo
 
-    // POWER
-    //  - ToDo
-    // STORAGE
-    //  - ToDo
-    // SCREEN
-
-    
-
+    // screen
     res = screen_init();
     if (res != ESP_OK) {
         loge("Starting screen: %s", esp_err_to_name(res));
-        // report malfunction
     }
-    // screen ready
-    //
     // [h]uman to [m]achine [i]nterface
     res = hmi_start();
     if (res != ESP_OK) {
         loge("Starting hmi: %s", esp_err_to_name(res));
     }
-    // hmi ready
-    //
-    // storage
 
     // check if the device is already initialized
     // something like check_if_init();

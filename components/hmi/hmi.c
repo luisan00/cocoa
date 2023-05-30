@@ -66,6 +66,7 @@ static void hmi_task(void *arg) {
     for (;;) {
         if (xQueueReceive(hmi_evt_queue, &io_num, portMAX_DELAY)) {
             printf("GPIO[%" PRIu32 "] intr, val: %d\n", io_num, gpio_get_level(io_num));
+            // send to ringbuffer
         }
     }
 }
