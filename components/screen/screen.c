@@ -82,8 +82,8 @@ esp_err_t screen_init(void) {
     static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
     static lv_disp_drv_t disp_drv;      // contains callback functions
 
-    gpio_pad_select_gpio(SCREEN_RD);
-    gpio_pad_select_gpio(SCREEN_PWR);
+    //gpio_pad_select_gpio(SCREEN_RD);
+    //gpio_pad_select_gpio(SCREEN_PWR);
 
     gpio_set_direction(SCREEN_RD, GPIO_MODE_OUTPUT);
     gpio_set_direction(SCREEN_PWR, GPIO_MODE_OUTPUT);

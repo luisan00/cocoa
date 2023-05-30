@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "driver/ledc.h"
 #include "logger.h"
-
 #include "backlight.h"
 
 esp_err_t set_backlight_on(int duty) {

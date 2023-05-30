@@ -5,7 +5,7 @@
 #include "bip39.h"
 #include "test_bip39.h"
 
-static const char tag[] = "[bip39]";
+static const char tag[] = "[crypto][bip39]";
 
 // bip39 mnemonic check
 TEST_CASE("bip39 mnemonic check", tag) {

@@ -1,4 +1,4 @@
 idf_component_register(
-    SRCS "main.c" ${IMAGE_SOURCES}
+    SRCS "main.c"
     INCLUDE_DIRS "."
 )

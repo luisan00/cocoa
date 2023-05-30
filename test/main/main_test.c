@@ -42,7 +42,7 @@ void app_main(void) {
     */
     print_banner("Testing component");
     UNITY_BEGIN();
-    unity_run_tests_by_tag("[bip39]", false);
+    unity_run_tests_by_tag("[crypto]", false);
     UNITY_END();
     /*
     //

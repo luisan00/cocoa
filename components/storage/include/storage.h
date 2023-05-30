@@ -32,6 +32,8 @@
 extern "C" {
 #endif
 
+// namespaces
+
 /**
  * @brief Initialize the default NVS partition
  *

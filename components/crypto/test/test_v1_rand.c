@@ -10,7 +10,7 @@
 #include "rand.h"
 #include "statistical.h"
 
-static const char tag[] = "[rand]";
+static const char tag[] = "[crypto][rand]";
 
 uint8_t buff[256] = {0};
 

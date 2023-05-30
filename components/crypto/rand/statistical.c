@@ -325,7 +325,7 @@ double fntest_non_overlapping_template(uint8_t *buff, size_t n, int *t, size_t m
     }
     pi[K] = 1 - sum;
 #else
-    // nan
+    // ToDo
 #endif
     unsigned int *Wj = (unsigned int *)calloc(N, sizeof(unsigned int));
 
@@ -355,8 +355,8 @@ double fntest_non_overlapping_template(uint8_t *buff, size_t n, int *t, size_t m
     }
     sum = 0;
 
-    double chi2 = 0.0; /* Compute Chi Square */
-
+    double chi2 = 0.0;
+    /* Compute Chi Square */
     for (size_t i = 0; i < N; i++) {
         chi2 += pow(((double)Wj[i] - pi_mean) / pow(o_variance, 0.5), 2);
     }
@@ -364,5 +364,5 @@ double fntest_non_overlapping_template(uint8_t *buff, size_t n, int *t, size_t m
     // (4)
     free(Wj);
     free(sequence);
-    return cephes_igamc(N / 2.0, chi2 / 2.0);;
+    return cephes_igamc(N / 2.0, chi2 / 2.0);
 }

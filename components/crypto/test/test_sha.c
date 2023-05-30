@@ -5,7 +5,7 @@
 #include "logger.h"
 #include "test_sha.h"
 
-static const char tag[] = "[sha]";
+static const char tag[] = "[crypto][sha]";
 
 // sha256 test
 TEST_CASE("sha256", tag) {

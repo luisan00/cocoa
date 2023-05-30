@@ -9,7 +9,7 @@
 #include "statistical.h"
 #include "test_statistical.h"
 // Tests from https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-22r1a.pdf
-static const char tag[] = "[statistical]";
+static const char tag[] = "[crypto][statistical]";
 
 // monobit (I) - from section 2.1.4
 TEST_CASE("Frequency test (monobit) (I)", tag) {

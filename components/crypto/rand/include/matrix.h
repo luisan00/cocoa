@@ -16,7 +16,7 @@ typedef enum {
  */
 int compute_rank(int **mtx, int M, int Q);
 
-// allocate MQ * MQ and return the pointer
+// allocate M * Q and return the pointer
 int **alloc_2d_matrix(int M, int Q);
 
 // free M * Q

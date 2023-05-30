@@ -1,6 +1,7 @@
 /**
  * @brief
- * @defgroup screen
+ * @ingroup components
+ * @defgroup components_screen
  * @{
  */
 

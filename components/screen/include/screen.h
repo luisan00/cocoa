@@ -23,8 +23,7 @@
 #define SCREEN_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #include "esp_err.h"
@@ -34,24 +33,26 @@ extern "C"
  * @brief   define colors as 32 bits unsigned integer RGB order,
  *          0x00, 0x00, 0x00 -> 0x000000
  */
-#define COLOR_BLACK 0x000000U /*!> black */
 #define COLOR_WHITE 0xffffffU /*!> white */
+#define COLOR_BLACK 0x000000U /*!> black */
 
-#define COLOR_GREY 0x7f7f7fU /*!> grey 50% */
+#define COLOR_GRAY_75 0xbebebeU /*!> grey 75 % */
+#define COLOR_GRAY_50 0x7f7f7fU /*!> grey 50 % */
+#define COLOR_GRAY_25 0x3f3f3fU /*!> grey 25 % */
 
-#define COLOR_RED 0xff0000U   /*!> red */
-#define COLOR_GREEN 0x00ff00U /*!> green */
-#define COLOR_BLUE 0x0000ffU  /*!> blue */
+#define COLOR_RED 0xff0000U   /*!> full red */
+#define COLOR_GREEN 0x00ff00U /*!> full green */
+#define COLOR_BLUE 0x0000ffU  /*!> full blue */
 
 /**
  * @brief
- * 
+ *
  * Steps::
- * 
+ *
  * 1. driver_init -> return driver_handler
- * 
+ *
  * 2. lvgl_init(driver_handler) -> return lvgl_handler
- * 
+ *
  * 3. gui_handler_task(lvgl_handler)
  */
 esp_err_t screen_init(void);

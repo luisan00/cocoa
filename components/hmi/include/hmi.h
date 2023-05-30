@@ -5,23 +5,32 @@
 #ifndef HMI_H
 #define HMI_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "esp_err.h"
 #include "driver/gpio.h"
 #include "helpers.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #define PIN_BTN_0 GPIO_NUM_0
 #define PIN_BTN_1 GPIO_NUM_14
+#define HMI_INTR_FLAG_DEFAULT 0
 
+/**
+ * @{
+ */
 typedef struct {
     const char *name;
     int pin;
-    gpio_config_t config;
+    const gpio_config_t config;
 } hmi_dev_t;
+/** @} */
 
-
-
+/**
+ * @{
+ */
 static hmi_dev_t hmi_dev[] = {
     {
         .name = "button 0",
@@ -30,9 +39,9 @@ static hmi_dev_t hmi_dev[] = {
             {
                 .pin_bit_mask = 1ULL << PIN_BTN_0,
                 .mode = GPIO_MODE_INPUT,
-                .pull_up_en = 0,
-                .pull_down_en = 0,
-                .intr_type = GPIO_INTR_DISABLE,
+                .pull_up_en = GPIO_PULLUP_ENABLE,
+                .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                .intr_type = GPIO_INTR_ANYEDGE,
             },
     },
     {
@@ -42,24 +51,23 @@ static hmi_dev_t hmi_dev[] = {
             {
                 .pin_bit_mask = 1ULL << PIN_BTN_1,
                 .mode = GPIO_MODE_INPUT,
-                .pull_up_en = 0,
-                .pull_down_en = 0,
-                .intr_type = GPIO_INTR_DISABLE,
+                .pull_up_en = GPIO_PULLUP_ENABLE,
+                .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                .intr_type = GPIO_INTR_ANYEDGE,
             },
     },
 };
+/** @} */
+#define HMI_NUMOF ARRAY_SIZEOF(hmi_dev)
 
-#define HMI_NUMOF   ARRAY_SIZEOF(hmi_dev)
+esp_err_t hmi_start(void);
 
 /**
- * @brief get and return the status of the given dev
+ * @brief get and return the status of the given dev, only for unit-testing purposes
  * @param [in] dev
  * @return 1 or 0
  */
 int btn_read(hmi_dev_t dev);
-
-
-//
 
 #ifdef __cplusplus
 }

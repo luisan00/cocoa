@@ -17,6 +17,7 @@ set(TEST_COMPONENTS
     "screen"
     "storage"
     "crypto"
+    "power"
 )
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
