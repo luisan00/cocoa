@@ -60,7 +60,7 @@ static hmi_dev_t hmi_dev[] = {
 /** @} */
 #define HMI_NUMOF ARRAY_SIZEOF(hmi_dev)
 
-esp_err_t hmi_start(void);
+esp_err_t hmi_start(void *handler);
 
 /**
  * @brief get and return the status of the given dev, only for unit-testing purposes

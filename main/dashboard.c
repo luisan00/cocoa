@@ -1,6 +1,10 @@
 #include "esp_err.h"
-#include "dashboard.h"
 
+
+
+esp_err_t dashboard_start(void){
+    return ESP_OK;
+}
 
 
 

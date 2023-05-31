@@ -1,6 +1,9 @@
 #include <stdio.h>
 //
-
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "freertos/ringbuf.h"
 #include "esp_err.h"
 #include "esp_log.h"
 //
@@ -14,8 +17,7 @@
 #include "hmi.h"
 #include "storage.h"
 
-
-
+static void btn_handle(void *args);
 //
 // system on power:
 //
@@ -26,22 +28,18 @@
 // screen on
 //
 void app_main(void) {
-    esp_err_t res;
-    // power - todo
-
+    // power
+    // power_ctr_init();
     // screen
-    res = screen_init();
-    if (res != ESP_OK) {
-        loge("Starting screen: %s", esp_err_to_name(res));
-    }
+    screen_init();
     // [h]uman to [m]achine [i]nterface
-    res = hmi_start();
-    if (res != ESP_OK) {
-        loge("Starting hmi: %s", esp_err_to_name(res));
-    }
+    hmi_start(btn_handle);
+    // dashboard
+    // dashboard_start();
+}
 
-    // check if the device is already initialized
-    // something like check_if_init();
-    // if true then do something
-    // if false then do something else
+static void btn_handle(void *arg) { 
+    //
+    uint32_t io_num = (uint32_t)arg;
+    logi("aqui: %lu", io_num);
 }
