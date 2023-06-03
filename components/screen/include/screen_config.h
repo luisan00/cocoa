@@ -59,7 +59,7 @@
 #define SCREEN_CS 6          /*!> CS pin */
 #define SCREEN_DC 7          /*!> DC pin*/
 #define SCREEN_RST 5         /*!> Reset pin */
-
+#define SCREEN_BKL 38
 
 /**
  * @brief The pixel number in horizontal and vertical

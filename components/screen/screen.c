@@ -25,7 +25,7 @@
 #include "lvgl.h"
 #include "logger.h"
 #include "screen_config.h"
-#include "backlight.h"
+// #include "backlight.h"
 #include "gui.h"
 
 static void lvgl_increase_tick(void *arg);
@@ -78,9 +78,23 @@ esp_err_t screen_init(void) {
     static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
     static lv_disp_drv_t disp_drv;      // contains callback functions
 
-    gpio_set_direction(SCREEN_RD, GPIO_MODE_OUTPUT);
+    gpio_config_t bk_gpio_config = {
+        .mode = GPIO_MODE_OUTPUT,
+        .pin_bit_mask = 1ULL << SCREEN_BKL,
+    };
+
+    ESP_ERROR_CHECK(gpio_config(&bk_gpio_config));
+    
+    esp_rom_gpio_pad_select_gpio(SCREEN_BKL);
+
+    // esp_rom_gpio_pad_select_gpio(SCREEN_RD);
+    esp_rom_gpio_pad_select_gpio(SCREEN_PWR);
+
+    //gpio_set_direction(SCREEN_RD, GPIO_MODE_INPUT);
     gpio_set_direction(SCREEN_PWR, GPIO_MODE_OUTPUT);
-    gpio_set_level(SCREEN_RD, true);
+
+    // gpio_set_level(SCREEN_RD, 1);
+    gpio_set_level(SCREEN_BKL, 0);
 
     esp_lcd_i80_bus_handle_t i80_bus = NULL;
     esp_lcd_i80_bus_config_t bus_config = {
@@ -159,15 +173,24 @@ esp_err_t screen_init(void) {
     // the gap is LCD panel specific, even panels with the same driver IC, can have different gap
     // value
     esp_lcd_panel_set_gap(panel_handle, 0, 35);
+    
+    const gpio_config_t input_conf = {
+        .pin_bit_mask = 1ULL << SCREEN_RD,
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+    };
+    gpio_config(&input_conf);
 
     res = gpio_set_level(SCREEN_PWR, SCREEN_PWR_ON);
-        if (res != ESP_OK) {
+    gpio_set_level(SCREEN_BKL, 1);
+
+    if (res != ESP_OK) {
         loge("power on: %s", esp_err_to_name(res));
         return res;
     }
     logd("power on: %s", esp_err_to_name(res));
 
-    set_backlight_on(50);
+    // set_backlight_on(75);
 
     logd("Initializing lvgl library");
     lv_init();

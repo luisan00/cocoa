@@ -4,9 +4,11 @@
 #include "backlight.h"
 
 esp_err_t set_backlight_on(int duty) {
-    if (duty > 100 || duty < 0) {
-        loge("duty level %d is not in the range 0 ~ 100)", duty);
-        return ESP_ERR_INVALID_ARG;
+    if (duty > 100) {
+        duty = 100;
+    }
+    if (duty < 0) {
+        duty = 0;
     }
     ledc_timer_config_t ledc_timer = {
         .speed_mode = LEDC_MODE,
@@ -20,7 +22,6 @@ esp_err_t set_backlight_on(int duty) {
         loge("backlight timer cfg: %s", esp_err_to_name(res));
         return res;
     }
-
     // Prepare and then apply the LEDC PWM channel configuration
     ledc_channel_config_t ledc_channel = {
         .speed_mode = LEDC_MODE,
@@ -28,43 +29,41 @@ esp_err_t set_backlight_on(int duty) {
         .timer_sel = LEDC_TIMER,
         .intr_type = LEDC_INTR_DISABLE,
         .gpio_num = LEDC_OUTPUT,
-        .duty = LEDC_DUTY(duty), // Set default duty value
+        .duty = LEDC_DUTY(duty),
         .hpoint = 0,
     };
-    //
     res = ledc_channel_config(&ledc_channel);
     if (res != ESP_OK) {
         loge("backlight channel cfg: %s", esp_err_to_name(res));
         return res;
     }
-    //
     logi("backlight on: %s", esp_err_to_name(res));
     return res;
 }
 
 esp_err_t set_backlight_brightness(int duty) {
-    if (duty > 100 || duty < 0) {
-        loge("duty level %d is not in the range 0 ~ 100)", duty);
-        return ESP_ERR_INVALID_ARG;
+    if (duty > 100) {
+        duty = 100;
     }
-
+    if (duty < 0) {
+        duty = 0;
+    }
     if (duty == get_backlight_brightness()) {
         logi("new value %d is equal to old value", duty);
         return ESP_OK;
     }
-
+    // set new value
     esp_err_t res = ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY(duty));
     if (res != ESP_OK) {
         loge("backlight duty cfg: %s", esp_err_to_name(res));
         return res;
     }
-    // Update duty to apply the new value
+    // Update to apply the new value
     res = ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
     if (res != ESP_OK) {
         loge("backlight update brightness: %s", esp_err_to_name(res));
         return res;
     }
-    //
     logi("backlight update level: %s", esp_err_to_name(res));
     return res;
 }

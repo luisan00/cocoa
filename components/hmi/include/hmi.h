@@ -7,12 +7,12 @@
 
 #include "esp_err.h"
 #include "driver/gpio.h"
+#include "freertos/queue.h"
 #include "helpers.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 #define PIN_BTN_0 GPIO_NUM_0
 #define PIN_BTN_1 GPIO_NUM_14
@@ -31,6 +31,15 @@ typedef struct {
 /**
  * @{
  */
+typedef struct {
+    uint32_t btn;
+    uint32_t value;
+} btn_t;
+/** @} */
+
+/**
+ * @{
+ */
 static hmi_dev_t hmi_dev[] = {
     {
         .name = "button 0",
@@ -39,9 +48,9 @@ static hmi_dev_t hmi_dev[] = {
             {
                 .pin_bit_mask = 1ULL << PIN_BTN_0,
                 .mode = GPIO_MODE_INPUT,
-                .pull_up_en = GPIO_PULLUP_ENABLE,
+                .pull_up_en = GPIO_PULLUP_DISABLE,
                 .pull_down_en = GPIO_PULLDOWN_DISABLE,
-                .intr_type = GPIO_INTR_ANYEDGE,
+                .intr_type = GPIO_INTR_NEGEDGE,
             },
     },
     {
@@ -51,16 +60,16 @@ static hmi_dev_t hmi_dev[] = {
             {
                 .pin_bit_mask = 1ULL << PIN_BTN_1,
                 .mode = GPIO_MODE_INPUT,
-                .pull_up_en = GPIO_PULLUP_ENABLE,
+                .pull_up_en = GPIO_PULLUP_DISABLE,
                 .pull_down_en = GPIO_PULLDOWN_DISABLE,
-                .intr_type = GPIO_INTR_ANYEDGE,
+                .intr_type = GPIO_INTR_NEGEDGE,
             },
     },
 };
 /** @} */
 #define HMI_NUMOF ARRAY_SIZEOF(hmi_dev)
 
-esp_err_t hmi_start(void *handler);
+esp_err_t hmi_start(void *args);
 
 /**
  * @brief get and return the status of the given dev, only for unit-testing purposes
