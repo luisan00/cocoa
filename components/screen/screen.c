@@ -18,11 +18,12 @@
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_vendor.h"
 #include "esp_lcd_panel_ops.h"
-#include "driver/ledc.h"
+
 #include "driver/gpio.h"
 #include "esp_err.h"
 
 #include "lvgl.h"
+
 #include "logger.h"
 #include "screen_config.h"
 // #include "backlight.h"
