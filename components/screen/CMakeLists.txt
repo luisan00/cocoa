@@ -1,8 +1,5 @@
-file(GLOB_RECURSE SOURCES *.c)
-file(GLOB_RECURSE IMAGE_SOURCES images/*.c)
-
 idf_component_register(
-    SRCS ${SOURCES} ${IMAGE_SOURCES}
+    SRCS "screen.c" "gui.c" "backlight.c" "images/esp_logo.c"
     INCLUDE_DIRS "include"
-    REQUIRES cmock  esp_lcd lvgl logger esp_timer
+    REQUIRES cmock logger esp_timer esp_lcd lvgl
 )

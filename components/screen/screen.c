@@ -15,18 +15,19 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_timer.h"
+#include "driver/gpio.h"
+
 #include "esp_lcd_panel_io.h"
 #include "esp_lcd_panel_vendor.h"
 #include "esp_lcd_panel_ops.h"
 
-#include "driver/gpio.h"
 #include "esp_err.h"
-
+// #include "lv_conf.h"
 #include "lvgl.h"
 
 #include "logger.h"
 #include "screen_config.h"
-// #include "backlight.h"
+#include "backlight.h"
 #include "gui.h"
 
 static void lvgl_increase_tick(void *arg);
@@ -85,17 +86,14 @@ esp_err_t screen_init(void) {
     };
 
     ESP_ERROR_CHECK(gpio_config(&bk_gpio_config));
-    
-    esp_rom_gpio_pad_select_gpio(SCREEN_BKL);
 
-    // esp_rom_gpio_pad_select_gpio(SCREEN_RD);
-    esp_rom_gpio_pad_select_gpio(SCREEN_PWR);
-
-    //gpio_set_direction(SCREEN_RD, GPIO_MODE_INPUT);
+    gpio_pad_select_gpio(SCREEN_PWR);
     gpio_set_direction(SCREEN_PWR, GPIO_MODE_OUTPUT);
-
-    // gpio_set_level(SCREEN_RD, 1);
-    gpio_set_level(SCREEN_BKL, 0);
+    gpio_set_level(SCREEN_PWR, SCREEN_PWR_ON);
+    //
+    gpio_pad_select_gpio(SCREEN_RD);
+    gpio_set_direction(SCREEN_RD, GPIO_MODE_OUTPUT);
+    gpio_set_level(SCREEN_RD, 1);
 
     esp_lcd_i80_bus_handle_t i80_bus = NULL;
     esp_lcd_i80_bus_config_t bus_config = {
@@ -127,7 +125,7 @@ esp_err_t screen_init(void) {
     esp_lcd_panel_io_handle_t io_handle = NULL;
     esp_lcd_panel_io_i80_config_t io_config = {
         .cs_gpio_num = SCREEN_CS,
-        .pclk_hz = SCREEN_PX_CLOCK_HZ,
+        .pclk_hz = 10 * 1000 * 1000, // SCREEN_PX_CLOCK_HZ,
         .trans_queue_depth = 20,
         .dc_levels =
             {
@@ -174,24 +172,12 @@ esp_err_t screen_init(void) {
     // the gap is LCD panel specific, even panels with the same driver IC, can have different gap
     // value
     esp_lcd_panel_set_gap(panel_handle, 0, 35);
-    
-    const gpio_config_t input_conf = {
-        .pin_bit_mask = 1ULL << SCREEN_RD,
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-    };
-    gpio_config(&input_conf);
 
-    res = gpio_set_level(SCREEN_PWR, SCREEN_PWR_ON);
-    gpio_set_level(SCREEN_BKL, 1);
+    gpio_set_level(SCREEN_PWR, SCREEN_PWR_ON);
 
-    if (res != ESP_OK) {
-        loge("power on: %s", esp_err_to_name(res));
-        return res;
-    }
     logd("power on: %s", esp_err_to_name(res));
 
-    // set_backlight_on(75);
+    set_backlight_on(75);
 
     logd("Initializing lvgl library");
     lv_init();
