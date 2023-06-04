@@ -1,6 +1,4 @@
 [submodule "components/lvgl"]
 	path = components/lvgl
 	url = https://github.com/lvgl/lvgl.git
-[submodule "components/components/qrcode"]
-	path = components/components/qrcode
-	url = https://github.com/luisan00/lv_lib_qrcode.git
+

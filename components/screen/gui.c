@@ -4,39 +4,47 @@
 #include "freertos/task.h"
 #include "esp_timer.h"
 
-//#include "lv_conf.h"
 #include "lvgl.h"
-
 
 #include "screen.h"
 #include "screen_config.h"
 #include "gui.h"
 #include "logger.h"
 
-
-
 void gui_init(lv_obj_t *scr) {
+    /*Create a container with ROW flex direction*/
+    lv_obj_t *cont_row = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(cont_row, 300, 75);
+    lv_obj_align(cont_row, LV_ALIGN_TOP_MID, 0, 5);
+    lv_obj_set_flex_flow(cont_row, LV_FLEX_FLOW_ROW);
 
-    /* page 2 */
-    lv_obj_t * meter = lv_meter_create(scr);
-    lv_obj_center(meter);
-    lv_obj_set_size(meter, 170, 170);
+    /*Create a container with COLUMN flex direction*/
+    lv_obj_t *cont_col = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(cont_col, 200, 150);
+    lv_obj_align_to(cont_col, cont_row, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
+    lv_obj_set_flex_flow(cont_col, LV_FLEX_FLOW_COLUMN);
 
-    /*Remove the circle from the middle*/
-    lv_obj_remove_style(meter, NULL, LV_PART_INDICATOR);
+    uint32_t i;
+    for (i = 0; i < 5; i++) {
+        lv_obj_t *obj;
+        lv_obj_t *label;
 
-    /*Add a scale first*/
-    lv_meter_scale_t *scale = lv_meter_add_scale(meter);
-    lv_meter_set_scale_ticks(meter, scale, 11, 2, 10, lv_palette_main(LV_PALETTE_GREY));
-    lv_meter_set_scale_major_ticks(meter, scale, 1, 2, 15, lv_color_hex3(0xeee), 10);
-    lv_meter_set_scale_range(meter, scale, 0, 100, 270, 90);
+        /*Add items to the row*/
+        obj = lv_btn_create(cont_row);
+        lv_obj_set_size(obj, 100, LV_PCT(100));
 
-    /*Add a three arc indicator*/
-    lv_meter_indicator_t *indic1 = lv_meter_add_arc(meter, scale, 10, lv_color_hex3(0x00F), 0);
+        label = lv_label_create(obj);
+        lv_label_set_text_fmt(label, "Item: %d", i);
+        lv_obj_center(label);
 
+        /*Add items to the column*/
+        obj = lv_btn_create(cont_col);
+        lv_obj_set_size(obj, LV_PCT(100), LV_SIZE_CONTENT);
 
-
-
+        label = lv_label_create(obj);
+        lv_label_set_text_fmt(label, "Item: %d", i);
+        lv_obj_center(label);
+    }
 }
 
 void gui_deinit(void) {}
