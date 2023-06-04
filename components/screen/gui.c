@@ -13,10 +13,8 @@
 #include "logger.h"
 
 void gui_init(lv_obj_t *scr) {
-
-    lv_obj_t *qr = lv_qrcode_create(scr);
-
-
+    lv_coord_t qr_size = 0;
+    lv_obj_t *qr = lv_qrcode_create(scr, 0, lv_color_black(), lv_color_white());
 }
 
 void gui_deinit(void) {}
