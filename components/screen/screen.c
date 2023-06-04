@@ -22,14 +22,13 @@
 #include "esp_lcd_panel_ops.h"
 
 #include "esp_err.h"
-// #include "lv_conf.h"
 #include "lvgl.h"
 
 #include "logger.h"
 #include "screen_config.h"
 #include "backlight.h"
 #include "gui.h"
-
+#define LV_CONF_INCLUDE_SIMPLE
 static void lvgl_increase_tick(void *arg);
 static bool lvgl_notify_flush_ready(esp_lcd_panel_io_handle_t panel_io,
                                     esp_lcd_panel_io_event_data_t *edata, void *user_ctx);
