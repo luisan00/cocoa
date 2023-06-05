@@ -26,7 +26,7 @@
 /**
  * @brief
  */
-#define SCREEN_PX_CLOCK_HZ (6528000) /*!> EXAMPLE_LCD_PIXEL_CLOCK_HZ */
+#define SCREEN_PX_CLOCK_HZ (6528000) /*!> Clock in Hz */
 
 /**
  * @brief
@@ -35,8 +35,8 @@
 #define SCREEN_BK_LIGHT_ON 1                    /*!> backlight power on*/
 #define SCREEN_BK_LIGHT_OFF !SCREEN_BK_LIGHT_ON /*!> backlight power off*/
 
-#define SCREEN_PWR_ON 1               /*!> Screen power on*/
-#define SCREEN_PWR_OFF !SCREEN_PWR_ON /*!> screen power off */
+#define SCREEN_PWR_ON 1                         /*!> Screen power on*/
+#define SCREEN_PWR_OFF !SCREEN_PWR_ON           /*!> screen power off */
 /** @} */
 
 /**
@@ -61,29 +61,13 @@
 #define SCREEN_RST 5         /*!> Reset pin */
 #define SCREEN_BKL 38
 
-/**
- * @brief The pixel number in horizontal and vertical
- * @{
- */
 #define SCREEN_H_RES 320                                /*!> Horiz. resolution is 320 dots */
 #define SCREEN_V_RES 170                                /*!> Vertical resolution is 170 dots */
-#define LVGL_LCD_BUF_SIZE (SCREEN_H_RES * SCREEN_V_RES) /*!> Then LVGL require a 320*170 buffer size */
-/** @} */
+#define LVGL_LCD_BUF_SIZE (SCREEN_H_RES * SCREEN_V_RES) /*!> require a 320*170 buffer size */
 
-/**
- * @brief  number used to represent command and parameter
- * @{
- */
-#define SCREEN_CMD_BITS 8   /*!>*/
-#define SCREEN_PARAM_BITS 8 /*!>*/
-/** @} */
-
-/**
- * @brief
- */
+#define SCREEN_CMD_BITS 8                               /*!> use 8 bits per command */
+#define SCREEN_PARAM_BITS 8                             /*!> use 8 bits per param */
 #define SCREEN_LVGL_TICK_PERIOD_MS 2
-
-
 
 #endif // SCREEN_CONFIG_H
 /** @} */

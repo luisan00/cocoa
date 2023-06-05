@@ -28,7 +28,9 @@
 #include "screen_config.h"
 #include "backlight.h"
 #include "gui.h"
-#define LV_CONF_INCLUDE_SIMPLE
+
+
+
 static void lvgl_increase_tick(void *arg);
 static bool lvgl_notify_flush_ready(esp_lcd_panel_io_handle_t panel_io,
                                     esp_lcd_panel_io_event_data_t *edata, void *user_ctx);
@@ -208,9 +210,7 @@ esp_err_t screen_init(void) {
     ESP_ERROR_CHECK(esp_timer_create(&lvgl_tick_timer_args, &lvgl_tick_timer));
     ESP_ERROR_CHECK(esp_timer_start_periodic(lvgl_tick_timer, SCREEN_LVGL_TICK_PERIOD_MS * 1000));
     //
-    logd("UI init");
     lv_obj_t *scr = lv_disp_get_scr_act(disp);
-
     gui_init(scr);
     create_lv_timer_task();
     return ESP_OK;
