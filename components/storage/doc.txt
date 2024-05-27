@@ -1,6 +1,6 @@
 /**
  * @ingroup components
- * @defgroup components_storage Low level storage routines
+ * @defgroup components_storage Low level and specific storage routines
  * @{
  * ## Description
  *
