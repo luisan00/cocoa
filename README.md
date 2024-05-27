@@ -1,8 +1,29 @@
 # Cocoa (WIP)
-Trezor for Esp32 with a special emphasis on the generation of random numbers and the statistical detection of non-random patterns
-  
-## Project status by component
 
+Trezor for Esp32 with a special emphasis on the generation of random numbers and the statistical detection of non-random patterns.
+
+> Statistical tests for random numbers is a series of test to check if a given sequence of bits can be (or not) considered as random.
+
+| Test name                             | Status |
+|:--------------------------------------|:------:|
+| Frequency test (monobit)              | done   |
+| Frequency test within a block         | done   |
+| Runs test                             | done   |
+| Longest run of ones                   | done   |
+| Matrix rank test                      | done   |
+| Discrete Fourier Transform (Spectral) | done   |
+| Non-overlapping Template Matching     | done   |
+| Overlapping Template Matching         | doing  |
+| Maurer’s “Universal Statistical”      | -      |
+| Linear Complexity                     | -      |
+| Serial                                | -      |
+| Approximate Entropy                   | -      |
+| Cumulative Sums (Cusum)               | -      |
+| Random Excursions Variant             | -      |   
+
+see [components/crypto/rand/include/statistical.h](components/crypto/rand/include/statistical.h)
+
+## Project status by component
 
 - [X] blocks [tests passed](./components/blocks/test/test_blocks.c)
 
