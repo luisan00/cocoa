@@ -6,14 +6,14 @@ Trezor for Esp32 with a special emphasis on the generation of random numbers and
 
 | Test name                             | Status |
 |:--------------------------------------|:------:|
-| Frequency test (monobit)              | done   |
-| Frequency test within a block         | done   |
-| Runs test                             | done   |
-| Longest run of ones                   | done   |
-| Matrix rank test                      | done   |
-| Discrete Fourier Transform (Spectral) | done   |
-| Non-overlapping Template Matching     | done   |
-| Overlapping Template Matching         | doing  |
+| Frequency test (monobit)              | [done](components/crypto/rand/statistical.c#L12)  |
+| Frequency test within a block         | [done](components/crypto/rand/statistical.c#L25)  |
+| Runs test                             | [done](components/crypto/rand/statistical.c#L42)  |
+| Longest run of ones                   | [done](components/crypto/rand/statistical.c#L73)  |
+| Matrix rank test                      | [done](components/crypto/rand/statistical.c#L164) |
+| Discrete Fourier Transform (Spectral) | [done](components/crypto/rand/statistical.c#L235) |
+| Non-overlapping Template Matching     | [done](components/crypto/rand/statistical.c#L283) |
+| Overlapping Template Matching         | WIP    |
 | Maurer’s “Universal Statistical”      | -      |
 | Linear Complexity                     | -      |
 | Serial                                | -      |
