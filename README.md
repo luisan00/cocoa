@@ -27,7 +27,17 @@ see [components/crypto/rand/include/statistical.h](components/crypto/rand/includ
 
 - [X] blocks [tests passed](./components/blocks/test/test_blocks.c)
 
+```
+Block header decoder
+```
+
 - [ ] **crypto**
+
+```
+`This series of libraries are platform agnostic so no much to do here, minor changes to work on esp32.
+ The greatest work is on the random statistical library and the adaptation of unitary tests
+```
+
   - [ ] address [WIP] Unitary test under development
   - [ ] aes
   - [X] base58 [done](./components/crypto/test/test_base58.c)
