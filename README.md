@@ -1,5 +1,6 @@
 # Cocoa (WIP)
-
+Trezor for Esp32 with a special emphasis on the generation of random numbers and the statistical detection of non-random patterns
+  
 ## Project status by component
 
 
