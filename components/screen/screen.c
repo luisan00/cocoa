@@ -211,6 +211,8 @@ esp_err_t screen_init(void) {
     ESP_ERROR_CHECK(esp_timer_start_periodic(lvgl_tick_timer, SCREEN_LVGL_TICK_PERIOD_MS * 1000));
     //
     lv_obj_t *scr = lv_disp_get_scr_act(disp);
+
+    
     gui_init(scr);
     create_lv_timer_task();
     return ESP_OK;
