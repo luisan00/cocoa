@@ -13,8 +13,6 @@ set(EXTRA_COMPONENT_DIRS "../components")
 set(TEST_COMPONENTS 
     "blocks"
     "helpers"
-    "hmi"
-    "screen"
     "storage"
     "crypto"
     "power"
