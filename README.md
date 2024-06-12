@@ -41,7 +41,7 @@ Block header decoder
   - [ ] address [WIP] Unitary test under development
   - [ ] aes
   - [X] base58 [done](./components/crypto/test/test_base58.c)
-  - [ ] bignum [WIP]
+  - [ ] bignum [WIP](./components/crypto/test/test_bignum.c)
   - [X] bip32 [done]
     
     - [test-vector-1](./components/crypto/test/test_v1_bip32.c)
