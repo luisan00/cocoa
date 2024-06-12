@@ -13,11 +13,9 @@
 //
 #include "logger.h"
 
-#include "screen.h"
-
 #include "storage.h"
 
 // +__main__+
 void app_main(void) {
-    screen_init();
+    
 }
