@@ -7,8 +7,6 @@
 #include "screen.h"
 #include "logger.h"
 
-#include "test_screen.h"
-
 static const char tag[] = "[screen]";
 
 // storage_stats
