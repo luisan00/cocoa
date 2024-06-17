@@ -11,3 +11,6 @@ sdkconfig.old
 
 # debug sessions
 debug*.log
+
+# dep. files
+managed_components
