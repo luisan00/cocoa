@@ -1,7 +1,8 @@
 /**
- * @defgroup logger
+ * @defgroup power
  * @ingroup components
  * @{
+ *
  */
 
  /** @} */

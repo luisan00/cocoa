@@ -1,6 +1,7 @@
 /**
  * @brief
- * @defgroup block
+ * @defgroup blocks
+ * @ingroup components
  * @{
  */
 

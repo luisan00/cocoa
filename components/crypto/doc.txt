@@ -1,5 +1,5 @@
 /**
- * @defgroup components_crypto
+ * @defgroup crypto
  * @ingroup components
  * @{
  */
