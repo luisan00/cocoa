@@ -1,24 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
-#include "esp_timer.h"
-#include "esp_lcd_panel_io.h"
-#include "esp_lcd_panel_vendor.h"
-#include "esp_lcd_panel_ops.h"
-#include "esp_spiffs.h"
-#include "driver/gpio.h"
-#include "driver/i2c.h"
-#include "esp_err.h"
-#include "esp_log.h"
-#include "esp_dma_utils.h"
+
 #include "lvgl.h"
-
-
-
-#include <string.h>
-
-#include <stdlib.h>
 
 #include "unity.h"
 
@@ -28,10 +15,15 @@
 static const char tag[] = "[screen]";
 
 // storage_stats
-TEST_CASE("mockup test case", tag) {
+TEST_CASE("Get LVGL version", tag) {
+    // Current LVGL version is defined by LVGL_VERSION_[int] Where int can be; MAJOR, MINOR or PATH
+    int major = LVGL_VERSION_MAJOR; // 9
+    int minor = LVGL_VERSION_MINOR; // 1
+    int path = LVGL_VERSION_PATCH;  // 0
 
-    TEST_ASSERT_EQUAL_INT(0, 0);
-    TEST_ASSERT_EQUAL_INT(1, 1);
-    TEST_ASSERT_EQUAL_INT(2, 2);
-    TEST_ASSERT_EQUAL_INT(3, 3);
+    logd("Current version : %d.%d.%d", major, minor, path);
+
+    TEST_ASSERT(LVGL_VERSION_MAJOR >= 0);
+    TEST_ASSERT(LVGL_VERSION_MINOR >= 0);
+    TEST_ASSERT(LVGL_VERSION_PATCH >= 0);
 }
