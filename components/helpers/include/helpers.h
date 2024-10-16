@@ -80,17 +80,17 @@ const uint8_t *fromhex(const char *str);
 const char *tohex(uint8_t *in, size_t in_size);
 
 /**
- * @brief
+ * @brief Compare if two uint8_t values are equal
  */
 bool equal_u8(const uint8_t byte1, const uint8_t byte2);
 
 /**
- * @brief
+ * @brief Compare if two uint8_t arrays of the same size [size] are equal 
  */
 bool equal_u8_array(const uint8_t *arr_1, const uint8_t *arr_2, size_t size);
 
 /**
- * @brief
+ * @brief Compare if two char are equal
  */
 bool equal_char(char _c1, char _c2);
 

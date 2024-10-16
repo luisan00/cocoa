@@ -24,20 +24,26 @@ TEST_CASE("Frequency test (monobit) (I)", tag) {
     double result = fntest_monobit(buff, n);
     TEST_ASSERT_EQUAL_FLOAT(expected, result);
 }
-// monobit (II) - from section 2.1.8
+// monobit (II) - Example from section 2.1.8
 TEST_CASE("Frequency test (monobit) (II)", tag) {
+    // (input)
     int bitstr[] = {1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1,
                     0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1,
                     0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0,
                     0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0};
+
     uint8_t buff[] = {0x93, 0xf0, 0x5b, 0x45, 0x84, 0x16, 0x43, 0x2c, 0x23, 0x63, 0x46, 0xd1, 0x01};
+    // (input)
     size_t n = 100;
     // check bit string
     for (size_t i = 0; i < n; i++) {
         TEST_ASSERT_EQUAL_INT(bitstr[i], GET_BIT(buff, i));
     }
+    // (output) P-value = 0.109599
     double expected = 0.109599;
+    // result from monobit function
     double result = fntest_monobit(buff, n);
+    // Compare if expected and result are equals
     TEST_ASSERT_EQUAL_FLOAT(expected, result);
 }
 

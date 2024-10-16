@@ -12,8 +12,13 @@ void app_main(void) {
     unity_run_tests_by_tag("[bignum]", false);
     UNITY_END();
     */
+    /*
     UNITY_BEGIN();
     unity_run_tests_by_tag("[screen]", false);
+    UNITY_END();
+    */
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[statistical]", false);
     UNITY_END();
 
     print_banner("Starting interactive test menu");
