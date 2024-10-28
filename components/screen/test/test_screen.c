@@ -2,28 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include "unity.h"
-
 #include "lcd.h"
-#include "screen.h"
-#include "logger.h"
 
 static const char tag[] = "[screen]";
 
-// init panel
 TEST_CASE("Init the lcd panel", tag) {
-    //
-    TEST_ASSERT_EQUAL_INT(init_i80_bus(), 0);
+    // LVGL display driver
+    static lv_disp_drv_t disp_drv;
+    // LVGL display handle
+    static lv_disp_t *disp_handle;
+    TEST_ASSERT_EQUAL_INT(0, lcd_init(disp_drv, &disp_handle, true));
 }
-
-// lvgl version
-TEST_CASE("Get LVGL version", tag) {
-    // Current LVGL version is defined by `LVGL_VERSION_MAJOR`, `LVGL_VERSION_MINOR` and
-    // `LVGL_VERSION_PATH`
-    logd("\x1b[48:5:31m%s:%d.%d.%d\x1b[0m\n", "LVGL version: ", LVGL_VERSION_MAJOR,
-         LVGL_VERSION_MINOR, LVGL_VERSION_PATCH);
-    TEST_ASSERT(LVGL_VERSION_MAJOR >= 0);
-    TEST_ASSERT(LVGL_VERSION_MINOR >= 0);
-    TEST_ASSERT(LVGL_VERSION_PATCH >= 0);
-}
-
-//

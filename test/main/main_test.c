@@ -18,7 +18,7 @@ void app_main(void) {
     UNITY_END();
     */
     UNITY_BEGIN();
-    unity_run_tests_by_tag("[statistical]", false);
+    unity_run_tests_by_tag("[screen]", false);
     UNITY_END();
 
     print_banner("Starting interactive test menu");

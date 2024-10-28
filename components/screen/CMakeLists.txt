@@ -1,5 +1,5 @@
-file(GLOB_RECURSE SOURCES *.c)
+# file(GLOB_RECURSE SOURCES *.c)
 idf_component_register(
-    SRCS ${SOURCES}
+    SRCS "lcd.c"
     INCLUDE_DIRS "include"
-    REQUIRES cmock esp_lcd lvgl logger)
+    REQUIRES cmock driver freertos esp_lcd esp_lvgl_port lvgl esp_timer soc)

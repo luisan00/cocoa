@@ -210,7 +210,7 @@ esp_err_t storage_stats(const char *partition, nvs_stats_t *stats) {
 esp_err_t storage_used_entry_count(const char *ns, size_t *used_entries) {
     nvs_handle_t h;
     ESP_ERROR_CHECK(storage_open(ns, NVS_READWRITE, &h));
-    esp_err_t res = nvs_get_used_entry_count(&h, used_entries);
+    esp_err_t res = nvs_get_used_entry_count(h, used_entries);
     if (res != ESP_OK) {
         loge("_used_entry_count() %s for namespace %s", esp_err_to_name(res), ns);
     }
