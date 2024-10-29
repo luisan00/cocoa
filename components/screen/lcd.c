@@ -10,20 +10,32 @@ static const char *TAG = "esp_idf_t_display_s3";
 
 // initialize the LCD I80 bus
 static void init_lcd_i80_bus(esp_lcd_panel_io_handle_t *io_handle, void *user_ctx) {
+
     ESP_LOGI(TAG, "Initializing Intel 8080 bus...");
+
     esp_lcd_i80_bus_handle_t i80_bus = NULL;
+
     esp_lcd_i80_bus_config_t bus_config = {
         .clk_src = LCD_CLK_SRC_DEFAULT,
         .dc_gpio_num = LCD_DC,
         .wr_gpio_num = LCD_WR,
-        .data_gpio_nums = {LCD_DATA0, LCD_DATA1, LCD_DATA2, LCD_DATA3, LCD_DATA4, LCD_DATA5,
-                           LCD_DATA6, LCD_DATA7},
+        .data_gpio_nums =
+            {
+                LCD_DATA0,
+                LCD_DATA1,
+                LCD_DATA2,
+                LCD_DATA3,
+                LCD_DATA4,
+                LCD_DATA5,
+                LCD_DATA6,
+                LCD_DATA7,
+            },
         .bus_width = 8,
-        // transfer 100 lines of pixels (assume pixel is RGB565) at most in one transaction
-        .max_transfer_bytes = LCD_H_RES * 100 * sizeof(uint16_t),
+        .max_transfer_bytes = LCD_H_RES * LCD_V_RES * sizeof(uint16_t) + 8,
         .psram_trans_align = 64,
         .sram_trans_align = 4,
     };
+
     ESP_ERROR_CHECK(esp_lcd_new_i80_bus(&bus_config, &i80_bus));
 
     esp_lcd_panel_io_i80_config_t io_config = {

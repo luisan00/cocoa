@@ -33,7 +33,7 @@ extern "C" {
 /**
  * @brief PCLK limitation of PSRAM bandwidt : 2-17
  */
-#define LCD_PIXEL_CLOCK_HZ (17 * 1000 * 1000)
+#define LCD_PIXEL_CLOCK_HZ (2 * 1000 * 1000)
 
 /**
  * @brief
@@ -86,9 +86,9 @@ extern "C" {
 #define LVGL_TASK_PRIORITY     2
 
 // fixup!
-#ifndef LV_COLOR_16_SWAP
-#define LV_COLOR_16_SWAP lv_draw_sw_rgb565_swap(px_map, lv_area_get_size(&offset_area))
-#endif
+//#ifndef LV_COLOR_16_SWAP
+//#define LV_COLOR_16_SWAP lv_draw_sw_rgb565_swap(px_map, lv_area_get_size(&offset_area))
+//#endif
 
 /**
  * @brief
