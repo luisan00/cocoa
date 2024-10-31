@@ -16,7 +16,7 @@ TEST_CASE("single uint8_t from string", tag)
 // similar to: to bytes, bytearray
 // similar to: from_hex, hexstring, bytes_as_string, etc
 TEST_CASE("to uint8_t array from string", tag)
-{
+{   ESP_LOGI(tag, "testing...\n");
     const char *hexstr = "0000cafe0000beef0000feed0000";
     const uint8_t expected[] = {0x00, 0x00, 0xca, 0xfe, 0x00, 0x00, 0xbe, 0xef, 0x00, 0x00, 0xfe, 0xed, 0x00, 0x00};
     const uint8_t *result = from_char_array(hexstr, strlen(hexstr) / 2);
