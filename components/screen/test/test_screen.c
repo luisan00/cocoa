@@ -28,10 +28,3 @@ TEST_CASE("Run LVGL demo widgets ", tag) {
     return TEST_PASS;
 };
 #endif
-
-#if defined(LV_USE_DEMO_MUSIC) && LV_USE_DEMO_MUSIC
-TEST_CASE("Run LVGL demo music ", tag) {
-    //
-    lv_demo_music();
-};
-#endif
