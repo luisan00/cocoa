@@ -1,4 +1,4 @@
 idf_component_register(
     SRC_DIRS "."
     INCLUDE_DIRS "."
-    REQUIRES cmock logger power)
+    REQUIRES cmock logger power driver)

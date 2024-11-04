@@ -4,11 +4,9 @@
 
 static const char tag[] = "[power]";
 
-TEST_CASE("Init adc", tag) { TEST_ASSERT_EQUAL_INT(0, init_battery_adc()); }
-TEST_CASE("Init battery monitor", tag) { TEST_ASSERT_EQUAL_INT(0, init_battery_monitor()); }
-TEST_CASE("Read voltage in mV", tag) {
-
-    int mV = get_battery_voltage();
+TEST_CASE("Init Power (ADC read only!)", tag) { TEST_ASSERT_EQUAL_INT(0, power_init()); }
+TEST_CASE("Read battery voltage", tag) {
+    uint16_t mV = power_get_vbat();
     logi("Battery: %d mV", mV);
     TEST_ASSERT_GREATER_THAN_INT(0, mV);
 }
