@@ -17,7 +17,9 @@
  * @brief       Tests for block component
  * @author      luisan00 <luisan00@hotmail.com>
  */
+#include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "esp_log.h"
 #include "unity.h"
@@ -27,7 +29,7 @@
 
 static const char tag[] = "[blocks]";
 
-static char *header_blocks[] = {
+static const char *header_blocks[] = {
     "0100000000000000000000000000000000000000000000000000000000000000000000003ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a29ab5f49ffff001d1dac2b7c", // 000
     "010000006fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000982051fd1e4ba744bbbe680e1fee14677ba1a3c3540bf7b1cdb606e857233e0e61bc6649ffff001d01e36299", // 001
     "010000004860eb18bf1b1620e37e9490fc8a427514416fd75159ab86688e9a8300000000d5fdcc541e25de1c7a5addedf24858b8bb665c9f36ef744ee42c316022c90f9bb0bc6649ffff001d08d2bd61", // 002

@@ -7,10 +7,14 @@ partition_table/*.bin
 
 # sdkconfig files
 sdkconfig
+sdkconfig.defaults
 sdkconfig.old
 
 # debug sessions
 debug*.log
+trace
 
 # dep. files
+dependencies.lock
 managed_components
+

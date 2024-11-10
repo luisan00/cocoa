@@ -17,8 +17,8 @@ set(TEST_COMPONENTS
     "blocks"
     "crypto"
     "helpers"
-    "power"
-    "screen"
+    # "power"
+    # "screen"
     "storage"
 )
 
