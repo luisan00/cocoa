@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @brief   lcd config
- * @author  luisan00 <luisan00@hotmail.com>
- * @ingroup screen
- * @{
- */
 
-#ifndef LCD_H
-#define LCD_H
+#ifndef TDISPLAYS3_DISPLAY_H
+#define TDISPLAYS3_DISPLAY_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 #include "lvgl.h"
 #include "esp_lvgl_port.h"
-
 
 /**
  * @brief PCLK limitation of PSRAM bandwidt : 2-17
@@ -78,17 +72,17 @@ extern "C" {
 
 // LVGL
 // best to keep this as is (1/10th of the display pixels)
-#define LVGL_BUFFER_SIZE        (((LCD_H_RES * LCD_V_RES) / 10) + LCD_H_RES)
+#define LVGL_BUFFER_SIZE (((LCD_H_RES * LCD_V_RES) / 10) + LCD_H_RES)
 // LVGL Timer options
-#define LVGL_TICK_PERIOD_MS    5
-#define LVGL_MAX_SLEEP_MS      (LVGL_TICK_PERIOD_MS * 2) // this affects how fast the screen is refreshed
-#define LVGL_TASK_STACK_SIZE   (4 * 1024)
-#define LVGL_TASK_PRIORITY     2
+#define LVGL_TICK_PERIOD_MS 5
+#define LVGL_MAX_SLEEP_MS (LVGL_TICK_PERIOD_MS * 2) // this affects how fast the screen is refreshed
+#define LVGL_TASK_STACK_SIZE (4 * 1024)
+#define LVGL_TASK_PRIORITY 2
 
 // fixup!
-//#ifndef LV_COLOR_16_SWAP
-//#define LV_COLOR_16_SWAP lv_draw_sw_rgb565_swap(px_map, lv_area_get_size(&offset_area))
-//#endif
+// #ifndef LV_COLOR_16_SWAP
+// #define LV_COLOR_16_SWAP lv_draw_sw_rgb565_swap(px_map, lv_area_get_size(&offset_area))
+// #endif
 
 /**
  * @brief
@@ -99,16 +93,14 @@ esp_err_t lcd_brightness_set(int brightness_percent);
 esp_err_t lcd_backlight_on();
 esp_err_t lcd_backlight_off();
 /**
- * @brief 
+ * @brief
  * @param disp_drv
  * @param disp_handle
- * @param [in] backlight_on 
+ * @param [in] backlight_on
  */
 esp_err_t lcd_init(lv_disp_drv_t disp_drv, lv_disp_t **disp_handle, bool backlight_on);
 
-
 #ifdef __cplusplus
-} 
-#endif // extern C
-#endif // LCD_CONFIG_H
-/** @} */
+}
+#endif
+#endif /* TDISPLAYS3_DISPLAY_H */

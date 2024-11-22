@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @brief power section, setup and routines
- * @author  luisan00 <luisan00@hotmail.com>
- * @ingroup power
- * @{
- */
-#ifndef POWER_H
-#define POWER_H
+
+#ifndef TDISPLAYS3_POWER_H
+#define TDISPLAYS3_POWER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <stdint.h>
+#include "esp_err.h"
 
 /**
  * @brief
@@ -39,6 +37,4 @@ int power_get_vbat(void);
 #ifdef __cplusplus
 }
 #endif //
-
-#endif //
-       /** @} */
+#endif /* TDISPLAYS3_POWER_H */

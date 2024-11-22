@@ -4,7 +4,7 @@
 #include "esp_lcd_panel_st7789.h"
 #include "driver/ledc.h"
 
-#include "lcd.h"
+#include "tdisplays3_display.h"
 
 static const char *TAG = "esp_idf_t_display_s3";
 

@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2023-2024 Luis A. Ruiz <luisan00@hotmail.com>
+/**
+ * Copyright (c) 2023 luisan00 <luisan00@hotmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,32 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * @brief power section, setup and routines
- * @author  luisan00 <luisan00@hotmail.com>
- * @ingroup power
- * @{
- */
-#ifndef POWER_H
-#define POWER_H
+
+#ifndef QEMU_DISPLAY_H
+#define QEMU_DISPLAY_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/**
- * @brief
- */
-esp_err_t power_init(void);
-
-/**
- * @brief
- */
-int power_get_vbat(void);
-
 #ifdef __cplusplus
 }
-#endif //
-
-#endif //
-       /** @} */
+#endif
+#endif /* QEMU_DISPLAY_H */
