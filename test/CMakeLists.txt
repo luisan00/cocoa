@@ -18,7 +18,7 @@ set(TEST_COMPONENTS
     "crypto"
     "helpers"
     "power"
-    "screen"
+    #"screen"
     "storage"
 )
 

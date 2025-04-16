@@ -6,7 +6,7 @@
 
 #include "lcd.h"
 
-static const char *TAG = "esp_idf_t_display_s3";
+static const char *TAG = "esp_idf_t_displays3";
 
 // initialize the LCD I80 bus
 static void init_lcd_i80_bus(esp_lcd_panel_io_handle_t *io_handle, void *user_ctx) {

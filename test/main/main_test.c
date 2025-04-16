@@ -8,8 +8,11 @@ static void print_banner(const char *text);
 void app_main(void) {
     print_banner("Testing component");
 
+    UNITY_BEGIN();
+    unity_run_tests_by_tag("[crypto]", false);
+    UNITY_END();
+    
     //UNITY_BEGIN();
-    //unity_run_all_tests();
     //unity_run_tests_by_tag("[helpers]", false);
     //UNITY_END();
     
@@ -22,15 +25,16 @@ void app_main(void) {
     //UNITY_END();
     //
     //
-    UNITY_BEGIN();
-    unity_run_tests_by_tag("[power]", false);
-    UNITY_END();
+    //UNITY_BEGIN();
+    //unity_run_tests_by_tag("[power]", false);
+    //UNITY_END();
     
     print_banner("Starting interactive test menu");
     /* This function will not return, and will be busy waiting for UART input.
      * Make sure that task watchdog is disabled if you use this function.
      */
     unity_run_menu();
+
 }
 
 static void print_banner(const char *text) {
