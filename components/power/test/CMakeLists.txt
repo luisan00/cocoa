@@ -1,4 +1,4 @@
 idf_component_register(
-    SRC_DIRS "."
+    SRCS "test_power.c"
     INCLUDE_DIRS "."
-    REQUIRES cmock logger power)
+    REQUIRES cmock power logger)
